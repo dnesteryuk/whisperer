@@ -1,6 +1,6 @@
 # Whisperer
 
-TODO: Write a gem description
+Do you hate fixtures? I do as well. The purpose of this library is to make your life much easier when your application works with external API and you have to create a lot of VCR fixtures.
 
 ## Installation
 
