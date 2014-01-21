@@ -5,7 +5,7 @@ require 'rspec/fire'
 
 require 'whisperer'
 
-Coveralls.wear!
+require 'support/fixtures'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -13,4 +13,5 @@ RSpec.configure do |config|
   end
 
   config.include(RSpec::Fire)
+  config.include(Fixtures)
 end

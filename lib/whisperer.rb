@@ -1,5 +1,11 @@
-require "whisperer/version"
+require 'whisperer/version'
 
 module Whisperer
-  # Your code goes here...
+  class << self
+    def define
+    end
+
+    def generate(name)
+    end
+  end
 end
