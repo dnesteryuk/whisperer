@@ -1,8 +1,14 @@
 require 'whisperer/version'
 
+require 'virtus'
+
+require 'whisperer/dsl'
+require 'whisperer/dsl/request'
+
 module Whisperer
   class << self
-    def define
+    def define(name)
+
     end
 
     def generate(name)

@@ -4,4 +4,4 @@
 4. Create rake task for generating Vcr fixtures.
 5. Create rake task for generating factories based on Vcr responses.
 6. Make sure that generated fixtures supports ERB.
-7.
+7. Find a way to avoid extending objects in runtime.
