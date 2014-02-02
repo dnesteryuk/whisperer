@@ -1,5 +1,7 @@
 require_relative '../request'
+
 require_relative 'header'
+require_relative 'body'
 
 module Whisperer
   class Dsl
