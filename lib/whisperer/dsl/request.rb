@@ -28,7 +28,12 @@ module Whisperer
         header.instance_eval &block
       end
 
-      def body
+      def body(&block)
+        body = Whisperer::Dsl::Body.new(
+          @container.body
+        )
+
+        body.instance_eval &block
       end
 
       def method(val)
