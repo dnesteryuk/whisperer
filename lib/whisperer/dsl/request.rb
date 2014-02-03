@@ -1,5 +1,4 @@
 require_relative '../request'
-
 require_relative 'base'
 
 module Whisperer
