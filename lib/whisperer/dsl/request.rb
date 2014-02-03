@@ -1,11 +1,10 @@
 require_relative '../request'
 
-require_relative 'header'
-require_relative 'body'
+require_relative 'base'
 
 module Whisperer
   class Dsl
-    class Request
+    class Request < Base
       def self.build
         Request.new(
           Whisperer::Request.new
@@ -18,22 +17,6 @@ module Whisperer
 
       def uri(val)
         @container.uri = val
-      end
-
-      def header(&block)
-        header = Whisperer::Dsl::Header.new(
-          @container.header
-        )
-
-        header.instance_eval &block
-      end
-
-      def body(&block)
-        body = Whisperer::Dsl::Body.new(
-          @container.body
-        )
-
-        body.instance_eval &block
       end
 
       def method(val)

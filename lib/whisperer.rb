@@ -4,6 +4,7 @@ require 'virtus'
 
 require 'whisperer/dsl'
 require 'whisperer/dsl/request'
+require 'whisperer/dsl/response'
 
 module Whisperer
   class << self
