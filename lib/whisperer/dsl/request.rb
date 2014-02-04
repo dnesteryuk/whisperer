@@ -5,15 +5,11 @@ require_relative 'body'
 
 module Whisperer
   class Dsl
-    class Request < Base
+    class Request < BaseDsl
       link_container_class Whisperer::Request
 
       link_dsl 'header'
       link_dsl 'body'
-
-      def initialize(container)
-        @container = container
-      end
 
       def uri(val)
         @container.uri = val

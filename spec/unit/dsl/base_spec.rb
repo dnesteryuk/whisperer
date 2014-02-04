@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Whisperer::Dsl::Base do
+describe Whisperer::BaseDsl do
   context 'class method' do
     describe '.link_dsl' do
       before :all do
