@@ -8,8 +8,6 @@ require_relative 'status'
 module Whisperer
   class Dsl
     class Response < BaseDsl
-      link_container_class Whisperer::Response
-
       link_dsl 'header'
       link_dsl 'body'
       link_dsl 'status'

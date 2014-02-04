@@ -9,13 +9,11 @@ describe Whisperer::BaseDsl do
 
       context 'using of the generated method for accessing sub DSL' do
         let(:header_container) { double('header container') }
-        let(:body_container)   { double('body container') }
 
         let(:container) do
           double(
             'container',
-            header: header_container,
-            body:   body_container
+            header: header_container
           )
         end
 
@@ -76,6 +74,24 @@ describe Whisperer::BaseDsl do
             ArgumentError,
             'You should associate a container (model) with this dsl class, before building it'
           )
+        end
+      end
+    end
+
+    describe '.add_writer' do
+      context 'using of the generated method for writing data to the container' do
+        let(:container) { double }
+
+        before :all do
+          described_class.add_writer('some_attr')
+        end
+
+        subject { described_class.new(container) }
+
+        it 'writes a given value to the container' do
+          expect(container).to receive("some_attr=").with('my value')
+
+          subject.some_attr('my value')
         end
       end
     end

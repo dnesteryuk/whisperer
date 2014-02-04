@@ -13,6 +13,10 @@ module Whisperer
         end
       end
 
+      def link_container_class(val)
+        @container_class = val
+      end
+
       def build
         if self.container_class
           new(
@@ -25,8 +29,10 @@ module Whisperer
         end
       end
 
-      def link_container_class(val)
-        @container_class = val
+      def add_writer(name)
+        define_method(name) do |val|
+          @container.public_send("#{name}=", val)
+        end
       end
     end
 
