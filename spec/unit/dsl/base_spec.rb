@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Whisperer::Dsl::Base do
   context 'class method' do
-    describe '#link_dsl' do
+    describe '.link_dsl' do
       before :all do
-        Whisperer::Dsl::Base.link_dsl('header')
+        described_class.link_dsl('header')
       end
 
       context 'using of the generated method for accessing sub DSL' do
@@ -39,6 +39,43 @@ describe Whisperer::Dsl::Base do
           subject.header {
             accept 'test'
           }
+        end
+      end
+    end
+
+    describe '.build' do
+      context 'when there is a linked container class' do
+        let(:request) { instance_double('Whisperer::Request') }
+
+        before do
+          described_class.link_container_class(Whisperer::Request)
+
+          Whisperer::Request.stub(:new).and_return(request)
+        end
+
+        it 'initializes a new instance of an object for keeping data' do
+          expect(Whisperer::Request).to receive(:new)
+
+          described_class.build
+        end
+
+        it 'initializes a new instance of the dsl' do
+          expect(described_class).to receive(:new).with(request)
+
+          described_class.build
+        end
+      end
+
+      context 'when there is not a linked container class' do
+        before do
+          described_class.instance_variable_set(:@container_class, nil)
+        end
+
+        it 'raises an error' do
+          expect { described_class.build }.to raise_error(
+            ArgumentError,
+            'You should associate a container (model) with this dsl class, before building it'
+          )
         end
       end
     end

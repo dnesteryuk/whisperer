@@ -6,11 +6,7 @@ require_relative 'body'
 module Whisperer
   class Dsl
     class Request < Base
-      def self.build
-        Request.new(
-          Whisperer::Request.new
-        )
-      end
+      link_container_class Whisperer::Request
 
       link_dsl 'header'
       link_dsl 'body'
