@@ -1,17 +1,16 @@
 require_relative '../response'
 require_relative 'base'
+
+require_relative 'header'
+require_relative 'body'
 require_relative 'status'
 
 module Whisperer
   class Dsl
     class Response < Base
-      def status(&block)
-        status = Whisperer::Dsl::Status.new(
-          @container.status
-        )
-
-        status.instance_eval &block
-      end
+      link_dsl 'header'
+      link_dsl 'body'
+      link_dsl 'status'
     end # class Response
-  end # module Dsl
+  end # class Dsl
 end # module Whisperer

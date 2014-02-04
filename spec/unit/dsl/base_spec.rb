@@ -1,60 +1,46 @@
 require 'spec_helper'
 
 describe Whisperer::Dsl::Base do
-  let(:header_container) { double('header container') }
-  let(:body_container)   { double('body container') }
+  context 'class method' do
+    describe '#link_dsl' do
+      before :all do
+        Whisperer::Dsl::Base.link_dsl('header')
+      end
 
-  let(:container) do
-    double(
-      'container',
-      header: header_container,
-      body:   body_container
-    )
-  end
+      context 'using of the generated method for accessing sub DSL' do
+        let(:header_container) { double('header container') }
+        let(:body_container)   { double('body container') }
 
-  subject { described_class.new(container) }
+        let(:container) do
+          double(
+            'container',
+            header: header_container,
+            body:   body_container
+          )
+        end
 
-  describe '#header' do
-    let(:header) { double('Whisperer::Dsl::Header') }
+        let(:header) { double('Whisperer::Dsl::Header') }
 
-    before do
-      Whisperer::Dsl::Header.stub(:new).and_return(header)
-    end
+        subject { described_class.new(container) }
 
-    it 'initializes the header dsl object' do
-      expect(Whisperer::Dsl::Header).to receive(:new).with(header_container)
+        before do
+          Whisperer::Dsl::Header.stub(:new).and_return(header)
+        end
 
-      subject.header {}
-    end
+        it 'initializes the header dsl object' do
+          expect(Whisperer::Dsl::Header).to receive(:new).with(header_container)
 
-    it 'executes a given block over the header dsl object' do
-      expect(header).to receive(:accept).with('test')
+          subject.header {}
+        end
 
-      subject.header {
-        accept 'test'
-      }
-    end
-  end
+        it 'executes a given block over the header dsl object' do
+          expect(header).to receive(:accept).with('test')
 
-  describe '#body' do
-    let(:body) { instance_double('Whisperer::Dsl::Body') }
-
-    before do
-      Whisperer::Dsl::Body.stub(:new).and_return(body)
-    end
-
-    it 'initializes the body dsl object' do
-      expect(Whisperer::Dsl::Body).to receive(:new).with(body_container)
-
-      subject.body {}
-    end
-
-    it 'executes a given block over the body dsl object' do
-      expect(body).to receive(:encoding).with('UTF8')
-
-      subject.body {
-        encoding 'UTF8'
-      }
+          subject.header {
+            accept 'test'
+          }
+        end
+      end
     end
   end
 end

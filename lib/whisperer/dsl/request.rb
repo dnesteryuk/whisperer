@@ -1,5 +1,7 @@
 require_relative '../request'
 require_relative 'base'
+require_relative 'header'
+require_relative 'body'
 
 module Whisperer
   class Dsl
@@ -9,6 +11,9 @@ module Whisperer
           Whisperer::Request.new
         )
       end
+
+      link_dsl 'header'
+      link_dsl 'body'
 
       def initialize(container)
         @container = container
