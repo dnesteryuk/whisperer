@@ -36,6 +36,8 @@ module Whisperer
       end
     end
 
+    attr_reader :container
+
     def initialize(container)
       @container = container
     end
