@@ -1,5 +1,5 @@
 module Whisperer
-  class Header
+  class Headers
     include Virtus.model
 
   end # class Header

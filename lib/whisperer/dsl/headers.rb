@@ -2,7 +2,7 @@ require_relative 'base'
 
 module Whisperer
   class Dsl
-    class Header < BaseDsl
+    class Headers < BaseDsl
       def respond_to?(meth_id)
         @container.respond_to?(meth_id)
       end

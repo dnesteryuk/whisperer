@@ -22,4 +22,12 @@ describe Whisperer do
       }
     end
   end
+
+  describe '.generate' do
+    context 'when there is not such factory' do
+      it 'raises an error' do
+        expect { described_class.generate(:mytest) }.to raise_error(ArgumentError, 'There are not factory with "mytest" name')
+      end
+    end
+  end
 end

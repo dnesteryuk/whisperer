@@ -15,3 +15,7 @@ RSpec.configure do |config|
   config.include(RSpec::Fire)
   config.include(Fixtures)
 end
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/generated_fixtures'
+end

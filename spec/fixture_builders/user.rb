@@ -1,6 +1,6 @@
 Whisperer.define(:user) do
   request do
-    url    'http://example.com/users/1'
+    uri    'http://example.com/users/1'
     method :get
 
     headers do
@@ -20,7 +20,7 @@ Whisperer.define(:user) do
 
     body do
       encoding 'UTF-8'
-      string Factory.build(:user)
+      string FactoryGirl.build(:user)
     end
   end
 end

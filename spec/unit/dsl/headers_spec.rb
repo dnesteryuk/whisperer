@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Whisperer::Dsl::Header do
-  let(:container) { Whisperer::Header.new }
+describe Whisperer::Dsl::Headers do
+  let(:container) { Whisperer::Headers.new }
 
   subject { described_class.new(container) }
 

@@ -1,14 +1,14 @@
 require_relative '../response'
 require_relative 'base'
 
-require_relative 'header'
+require_relative 'headers'
 require_relative 'body'
 require_relative 'status'
 
 module Whisperer
   class Dsl
     class Response < BaseDsl
-      link_dsl 'header'
+      link_dsl 'headers'
       link_dsl 'body'
       link_dsl 'status'
     end # class Response

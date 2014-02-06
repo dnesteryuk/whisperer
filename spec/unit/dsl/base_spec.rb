@@ -4,37 +4,37 @@ describe Whisperer::BaseDsl do
   context 'class method' do
     describe '.link_dsl' do
       before :all do
-        described_class.link_dsl('header')
+        described_class.link_dsl('headers')
       end
 
       context 'using of the generated method for accessing sub DSL' do
-        let(:header_container) { double('header container') }
+        let(:headers_container) { double('headers container') }
 
         let(:container) do
           double(
             'container',
-            header: header_container
+            headers: headers_container
           )
         end
 
-        let(:header) { double('Whisperer::Dsl::Header') }
+        let(:headers) { double('Whisperer::Dsl::Headers') }
 
         subject { described_class.new(container) }
 
         before do
-          Whisperer::Dsl::Header.stub(:new).and_return(header)
+          Whisperer::Dsl::Headers.stub(:new).and_return(headers)
         end
 
         it 'initializes the header dsl object' do
-          expect(Whisperer::Dsl::Header).to receive(:new).with(header_container)
+          expect(Whisperer::Dsl::Headers).to receive(:new).with(headers_container)
 
-          subject.header {}
+          subject.headers {}
         end
 
         it 'executes a given block over the header dsl object' do
-          expect(header).to receive(:accept).with('test')
+          expect(headers).to receive(:accept).with('test')
 
-          subject.header {
+          subject.headers {
             accept 'test'
           }
         end
