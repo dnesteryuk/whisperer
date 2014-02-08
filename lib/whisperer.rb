@@ -1,11 +1,12 @@
 require 'whisperer/version'
 
 require 'virtus'
+require 'vcr'
 
 require 'whisperer/dsl'
 require 'whisperer/dsl/request'
 require 'whisperer/dsl/response'
-require 'vcr'
+require 'whisperer/serializers/hash'
 
 module Whisperer
   @factories = {}
@@ -27,7 +28,9 @@ module Whisperer
 
       container = factories[name]
 
-      hash = container.to_hash
+      serializer = Whisperer::Serializers::Hash.new(container)
+      hash = serializer.serialize
+
       hash['recorded_at'] = 'Mon, 13 Jan 2014 21:01:47 GMT'
 
       interaction = VCR::HTTPInteraction.from_hash(
@@ -40,6 +43,10 @@ module Whisperer
       )
 
       cassette.eject
+
+      File.read(
+        "#{VCR.configuration.cassette_library_dir}/#{name}.yml"
+      )
     end
   end
 end
