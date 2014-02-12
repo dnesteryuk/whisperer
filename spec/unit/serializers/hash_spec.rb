@@ -36,11 +36,23 @@ describe Whisperer::Serializers::Hash do
       }
     }
 
+    let(:expected_attrs) {
+      {
+        'name'     => 'Tester',
+        'position' => {
+          'name'   => 'developer',
+          'status' => {
+            'code' => 1
+          }
+        }
+      }
+    }
+
     subject { described_class.new(Test::User.new(attrs)) }
 
     it 'returns a hash with all related objects' do
       expect(subject.serialize).to eq(
-        attrs
+        expected_attrs
       )
     end
   end

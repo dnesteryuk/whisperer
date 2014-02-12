@@ -12,15 +12,17 @@ module Whisperer
 
       private
         def to_hash(val)
-          attrs = val.to_hash
+          new_attrs, attrs = {}, val.to_hash
 
           attrs.each do |attr, val|
-            if val.respond_to?(:to_hash)
-              attrs[attr] = to_hash(val)
+            new_attrs[attr.to_s] = if val.respond_to?(:to_hash)
+              to_hash(val)
+            else
+              val
             end
           end
 
-          attrs
+          new_attrs
         end
     end # class Hash
   end # module Serializers

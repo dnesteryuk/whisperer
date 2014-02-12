@@ -20,7 +20,7 @@ Whisperer.define(:user) do
 
     body do
       encoding 'UTF-8'
-      string FactoryGirl.build(:user)
+      string ''
     end
   end
 end
