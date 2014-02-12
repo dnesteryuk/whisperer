@@ -21,7 +21,7 @@ Whisperer.define(:user) do
 
     body do
       encoding 'UTF-8'
-      string '{}'
+      factory  'user', :json
     end
   end
 end

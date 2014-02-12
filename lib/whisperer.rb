@@ -7,6 +7,7 @@ require 'whisperer/dsl'
 require 'whisperer/dsl/request'
 require 'whisperer/dsl/response'
 require 'whisperer/serializers/hash'
+require 'whisperer/serializers/json'
 
 module Whisperer
   @factories = {}

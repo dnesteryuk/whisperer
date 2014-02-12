@@ -1,5 +1,6 @@
 require 'active_support/core_ext/string/inflections'
 
+# TODO: Rename to converter and move out from the serializers directory
 module Whisperer
   module Serializers
     class Hash

@@ -4,7 +4,10 @@ module Whisperer
   class Dsl
     class Body < BaseDsl
       add_writer 'encoding'
-      add_writer 'string'
+
+      def factory(name, serializer = :json)
+        #FactoryGirl.build(name)
+      end
     end # class Body
   end # class Dsl
 end # module Whisperer

@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'vcr', '~> 2.8.0'
   spec.add_dependency 'virtus', '~> 1.0.1'
   spec.add_dependency 'activesupport'
+  spec.add_dependency 'multi_json'
 end
