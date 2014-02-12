@@ -5,5 +5,5 @@
 5. Create rake task for generating factories based on Vcr responses.
 6. Make sure that generated fixtures supports ERB.
 7. Find a way to avoid extending objects in runtime.
-8. Think about unit tests for Whisperer#generate method
+8. Think about unit tests for Whisperer#generate, Whisperer#register_serializer method
 9. Add code to calculate content length automatically

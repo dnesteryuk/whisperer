@@ -6,14 +6,18 @@ require 'vcr'
 require 'whisperer/dsl'
 require 'whisperer/dsl/request'
 require 'whisperer/dsl/response'
+
 require 'whisperer/convertors/hash'
+
 require 'whisperer/serializers/json'
 
 module Whisperer
-  @factories = {}
+  @factories   = {}
+  @serializers = {}
 
   class << self
     attr_reader :factories
+    attr_reader :serializers
 
     def define(name, &block)
       dsl = Dsl.build
@@ -24,7 +28,7 @@ module Whisperer
 
     def generate(name)
       unless factories[name]
-        raise ArgumentError.new("There are not factory with \"#{name}\" name")
+        raise ArgumentError.new("There is not factory with \"#{name}\" name")
       end
 
       container = factories[name]
@@ -49,5 +53,20 @@ module Whisperer
         "#{VCR.configuration.cassette_library_dir}/#{name}.yml"
       )
     end
+
+    def register_serializer(name, class_name)
+      serializers[name] = class_name
+    end
+
+    def serializer(name)
+      unless serializers[name]
+        raise ArgumentError.new("There is not serializer registered with \"#{name}\" name")
+      end
+
+      serializers[name]
+    end
   end
 end
+
+
+Whisperer.register_serializer(:json, Whisperer::Serializers::Json)

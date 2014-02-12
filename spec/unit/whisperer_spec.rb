@@ -26,7 +26,27 @@ describe Whisperer do
   describe '.generate' do
     context 'when there is not such factory' do
       it 'raises an error' do
-        expect { described_class.generate(:mytest) }.to raise_error(ArgumentError, 'There are not factory with "mytest" name')
+        expect { described_class.generate(:mytest) }.to raise_error(
+          ArgumentError,
+          'There is not factory with "mytest" name'
+        )
+      end
+    end
+  end
+
+  describe '.serializer' do
+    context 'when there is not such serializer' do
+      it 'raises an error' do
+        expect { described_class.serializer(:mytest) }.to raise_error(
+          ArgumentError,
+          'There is not serializer registered with "mytest" name'
+        )
+      end
+    end
+
+    context 'when there is such serializer' do
+      it 'returns the registered class' do
+        expect(described_class.serializer(:json)).to eq(Whisperer::Serializers::Json)
       end
     end
   end
