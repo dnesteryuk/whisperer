@@ -38,11 +38,11 @@ describe Whisperer::Serializers::Hash do
 
     let(:expected_attrs) {
       {
-        'name'     => 'Tester',
-        'position' => {
-          'name'   => 'developer',
-          'status' => {
-            'code' => 1
+        'name'      => 'Tester',
+        'position'  => {
+          'name'    => 'developer',
+          'status'  => {
+            'code'  => 1
           }
         }
       }

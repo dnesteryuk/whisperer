@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'factory_girl', '~> 4.3.0'
   spec.add_dependency 'vcr', '~> 2.8.0'
   spec.add_dependency 'virtus', '~> 1.0.1'
+  spec.add_dependency 'activesupport'
 end

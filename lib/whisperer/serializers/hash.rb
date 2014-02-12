@@ -1,3 +1,5 @@
+require 'active_support/core_ext/string/inflections'
+
 module Whisperer
   module Serializers
     class Hash
@@ -15,7 +17,7 @@ module Whisperer
           new_attrs, attrs = {}, val.to_hash
 
           attrs.each do |attr, val|
-            new_attrs[attr.to_s] = if val.respond_to?(:to_hash)
+            new_attrs[prepare_key(attr)] = if val.respond_to?(:to_hash)
               to_hash(val)
             else
               val
@@ -23,6 +25,10 @@ module Whisperer
           end
 
           new_attrs
+        end
+
+        def prepare_key(key)
+          key.to_s
         end
     end # class Hash
   end # module Serializers

@@ -15,12 +15,13 @@ Whisperer.define(:user) do
     end
 
     headers do
-      content_type 'application/json;charset=utf-8'
+      content_type           'application/json;charset=utf-8'
+      x_Content_type_options 'nosniff'
     end
 
     body do
       encoding 'UTF-8'
-      string ''
+      string '{}'
     end
   end
 end
