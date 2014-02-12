@@ -1,15 +1,14 @@
 require 'active_support/core_ext/string/inflections'
 
-# TODO: Rename to converter and move out from the serializers directory
 module Whisperer
-  module Serializers
+  module Convertors
     class Hash
       def initialize(obj)
         @obj = obj
       end
 
       # Converts the current with all related objects to hash
-      def serialize
+      def convert
         to_hash(@obj)
       end
 
@@ -32,5 +31,5 @@ module Whisperer
           key.to_s
         end
     end # class Hash
-  end # module Serializers
+  end # module Convertors
 end # module Whisperer

@@ -6,7 +6,7 @@ require 'vcr'
 require 'whisperer/dsl'
 require 'whisperer/dsl/request'
 require 'whisperer/dsl/response'
-require 'whisperer/serializers/hash'
+require 'whisperer/convertors/hash'
 require 'whisperer/serializers/json'
 
 module Whisperer
@@ -29,8 +29,8 @@ module Whisperer
 
       container = factories[name]
 
-      serializer = Whisperer::Serializers::Hash.new(container)
-      hash = serializer.serialize
+      convertor = Whisperer::Convertors::Hash.new(container)
+      hash = convertor.convert
 
       hash['recorded_at'] = 'Mon, 13 Jan 2014 21:01:47 GMT'
 

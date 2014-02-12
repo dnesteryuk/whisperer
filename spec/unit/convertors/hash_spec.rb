@@ -22,8 +22,8 @@ module Test
   end
 end
 
-describe Whisperer::Serializers::Hash do
-  describe '#serialize' do
+describe Whisperer::Convertors::Hash do
+  describe '#convert' do
     let(:attrs) {
       {
         name:     'Tester',
@@ -51,7 +51,7 @@ describe Whisperer::Serializers::Hash do
     subject { described_class.new(Test::User.new(attrs)) }
 
     it 'returns a hash with all related objects' do
-      expect(subject.serialize).to eq(
+      expect(subject.convert).to eq(
         expected_attrs
       )
     end
