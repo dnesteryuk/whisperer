@@ -16,7 +16,7 @@ Whisperer.define(:user) do
 
     headers do
       content_type           'application/json;charset=utf-8'
-      x_Content_type_options 'nosniff'
+      x_content_type_options 'nosniff'
     end
 
     body do
