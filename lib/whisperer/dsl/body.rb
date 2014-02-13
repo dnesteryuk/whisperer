@@ -8,7 +8,7 @@ module Whisperer
       def factory(name, serializer = :json)
         class_name = Whisperer::Serializers.const_get(serializer.to_s.capitalize)
         model = FactoryGirl.build(name)
-        data = class_name.serialize(model)
+        data  = class_name.serialize(model)
 
         @container.string = data
       end

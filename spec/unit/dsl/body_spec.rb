@@ -9,7 +9,7 @@ FactoryGirl.define do
 end
 
 describe Whisperer::Dsl::Body do
-  let(:container) { instance_double('Whisperer::Body', :string= =>  true) }
+  let(:container) { instance_double('Whisperer::Body', :string= => true) }
 
   describe '#factory' do
     let(:serialized_data) { 'serialized data' }
