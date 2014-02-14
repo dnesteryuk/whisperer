@@ -7,7 +7,15 @@ describe 'Whisperer' do
     end
   end
 
-  it 'generates a simple fixture from an user factory' do
-    expect(fixture('user')).to eq(Whisperer.generate(:user))
+  context 'when a simple factory is given' do
+    it 'generates a fixture' do
+      expect(fixture('robb_stark')).to eq(Whisperer.generate(:robb_stark))
+    end
+  end
+
+  context 'when a few factories are given' do
+    it 'generates a fixture' do
+      expect(fixture('starks')).to eq(Whisperer.generate(:starks))
+    end
   end
 end

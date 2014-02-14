@@ -5,3 +5,4 @@
 5. Think about unit tests for Whisperer#generate, Whisperer#register_serializer method
 6. Add code to calculate content length automatically
 7. Add code to convert an array with FactoryGirl objects
+8. Add posibility to inherit the defined factory builder

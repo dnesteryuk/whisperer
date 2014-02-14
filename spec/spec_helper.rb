@@ -1,10 +1,14 @@
 require 'bundler/setup'
 
+require 'ostruct'
+
 require 'rspec'
 require 'rspec/fire'
 require 'factory_girl'
 
 require 'whisperer'
+
+User = Class.new(OpenStruct)
 
 require 'support/fixtures'
 

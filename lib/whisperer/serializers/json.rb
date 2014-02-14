@@ -13,7 +13,15 @@ module Whisperer
       end
 
       def serialize
-        MultiJson.dump(@obj.marshal_dump)
+        data = if @obj.kind_of?(Array)
+          @obj.map do |item|
+            item.marshal_dump
+          end
+        else
+          @obj.marshal_dump
+        end
+
+        MultiJson.dump(data)
       end
     end # class Json
   end # module Serializers

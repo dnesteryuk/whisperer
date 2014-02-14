@@ -6,12 +6,23 @@ module Whisperer
       add_writer 'encoding'
 
       def factory(name, serializer = :json)
-        class_name = Whisperer::Serializers.const_get(serializer.to_s.capitalize)
         model = FactoryGirl.build(name)
-        data  = class_name.serialize(model)
 
-        @container.string = data
+        @container.string = serializer_class(serializer).serialize(model)
       end
+
+      def factories(names, serializer = :json)
+        models = names.map do |name|
+          FactoryGirl.build(name)
+        end
+
+        @container.string = serializer_class(serializer).serialize(models)
+      end
+
+      protected
+        def serializer_class(name)
+          Whisperer::Serializers.const_get(name.to_s.capitalize)
+        end
     end # class Body
   end # class Dsl
 end # module Whisperer

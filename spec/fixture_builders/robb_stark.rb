@@ -1,4 +1,4 @@
-Whisperer.define(:user) do
+Whisperer.define(:robb_stark) do
   request do
     uri    'http://example.com/users/1'
     method :get
@@ -22,7 +22,7 @@ Whisperer.define(:user) do
 
     body do
       encoding 'UTF-8'
-      factory  'user', :json
+      factory  'robb_stark', :json
     end
   end
 end
