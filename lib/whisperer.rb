@@ -54,6 +54,12 @@ module Whisperer
       )
     end
 
+    def generate_all
+      factories.each do |name, container|
+        generate(name)
+      end
+    end
+
     def register_serializer(name, class_name)
       serializers[name] = class_name
     end
