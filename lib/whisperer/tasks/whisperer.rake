@@ -22,6 +22,10 @@ namespace :whisperer do
 
   desc 'Takes a specific fixture builder and generates one specific fixture for VCR'
   task :generate, :name do |t, args|
-    Whisperer::generate(args[:name])
+    name = args[:name]
+
+    Whisperer::generate(name.to_sym)
+
+    puts "The fixture '#{name}' is generated"
   end
 end

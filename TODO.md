@@ -7,3 +7,4 @@
 7. Add code to show warning when an user tries to generate all fixtures without any factory
 8. Add code to generate classes for models in runtime
 9. Add code to specify path for generating fixtures, but it should have default
+10. Fix the issue with naming factories with symbols and strings, otherwise, when we generate a specific fixtures, it may not be found.
