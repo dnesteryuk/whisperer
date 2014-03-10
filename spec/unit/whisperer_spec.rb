@@ -8,6 +8,10 @@ describe Whisperer do
       Whisperer::Dsl.stub(:build).and_return(dsl)
     end
 
+    after do
+      Whisperer.factories.delete(:test)
+    end
+
     it 'builds the dsl object' do
       expect(Whisperer::Dsl).to receive(:build)
 
@@ -20,6 +24,20 @@ describe Whisperer do
       described_class.define(:test) {
         header
       }
+    end
+
+    it 'stores the generated factory' do
+      described_class.define(:test) {}
+
+      expect(Whisperer.factories[:test]).to eq('some test')
+    end
+
+    context 'when a string as a factory name is given' do
+      it 'stores a factory with symbol key' do
+        described_class.define('test') {}
+
+        expect(Whisperer.factories[:test]).to eq('some test')
+      end
     end
   end
 

@@ -24,7 +24,7 @@ namespace :whisperer do
   task :generate, :name do |t, args|
     name = args[:name]
 
-    Whisperer::generate(name.to_sym)
+    Whisperer::generate(name)
 
     puts "The fixture '#{name}' is generated"
   end

@@ -23,10 +23,12 @@ module Whisperer
       dsl = Dsl.build
       dsl.instance_eval &block
 
-      factories[name] = dsl.container
+      factories[name.to_sym] = dsl.container
     end
 
     def generate(name)
+      name = name.to_sym
+
       unless factories[name]
         raise ArgumentError.new("There is not factory with \"#{name}\" name")
       end
