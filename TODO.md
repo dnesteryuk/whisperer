@@ -7,5 +7,4 @@
 7. Add code to generate classes for models in runtime
 8. Add code to specify path for generating fixtures, but it should have default
 9. recorded_at field should be generated automatically.
-10. Any manipulation with factories container should be thread-safe.
-11. Configuration for Vcr should not be defined in whisperer.rake
+10. Configuration for Vcr should not be defined in whisperer.rake

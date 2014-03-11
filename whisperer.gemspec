@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activesupport'
   spec.add_dependency 'multi_json'
   spec.add_dependency 'rainbow'
+  spec.add_dependency 'thread_safe'
 end

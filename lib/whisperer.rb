@@ -12,8 +12,8 @@ require 'whisperer/convertors/hash'
 require 'whisperer/serializers/json'
 
 module Whisperer
-  @fixture_builders = {}
-  @serializers      = {}
+  @fixture_builders = ThreadSafe::Hash.new
+  @serializers      = ThreadSafe::Hash.new
 
   class << self
     attr_reader :fixture_builders
