@@ -26,11 +26,16 @@ module Whisperer
       factories[name.to_sym] = dsl.container
     end
 
+    # Returns true if at least one factory is defined, otherwise returns false.
+    def defined_any?
+      factories.size > 0
+    end
+
     def generate(name)
       name = name.to_sym
 
       unless factories[name]
-        raise ArgumentError.new("There is not factory with \"#{name}\" name")
+        raise NoFixtureBuilderError.new("There is not fixture builder with \"#{name}\" name.")
       end
 
       container = factories[name]
@@ -74,6 +79,8 @@ module Whisperer
       serializers[name]
     end
   end
+
+  class NoFixtureBuilderError < ArgumentError; end
 end
 
 

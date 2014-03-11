@@ -41,12 +41,34 @@ describe Whisperer do
     end
   end
 
+  describe '.defined_any?' do
+    context 'when there are defined factories' do
+      before do
+        described_class.factories[:test] = true
+      end
+
+      after do
+        described_class.factories.clear
+      end
+
+      it 'returns true' do
+        expect(Whisperer.defined_any?).to be_true
+      end
+    end
+
+    context 'when there are not defined factories' do
+      it 'returns false' do
+        expect(Whisperer.defined_any?).to be_false
+      end
+    end
+  end
+
   describe '.generate' do
     context 'when there is not such factory' do
       it 'raises an error' do
         expect { described_class.generate(:mytest) }.to raise_error(
-          ArgumentError,
-          'There is not factory with "mytest" name'
+          Whisperer::NoFixtureBuilderError,
+          'There is not fixture builder with "mytest" name.'
         )
       end
     end

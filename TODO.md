@@ -3,9 +3,10 @@
 3. Find a way to avoid extending objects in runtime.
 4. Think about unit tests for Whisperer#generate, Whisperer#register_serializer method
 5. Add code to calculate content length automatically
-6. Add posibility to inherit the defined factory builder
-7. Add code to show warning when an user tries to generate all fixtures without any factory
-8. Add code to generate classes for models in runtime
-9. Add code to specify path for generating fixtures, but it should have default
-10. recorded_at field should be generated automatically.
-11. Any manipulation with factories container should be thread-safe.
+6. Add posibility to inherit the defined fixture builder
+7. Add code to generate classes for models in runtime
+8. Add code to specify path for generating fixtures, but it should have default
+9. recorded_at field should be generated automatically.
+10. Any manipulation with factories container should be thread-safe.
+11. Configuration for Vcr should not be defined in whisperer.rake
+12. Rename factories variable in Whisperer module to fixture_builders
