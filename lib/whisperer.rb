@@ -12,33 +12,33 @@ require 'whisperer/convertors/hash'
 require 'whisperer/serializers/json'
 
 module Whisperer
-  @factories   = {}
-  @serializers = {}
+  @fixture_builders = {}
+  @serializers      = {}
 
   class << self
-    attr_reader :factories
+    attr_reader :fixture_builders
     attr_reader :serializers
 
     def define(name, &block)
       dsl = Dsl.build
       dsl.instance_eval &block
 
-      factories[name.to_sym] = dsl.container
+      fixture_builders[name.to_sym] = dsl.container
     end
 
     # Returns true if at least one factory is defined, otherwise returns false.
     def defined_any?
-      factories.size > 0
+      fixture_builders.size > 0
     end
 
     def generate(name)
       name = name.to_sym
 
-      unless factories[name]
+      unless fixture_builders[name]
         raise NoFixtureBuilderError.new("There is not fixture builder with \"#{name}\" name.")
       end
 
-      container = factories[name]
+      container = fixture_builders[name]
 
       convertor = Whisperer::Convertors::Hash.new(container)
       hash = convertor.convert
@@ -62,7 +62,7 @@ module Whisperer
     end
 
     def generate_all
-      factories.each do |name, container|
+      fixture_builders.each do |name, container|
         generate(name)
       end
     end

@@ -9,4 +9,3 @@
 9. recorded_at field should be generated automatically.
 10. Any manipulation with factories container should be thread-safe.
 11. Configuration for Vcr should not be defined in whisperer.rake
-12. Rename factories variable in Whisperer module to fixture_builders

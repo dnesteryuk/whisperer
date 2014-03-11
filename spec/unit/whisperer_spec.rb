@@ -9,7 +9,7 @@ describe Whisperer do
     end
 
     after do
-      Whisperer.factories.delete(:test)
+      Whisperer.fixture_builders.delete(:test)
     end
 
     it 'builds the dsl object' do
@@ -29,14 +29,14 @@ describe Whisperer do
     it 'stores the generated factory' do
       described_class.define(:test) {}
 
-      expect(Whisperer.factories[:test]).to eq('some test')
+      expect(Whisperer.fixture_builders[:test]).to eq('some test')
     end
 
     context 'when a string as a factory name is given' do
       it 'stores a factory with symbol key' do
         described_class.define('test') {}
 
-        expect(Whisperer.factories[:test]).to eq('some test')
+        expect(Whisperer.fixture_builders[:test]).to eq('some test')
       end
     end
   end
@@ -44,11 +44,11 @@ describe Whisperer do
   describe '.defined_any?' do
     context 'when there are defined factories' do
       before do
-        described_class.factories[:test] = true
+        described_class.fixture_builders[:test] = true
       end
 
       after do
-        described_class.factories.clear
+        described_class.fixture_builders.clear
       end
 
       it 'returns true' do
@@ -56,7 +56,7 @@ describe Whisperer do
       end
     end
 
-    context 'when there are not defined factories' do
+    context 'when there are not defined fixture_buildersories' do
       it 'returns false' do
         expect(Whisperer.defined_any?).to be_false
       end
