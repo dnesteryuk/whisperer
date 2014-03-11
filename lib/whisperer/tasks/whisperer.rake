@@ -1,5 +1,6 @@
 require 'whisperer'
 require 'factory_girl'
+require 'rainbow'
 
 User = Class.new(OpenStruct)
 
@@ -17,7 +18,7 @@ namespace :whisperer do
   task :generate_all do
     Whisperer::generate_all
 
-    puts 'Fixtures are generated'
+    puts Rainbow('Fixtures are generated').green
   end
 
   desc 'Takes a specific fixture builder and generates one specific fixture for VCR'
@@ -26,6 +27,6 @@ namespace :whisperer do
 
     Whisperer::generate(name)
 
-    puts "The fixture '#{name}' is generated"
+    puts Rainbow("The fixture '#{name}' is generated").green
   end
 end
