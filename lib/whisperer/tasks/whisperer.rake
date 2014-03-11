@@ -16,11 +16,11 @@ end
 namespace :whisperer do
   desc 'Takes all fixture builders and generates fixtures for VCR'
   task :generate_all do
-    if Whisperer.defined_any?
+    begin
       Whisperer.generate_all
 
       puts Rainbow('Fixtures are generated').green
-    else
+    rescue Whisperer::NoFixtureBuilderError => error
       puts Rainbow('Any fixture builder was found. Please, make sure you define at least one.').yellow
     end
   end

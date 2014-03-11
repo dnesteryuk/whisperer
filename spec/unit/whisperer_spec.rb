@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe Whisperer do
+  after do
+    described_class.fixture_builders.clear
+  end
+
   describe '.define' do
     let(:dsl) { instance_double('Whisperer::Dsl', container: 'some test') }
 
     before do
       Whisperer::Dsl.stub(:build).and_return(dsl)
-    end
-
-    after do
-      Whisperer.fixture_builders.delete(:test)
     end
 
     it 'builds the dsl object' do
@@ -32,8 +32,8 @@ describe Whisperer do
       expect(Whisperer.fixture_builders[:test]).to eq('some test')
     end
 
-    context 'when a string as a factory name is given' do
-      it 'stores a factory with symbol key' do
+    context 'when a string as a name of a fixture builder is given' do
+      it 'stores a fixture builder with symbol key' do
         described_class.define('test') {}
 
         expect(Whisperer.fixture_builders[:test]).to eq('some test')
@@ -42,13 +42,9 @@ describe Whisperer do
   end
 
   describe '.defined_any?' do
-    context 'when there are defined factories' do
+    context 'when there are defined fixture builders' do
       before do
         described_class.fixture_builders[:test] = true
-      end
-
-      after do
-        described_class.fixture_builders.clear
       end
 
       it 'returns true' do
@@ -56,7 +52,7 @@ describe Whisperer do
       end
     end
 
-    context 'when there are not defined fixture_buildersories' do
+    context 'when there are not defined fixture_builders' do
       it 'returns false' do
         expect(Whisperer.defined_any?).to be_false
       end
@@ -64,11 +60,26 @@ describe Whisperer do
   end
 
   describe '.generate' do
-    context 'when there is not such factory' do
+    context 'when there is not such fixture builder' do
       it 'raises an error' do
         expect { described_class.generate(:mytest) }.to raise_error(
           Whisperer::NoFixtureBuilderError,
           'There is not fixture builder with "mytest" name.'
+        )
+      end
+    end
+  end
+
+  describe '.generate_all' do
+    context 'when there are not defined fixture builders' do
+      before do
+        Whisperer.stub(:defined_any?).and_return(false)
+      end
+
+      it 'raises and error' do
+        expect { described_class.generate_all }.to raise_error(
+          Whisperer::NoFixtureBuilderError,
+          'Fixture builders are not found.'
         )
       end
     end

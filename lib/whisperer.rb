@@ -62,8 +62,12 @@ module Whisperer
     end
 
     def generate_all
-      fixture_builders.each do |name, container|
-        generate(name)
+      if defined_any?
+        fixture_builders.each do |name, container|
+          generate(name)
+        end
+      else
+        raise NoFixtureBuilderError.new('Fixture builders are not found.')
       end
     end
 
