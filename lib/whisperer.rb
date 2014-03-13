@@ -19,11 +19,17 @@ module Whisperer
     attr_reader :fixture_builders
     attr_reader :serializers
 
-    def define(name, &block)
+    def define(name, options = {}, &block)
       dsl = Dsl.build
       dsl.instance_eval &block
+      record = dsl.container
 
-      fixture_builders[name.to_sym] = dsl.container
+      if options[:parent]
+        original_record = fixture_builders[options[:parent]]
+        record.merge!(original_record)
+      end
+
+      fixture_builders[name.to_sym] = record
     end
 
     # Returns true if at least one factory is defined, otherwise returns false.
@@ -40,8 +46,7 @@ module Whisperer
 
       container = fixture_builders[name]
 
-      convertor = Whisperer::Convertors::Hash.new(container)
-      hash = convertor.convert
+      hash = Whisperer::Convertors::Hash.convert(container)
 
       hash['recorded_at'] = 'Mon, 13 Jan 2014 21:01:47 GMT'
 

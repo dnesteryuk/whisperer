@@ -23,6 +23,26 @@ module Test
 end
 
 describe Whisperer::Convertors::Hash do
+  describe '.convert' do
+    let(:converter) { instance_double('Whisperer::Convertors::Hash', convert: true) }
+
+    before do
+      described_class.stub(:new).and_return(converter)
+    end
+
+    it 'initializes the converted' do
+      expect(described_class).to receive(:new).with('data')
+
+      described_class.convert('data')
+    end
+
+    it 'converts an object' do
+      expect(converter).to receive(:convert)
+
+      described_class.convert('data')
+    end
+  end
+
   describe '#convert' do
     let(:attrs) {
       {

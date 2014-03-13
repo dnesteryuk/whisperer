@@ -6,7 +6,8 @@ describe Whisperer do
   end
 
   describe '.define' do
-    let(:dsl) { instance_double('Whisperer::Dsl', container: 'some test') }
+    let(:fixture_record) { instance_double('Whisperer::Record', merge!: true) }
+    let(:dsl)            { instance_double('Whisperer::Dsl', container: fixture_record) }
 
     before do
       Whisperer::Dsl.stub(:build).and_return(dsl)
@@ -26,17 +27,37 @@ describe Whisperer do
       }
     end
 
-    it 'stores the generated factory' do
+    it 'stores the generated fixture builder' do
       described_class.define(:test) {}
 
-      expect(Whisperer.fixture_builders[:test]).to eq('some test')
+      expect(Whisperer.fixture_builders[:test]).to eq(fixture_record)
     end
 
     context 'when a string as a name of a fixture builder is given' do
       it 'stores a fixture builder with symbol key' do
         described_class.define('test') {}
 
-        expect(Whisperer.fixture_builders[:test]).to eq('some test')
+        expect(Whisperer.fixture_builders[:test]).to eq(fixture_record)
+      end
+    end
+
+    context 'when a parent is defined for a fixture builder' do
+      context 'when such parent exists' do
+        let(:original_fixture_record) { double('original fixture record') }
+
+        before do
+          Whisperer.fixture_builders[:some_parent] = original_fixture_record
+        end
+
+        it 'merges an original record with the newly built' do
+          expect(fixture_record).to receive(:merge!).with(original_fixture_record)
+
+          described_class.define('test', parent: :some_parent) {}
+        end
+      end
+
+      context 'when such parent does not exist' do
+        it 'raises an error'
       end
     end
   end

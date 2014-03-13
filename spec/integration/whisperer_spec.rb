@@ -13,9 +13,15 @@ describe 'Whisperer' do
     end
   end
 
-  context 'when a few factories are given' do
+  context 'when an array factories are given' do
     it 'generates a fixture' do
       expect(fixture('starks')).to eq(Whisperer.generate(:starks))
+    end
+  end
+
+  context 'when a fixture builder inherits another fixture builder' do
+    it 'generates a fixture with data from a parent fixture' do
+      expect(fixture('wolfs')).to eq(Whisperer.generate(:wolfs))
     end
   end
 end

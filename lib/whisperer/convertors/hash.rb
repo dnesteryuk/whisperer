@@ -3,11 +3,16 @@ require 'active_support/core_ext/string/inflections'
 module Whisperer
   module Convertors
     class Hash
+      def self.convert(obj)
+        converter = new(obj)
+        converter.convert
+      end
+
       def initialize(obj)
         @obj = obj
       end
 
-      # Converts the current with all related objects to hash
+      # Converts the current object with all related objects to hash
       def convert
         to_hash(@obj)
       end
