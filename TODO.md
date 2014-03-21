@@ -4,6 +4,4 @@
 4. Think about unit tests for Whisperer#generate, Whisperer#register_serializer method
 5. Add code to calculate content length automatically
 6. Add code to generate classes for models in runtime
-7. Add code to specify path for generating fixtures, but it should have default
-8. Configuration for Vcr should not be defined in whisperer.rake
-9. Think about writing tests for Whisperer::Config
+7. Think about writing tests for Whisperer::Config
