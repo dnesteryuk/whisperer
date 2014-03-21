@@ -5,5 +5,4 @@
 5. Add code to calculate content length automatically
 6. Add code to generate classes for models in runtime
 7. Add code to specify path for generating fixtures, but it should have default
-8. recorded_at field should be generated automatically.
-9. Configuration for Vcr should not be defined in whisperer.rake
+8. Configuration for Vcr should not be defined in whisperer.rake
