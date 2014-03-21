@@ -1,20 +1,12 @@
-require 'active_support/core_ext/hash/deep_merge'
 require 'whisperer'
+require 'whisperer/config'
+
+require 'active_support/core_ext/hash/deep_merge'
 require 'factory_girl'
 require 'rainbow'
 require 'yaml'
 
-DEFAULT_CONFIG = {
-  'fixtures' => {
-    'generate_to' => 'spec/fixtures'
-  }
-}
-
-if File.exists?('.whisperer.yml')
-  config = YAML.load(File.read('.whisperer.yml')) || {}
-end
-
-CONFIG = DEFAULT_CONFIG.deep_merge(config)
+Whisperer::Config.load('.whisperer.yml')
 
 User = Class.new(OpenStruct) # TODO: it should not be there, it should be generated
 
@@ -22,10 +14,6 @@ Dir[
   './spec/factories/**/*.rb',
   './spec/fixture_builders/**/*.rb'
 ].each {|f| require f }
-
-VCR.configure do |c|
-  c.cassette_library_dir = CONFIG['fixtures']['generate_to']
-end
 
 namespace :whisperer do
   desc 'Takes all fixture builders and generates fixtures for VCR'
