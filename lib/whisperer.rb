@@ -53,8 +53,6 @@ module Whisperer
 
       hash = Whisperer::Convertors::Hash.convert(container)
 
-      hash['recorded_at'] = 'Mon, 13 Jan 2014 21:01:47 GMT'
-
       interaction = VCR::HTTPInteraction.from_hash(
         hash
       )

@@ -8,5 +8,7 @@ module Whisperer
 
     link_dsl 'request'
     link_dsl 'response'
+
+    add_writer 'recorded_at'
   end # class Dsl
 end # module Whisperer

@@ -25,4 +25,6 @@ Whisperer.define(:starks) do
       factories ['robb_stark', 'ned_stark'], :json
     end
   end
+
+  recorded_at 'Mon, 13 Jan 2014 21:01:47 GMT'
 end

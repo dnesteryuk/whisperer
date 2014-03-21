@@ -12,7 +12,8 @@ describe Whisperer::Record do
             encoding: 'UTF-8',
             string:   'test'
           }
-        }
+        },
+        recorded_at: 'test data'
       )
 
       r.request.headers.extend(Virtus.model)
@@ -69,6 +70,10 @@ describe Whisperer::Record do
 
     it 'has a string for the body of the response' do
       expect(subject.response.body.string).to eq('test')
+    end
+
+    it 'has a correct recorded_at value' do
+      expect(subject.recorded_at).to eq('test data')
     end
   end
 end
