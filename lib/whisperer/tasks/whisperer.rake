@@ -1,8 +1,22 @@
+require 'active_support/core_ext/hash/deep_merge'
 require 'whisperer'
 require 'factory_girl'
 require 'rainbow'
+require 'yaml'
 
-User = Class.new(OpenStruct)
+DEFAULT_CONFIG = {
+  'fixtures' => {
+    'generate_to' => 'spec/fixtures'
+  }
+}
+
+if File.exists?('.whisperer.yml')
+  config = YAML.load(File.read('.whisperer.yml')) || {}
+end
+
+CONFIG = DEFAULT_CONFIG.deep_merge(config)
+
+User = Class.new(OpenStruct) # TODO: it should not be there, it should be generated
 
 Dir[
   './spec/factories/**/*.rb',
@@ -10,7 +24,7 @@ Dir[
 ].each {|f| require f }
 
 VCR.configure do |c|
-  c.cassette_library_dir = 'spec/fixtures'
+  c.cassette_library_dir = CONFIG['fixtures']['generate_to']
 end
 
 namespace :whisperer do

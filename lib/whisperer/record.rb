@@ -1,8 +1,6 @@
 require_relative 'request'
 require_relative 'response'
 
-require 'pry'
-
 module Whisperer
   class Record
     include Virtus.model
