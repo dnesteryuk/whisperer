@@ -17,8 +17,10 @@ describe Whisperer::Record do
 
       r.request.headers.extend(Virtus.model)
       r.request.headers.attribute(:content_length, Integer)
+      r.request.headers.attribute(:accept, String)
 
       r.request.headers.content_length = 100
+      r.request.headers.accept         = 'javascript'
       r
     }
 
@@ -49,11 +51,15 @@ describe Whisperer::Record do
       subject.merge!(record)
     end
 
-    it 'has a content length for the request' do
+    it 'has a correct content length header for the request' do
       expect(subject.request.headers.content_length).to eq(50)
     end
 
-    it 'has ta correct url' do
+    it 'has an accept header for the request' do
+      expect(subject.request.headers.accept).to eq('javascript')
+    end
+
+    it 'has an url' do
       expect(subject.request.uri).to eq('http://google.com')
     end
 
@@ -61,7 +67,7 @@ describe Whisperer::Record do
       expect(subject.response.body.encoding).to eq('UTF-16')
     end
 
-    it 'has a correct string for the body of the response' do
+    it 'has a string for the body of the response' do
       expect(subject.response.body.string).to eq('test')
     end
   end

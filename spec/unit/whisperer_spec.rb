@@ -27,21 +27,21 @@ describe Whisperer do
       }
     end
 
-    it 'stores the generated fixture builder' do
+    it 'stores the generated fixture record' do
       described_class.define(:test) {}
 
       expect(Whisperer.fixture_builders[:test]).to eq(fixture_record)
     end
 
-    context 'when a string as a name of a fixture builder is given' do
-      it 'stores a fixture builder with symbol key' do
+    context 'when a string as a name of a fixture record is given' do
+      it 'stores a fixture record with a symbol key' do
         described_class.define('test') {}
 
         expect(Whisperer.fixture_builders[:test]).to eq(fixture_record)
       end
     end
 
-    context 'when a parent is defined for a fixture builder' do
+    context 'when a parent is defined for a fixture record' do
       context 'when such parent exists' do
         let(:original_fixture_record) { double('original fixture record') }
 
@@ -57,7 +57,11 @@ describe Whisperer do
       end
 
       context 'when such parent does not exist' do
-        it 'raises an error'
+        it 'raises an error' do
+          expect {
+            described_class.define('test', parent: :some_parent) {}
+          }.to raise_error(ArgumentError, 'Parent record with "some_parent" is not declired.')
+        end
       end
     end
   end

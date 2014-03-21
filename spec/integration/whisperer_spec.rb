@@ -19,7 +19,7 @@ describe 'Whisperer' do
     end
   end
 
-  context 'when a fixture builder inherits another fixture builder' do
+  context 'when a fixture record inherits another fixture record' do
     it 'generates a fixture with data from a parent fixture' do
       expect(fixture('wolfs')).to eq(Whisperer.generate(:wolfs))
     end
