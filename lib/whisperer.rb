@@ -12,11 +12,11 @@ require 'whisperer/convertors/hash'
 require 'whisperer/serializers/json'
 
 module Whisperer
-  @fixture_builders = ThreadSafe::Hash.new
-  @serializers      = ThreadSafe::Hash.new
+  @fixture_records = ThreadSafe::Hash.new
+  @serializers     = ThreadSafe::Hash.new
 
   class << self
-    attr_reader :fixture_builders
+    attr_reader :fixture_records
     attr_reader :serializers
 
     def define(name, options = {}, &block)
@@ -25,7 +25,7 @@ module Whisperer
       record = dsl.container
 
       if options[:parent]
-        original_record = fixture_builders[options[:parent]]
+        original_record = fixture_records[options[:parent]]
 
         if original_record.nil?
           raise ArgumentError.new("Parent record with \"#{options[:parent]}\" is not declired.")
@@ -34,22 +34,22 @@ module Whisperer
         end
       end
 
-      fixture_builders[name.to_sym] = record
+      fixture_records[name.to_sym] = record
     end
 
     # Returns true if at least one factory is defined, otherwise returns false.
     def defined_any?
-      fixture_builders.size > 0
+      fixture_records.size > 0
     end
 
     def generate(name)
       name = name.to_sym
 
-      unless fixture_builders[name]
-        raise NoFixtureBuilderError.new("There is not fixture builder with \"#{name}\" name.")
+      unless fixture_records[name]
+        raise NoFixtureRecordError.new("There is not fixture builder with \"#{name}\" name.")
       end
 
-      container = fixture_builders[name]
+      container = fixture_records[name]
 
       hash = Whisperer::Convertors::Hash.convert(container)
 
@@ -71,11 +71,11 @@ module Whisperer
 
     def generate_all
       if defined_any?
-        fixture_builders.each do |name, container|
+        fixture_records.each do |name, container|
           generate(name)
         end
       else
-        raise NoFixtureBuilderError.new('Fixture builders are not found.')
+        raise NoFixtureRecordError.new('Fixture builders are not found.')
       end
     end
 
@@ -92,7 +92,7 @@ module Whisperer
     end
   end
 
-  class NoFixtureBuilderError < ArgumentError; end
+  class NoFixtureRecordError < ArgumentError; end
 end
 
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Whisperer do
   after do
-    described_class.fixture_builders.clear
+    described_class.fixture_records.clear
   end
 
   describe '.define' do
@@ -30,14 +30,14 @@ describe Whisperer do
     it 'stores the generated fixture record' do
       described_class.define(:test) {}
 
-      expect(Whisperer.fixture_builders[:test]).to eq(fixture_record)
+      expect(Whisperer.fixture_records[:test]).to eq(fixture_record)
     end
 
     context 'when a string as a name of a fixture record is given' do
       it 'stores a fixture record with a symbol key' do
         described_class.define('test') {}
 
-        expect(Whisperer.fixture_builders[:test]).to eq(fixture_record)
+        expect(Whisperer.fixture_records[:test]).to eq(fixture_record)
       end
     end
 
@@ -46,7 +46,7 @@ describe Whisperer do
         let(:original_fixture_record) { double('original fixture record') }
 
         before do
-          Whisperer.fixture_builders[:some_parent] = original_fixture_record
+          Whisperer.fixture_records[:some_parent] = original_fixture_record
         end
 
         it 'merges an original record with the newly built' do
@@ -67,9 +67,9 @@ describe Whisperer do
   end
 
   describe '.defined_any?' do
-    context 'when there are defined fixture builders' do
+    context 'when there are defined fixture records' do
       before do
-        described_class.fixture_builders[:test] = true
+        described_class.fixture_records[:test] = true
       end
 
       it 'returns true' do
@@ -77,7 +77,7 @@ describe Whisperer do
       end
     end
 
-    context 'when there are not defined fixture_builders' do
+    context 'when there are not defined fixture_records' do
       it 'returns false' do
         expect(Whisperer.defined_any?).to be_false
       end
@@ -85,10 +85,10 @@ describe Whisperer do
   end
 
   describe '.generate' do
-    context 'when there is not such fixture builder' do
+    context 'when there is not such fixture record' do
       it 'raises an error' do
         expect { described_class.generate(:mytest) }.to raise_error(
-          Whisperer::NoFixtureBuilderError,
+          Whisperer::NoFixtureRecordError,
           'There is not fixture builder with "mytest" name.'
         )
       end
@@ -96,14 +96,14 @@ describe Whisperer do
   end
 
   describe '.generate_all' do
-    context 'when there are not defined fixture builders' do
+    context 'when there are not defined fixture records' do
       before do
         Whisperer.stub(:defined_any?).and_return(false)
       end
 
       it 'raises and error' do
         expect { described_class.generate_all }.to raise_error(
-          Whisperer::NoFixtureBuilderError,
+          Whisperer::NoFixtureRecordError,
           'Fixture builders are not found.'
         )
       end
