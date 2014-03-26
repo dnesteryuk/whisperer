@@ -1,9 +1,8 @@
-require_relative '../response'
 require_relative 'base'
 
 require_relative 'headers'
 require_relative 'body'
-require_relative 'status'
+require_relative 'response/status'
 
 module Whisperer
   class Dsl

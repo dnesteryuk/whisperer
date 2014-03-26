@@ -1,5 +1,5 @@
-require_relative 'request'
-require_relative 'response'
+require_relative 'record/request'
+require_relative 'record/response'
 
 module Whisperer
   class Record
