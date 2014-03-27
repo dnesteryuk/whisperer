@@ -12,3 +12,6 @@ module Whisperer
     add_writer 'recorded_at'
   end # class Dsl
 end # module Whisperer
+
+require 'whisperer/dsl/request'
+require 'whisperer/dsl/response'

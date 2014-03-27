@@ -15,16 +15,24 @@ end
 describe Whisperer::Dsl::Body do
   let(:serialized_data) { 'serialized data' }
   let(:container)       { instance_double('Whisperer::Body', :string= => true) }
+  let(:serializer)      { double('Serialize', serialize: true) }
 
   subject { described_class.new(container) }
 
   before do
-    Whisperer::Serializers::Json.stub(:serialize).and_return(serialized_data)
+    Whisperer.stub(:serializer).and_return(serializer)
+    serializer.stub(:serialize).and_return(serialized_data)
   end
 
   describe '#factory' do
+    it 'gets a serializer' do
+      expect(Whisperer).to receive(:serializer).with(:json)
+
+      subject.factory(:john_snow, :json)
+    end
+
     it 'takes factory and serializes it' do
-      expect(Whisperer::Serializers::Json).to receive(:serialize) do |model|
+      expect(serializer).to receive(:serialize) do |model|
         expect(model.name).to eq('John Snow')
       end
 
@@ -39,8 +47,14 @@ describe Whisperer::Dsl::Body do
   end
 
   describe '#factories' do
+    it 'gets a serializer' do
+      expect(Whisperer).to receive(:serializer).with(:json)
+
+      subject.factory(:john_snow, :json)
+    end
+
     it 'takes factories and serializes it' do
-      expect(Whisperer::Serializers::Json).to receive(:serialize) do |data|
+      expect(serializer).to receive(:serialize) do |data|
         expect(data.first.name).to eq('John Snow')
         expect(data.last.name).to eq('Arya Stark')
       end

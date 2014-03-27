@@ -15,7 +15,6 @@ module Whisperer
     end
 
     protected
-      # TODO: think about moving it to some another object
       def merge_attrs(item, container)
         item.attributes.each do |attr, val|
           if val.respond_to?(:attributes)

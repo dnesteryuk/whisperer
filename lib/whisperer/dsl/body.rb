@@ -21,7 +21,7 @@ module Whisperer
 
       protected
         def serializer_class(name)
-          Whisperer::Serializers.const_get(name.to_s.capitalize)
+          Whisperer.serializer(name)
         end
     end # class Body
   end # class Dsl

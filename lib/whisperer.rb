@@ -4,8 +4,6 @@ require 'virtus'
 require 'vcr'
 
 require 'whisperer/dsl'
-require 'whisperer/dsl/request'
-require 'whisperer/dsl/response'
 
 require 'whisperer/convertors/hash'
 

@@ -15,3 +15,5 @@
     }
   )
 ```
+
+8. Refactore Whisperer::Record#merge_attrs! method, it should be moved to some another class
