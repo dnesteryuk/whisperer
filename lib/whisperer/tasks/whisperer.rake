@@ -22,7 +22,7 @@ namespace :whisperer do
       Whisperer.generate_all
 
       puts Rainbow('Fixtures are generated').green
-    rescue Whisperer::NoFixtureBuilderError => error
+    rescue Whisperer::NoFixtureRecordError => error
       puts Rainbow('Any fixture builder was found. Please, make sure you define at least one.').yellow
     end
   end
@@ -35,7 +35,7 @@ namespace :whisperer do
       Whisperer::generate(name)
 
       puts Rainbow("The fixture '#{name}' is generated").green
-    rescue Whisperer::NoFixtureBuilderError => error
+    rescue Whisperer::NoFixtureRecordError => error
       puts Rainbow(error.message).red
     end
   end
