@@ -2,24 +2,18 @@
 http_interactions:
 - request:
     method: get
-    uri: http://example.com/users/1
+    uri: http://example.com/users/2
     body:
       encoding: US-ASCII
       string: ''
-    headers:
-      Accept:
-      - "*/*"
+    headers: {}
   response:
     status:
       code: 200
       message: OK
     headers:
       Content-Length:
-      - '57'
-      Content-Type:
-      - application/json;charset=utf-8
-      X-Content-Type-Options:
-      - nosniff
+      - '58'
     body:
       encoding: UTF-8
       string: "{\"first_name\":\"Robb\",\"last_name\":\"Stark\",\"group\":\"member\"}"

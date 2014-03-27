@@ -9,6 +9,7 @@ module Whisperer
     attribute :headers, Whisperer::Headers, default: proc {
       header = Whisperer::Headers.new
       header.extend(Virtus.model)
+      header.attribute(:content_length, String)
       header
     }
 
