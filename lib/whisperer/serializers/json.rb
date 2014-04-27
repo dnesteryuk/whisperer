@@ -3,7 +3,7 @@ require 'multi_json'
 module Whisperer
   module Serializers
     class Json
-      def self.serialize(obj)
+      def self.serialize(obj, options = {})
         serializer = new(obj)
         serializer.serialize
       end

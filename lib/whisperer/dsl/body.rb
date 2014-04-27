@@ -5,18 +5,25 @@ module Whisperer
     class Body < BaseDsl
       add_writer 'encoding'
 
-      def factory(name, serializer = :json)
+      def factory(name, *args)
         model = FactoryGirl.build(name)
 
-        @container.string = serializer_class(serializer).serialize(model)
+        raw_data(model, *args)
       end
 
-      def factories(names, serializer = :json)
+      def factories(names, *args)
         models = names.map do |name|
           FactoryGirl.build(name)
         end
 
-        @container.string = serializer_class(serializer).serialize(models)
+        raw_data(models, *args)
+      end
+
+      def raw_data(data, serializer = :json, options = {})
+        @container.string = serializer_class(serializer).serialize(
+          data,
+          options
+        )
       end
 
       protected
