@@ -6,13 +6,13 @@ require 'factory_girl'
 require 'rainbow'
 require 'yaml'
 
-Whisperer::Config.load('.whisperer.yml')
+config = Whisperer::Config.load('.whisperer.yml')
 
-User = Class.new(OpenStruct) # TODO: it should not be there, it should be generated
+Placeholder = Class.new(OpenStruct)
 
 Dir[
-  './spec/factories/**/*.rb',
-  './spec/fixture_builders/**/*.rb'
+  config.factories_matcher,
+  config.builders_matcher
 ].each {|f| require f }
 
 namespace :whisperer do
