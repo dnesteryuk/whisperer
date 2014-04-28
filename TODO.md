@@ -17,3 +17,4 @@
 ```
 
 8. Refactore Whisperer::Record#merge_attrs! method, it should be moved to some another class
+9. Write documentation about custom settings
