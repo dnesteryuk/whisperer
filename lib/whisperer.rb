@@ -108,5 +108,6 @@ end
 
 
 Whisperer.register_serializer(:json, Whisperer::Serializers::Json)
+Whisperer.register_serializer(:json_multiple, Whisperer::Serializers::JsonMultiple)
 
 Whisperer.register_preprocessor(:content_length, Whisperer::Preprocessors::ContentLength)
