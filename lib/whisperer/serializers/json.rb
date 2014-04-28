@@ -1,17 +1,9 @@
 require 'multi_json'
+require_relative 'base'
 
 module Whisperer
   module Serializers
-    class Json
-      def self.serialize(obj)
-        serializer = new(obj)
-        serializer.serialize
-      end
-
-      def initialize(obj)
-        @obj = obj
-      end
-
+    class Json < Base
       def serialize
         data = if @obj.kind_of?(Array)
           @obj.map do |item|
