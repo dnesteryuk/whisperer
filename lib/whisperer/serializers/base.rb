@@ -4,7 +4,7 @@ require_relative 'base'
 module Whisperer
   module Serializers
     class Base
-      def self.serialize(obj)
+      def self.serialize(obj, options = {})
         serializer = new(obj)
         serializer.serialize
       end
