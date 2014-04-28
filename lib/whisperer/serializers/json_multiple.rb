@@ -3,12 +3,14 @@ require_relative 'base'
 
 module Whisperer
   module Serializers
-    class Json < Base
+    class JsonMultiple < Base
       def serialize
-        data = @obj.marshal_dump
+        data = @obj.map do |item|
+          item.marshal_dump
+        end
 
         MultiJson.dump(data)
       end
-    end # class Json
+    end # class JsonMultiple
   end # module Serializers
 end # module Whisperer

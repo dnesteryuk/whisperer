@@ -8,6 +8,7 @@ require 'whisperer/dsl'
 require 'whisperer/convertors/hash'
 
 require 'whisperer/serializers/json'
+require 'whisperer/serializers/json_multiple'
 
 require 'whisperer/preprocessors/content_length'
 
