@@ -1,4 +1,3 @@
-require 'multi_json'
 require_relative 'json'
 
 module Whisperer
