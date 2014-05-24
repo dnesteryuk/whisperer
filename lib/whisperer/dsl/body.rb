@@ -4,6 +4,7 @@ module Whisperer
   class Dsl
     class Body < BaseDsl
       add_writer 'encoding'
+      add_writer 'string'
 
       def factory(name, *args)
         model = FactoryGirl.build(name)

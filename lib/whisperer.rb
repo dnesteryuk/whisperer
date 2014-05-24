@@ -31,7 +31,7 @@ module Whisperer
         original_record = fixture_records[options[:parent]]
 
         if original_record.nil?
-          raise ArgumentError.new("Parent record with \"#{options[:parent]}\" is not declired.")
+          raise ArgumentError.new("Parent record \"#{options[:parent]}\" is not declired.")
         else
           record.merge!(original_record)
         end

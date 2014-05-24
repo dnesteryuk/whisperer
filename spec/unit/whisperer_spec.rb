@@ -60,7 +60,7 @@ describe Whisperer do
         it 'raises an error' do
           expect {
             described_class.define('test', parent: :some_parent) {}
-          }.to raise_error(ArgumentError, 'Parent record with "some_parent" is not declired.')
+          }.to raise_error(ArgumentError, 'Parent record "some_parent" is not declired.')
         end
       end
     end

@@ -13,7 +13,7 @@ describe 'Whisperer' do
     end
   end
 
-  context 'when an array factories are given' do
+  context 'when an array of factories is given' do
     it 'generates a fixture' do
       expect(fixture('starks')).to eq(Whisperer.generate(:starks))
     end
@@ -27,7 +27,15 @@ describe 'Whisperer' do
 
   context 'when a fixture record is given without a defined content length for a response body' do
     it 'generates a fixture with a content length which is calculated by size of a response body' do
-      expect(fixture('robb_stark_without_content_length')).to eq(Whisperer.generate(:robb_stark_without_content_length))
+      expect(fixture('robb_stark_without_content_length')).to eq(
+        Whisperer.generate(:robb_stark_without_content_length)
+      )
+    end
+  end
+
+  context 'when a fixture record use a string to define a response body' do
+    it 'generates a fixture' do
+      expect(fixture('empty_robb_stark')).to eq(Whisperer.generate(:empty_robb_stark))
     end
   end
 end
