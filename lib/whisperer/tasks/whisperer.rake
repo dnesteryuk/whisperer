@@ -8,8 +8,6 @@ require 'yaml'
 
 config = Whisperer::Config.load('.whisperer.yml')
 
-Placeholder = Class.new(OpenStruct)
-
 Dir[
   config.factories_matcher,
   config.builders_matcher

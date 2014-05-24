@@ -3,6 +3,7 @@ require 'whisperer/version'
 require 'virtus'
 require 'vcr'
 
+require 'whisperer/placeholder'
 require 'whisperer/dsl'
 
 require 'whisperer/convertors/hash'

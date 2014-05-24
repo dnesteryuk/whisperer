@@ -2,9 +2,8 @@
 2. Make sure that generated fixtures supports ERB.
 3. Find a way to avoid extending objects in runtime.
 4. Think about unit tests for Whisperer module
-5. Add code to generate classes for models in runtime
-6. Think about writing tests for Whisperer::Config
-7. Try to find better way for defining dynamic attributes for headers, it doesn't work when you write:
+5. Think about writing tests for Whisperer::Config
+6. Try to find better way for defining dynamic attributes for headers, it doesn't work when you write:
 
 ```ruby
   Whisperer::Record.new(
@@ -16,5 +15,5 @@
   )
 ```
 
-8. Refactore Whisperer::Record#merge_attrs! method, it should be moved to some another class
-9. Write documentation about custom settings
+7. Refactore Whisperer::Record#merge_attrs! method, it should be moved to some another class
+8. Write documentation about custom settings

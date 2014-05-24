@@ -8,8 +8,6 @@ require 'factory_girl'
 
 require 'whisperer'
 
-User = Class.new(OpenStruct)
-
 require 'support/fixtures'
 
 RSpec.configure do |config|
