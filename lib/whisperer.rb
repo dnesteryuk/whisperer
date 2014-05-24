@@ -5,6 +5,7 @@ require 'vcr'
 
 require 'whisperer/placeholder'
 require 'whisperer/dsl'
+require 'whisperer/helpers'
 
 require 'whisperer/convertors/hash'
 

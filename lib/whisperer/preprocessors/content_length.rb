@@ -1,12 +1,11 @@
+# This class calculates a content length for a reponse body
+# if it is not defined in a fixture record.
 module Whisperer
   module Preprocessors
     class ContentLength
-      class << self
-        def process(record)
-          processor = new(record)
-          processor.process
-        end
-      end
+      extend Helpers
+
+      add_builder :process
 
       def initialize(record)
         @record = record
@@ -17,6 +16,6 @@ module Whisperer
           @record.response.headers.content_length = @record.response.body.string.size
         end
       end
-    end
-  end
-end
+    end # class ContentLength
+  end # module Preprocessors
+end # module Whisperer

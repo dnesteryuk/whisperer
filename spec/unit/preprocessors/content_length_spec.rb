@@ -1,27 +1,6 @@
 require 'spec_helper'
 
 describe Whisperer::Preprocessors::ContentLength do
-  describe '.process' do
-    let(:record)    { 'some record' }
-    let(:processor) { instance_double('Whisperer::Preprocessors::ContentLength', process: true) }
-
-    before do
-      described_class.stub(:new).and_return(processor)
-    end
-
-    it 'initializes a new instance of preprocessor' do
-      expect(described_class).to receive(:new).with(record)
-
-      described_class.process(record)
-    end
-
-    it 'processes a record' do
-      expect(processor).to receive(:process)
-
-      described_class.process(record)
-    end
-  end
-
   describe '#process' do
     subject { described_class.new(record) }
 
