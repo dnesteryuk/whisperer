@@ -29,7 +29,7 @@ describe Whisperer::Preprocessors::ContentLength do
         )
       }
 
-      it 'measures size of body and writes it to the content length header of the reponse' do
+      it 'measures size of body and writes it to the content length header of the response' do
         subject.process
 
         expect(record.response.headers.content_length).to eq('4')
