@@ -4,11 +4,11 @@ require_relative 'base'
 # if it is not defined in a fixture record.
 module Whisperer
   module Preprocessors
-    class ContentLength
+    class ContentLength < Base
       def process
         headers = @record.response.headers
 
-        if hwaders.content_length.nil?
+        if headers.content_length.nil?
           headers.content_length = @record.response.body.string.size
         end
       end

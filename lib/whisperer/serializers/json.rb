@@ -4,7 +4,7 @@ require_relative 'base'
 module Whisperer
   module Serializers
     class Json < Base
-      def initialize(obj, json_dumper = MultiJson)
+      def initialize(obj, options: {}, json_dumper: MultiJson)
         super obj
 
         @json_dumper = json_dumper
