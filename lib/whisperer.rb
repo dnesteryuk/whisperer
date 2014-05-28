@@ -66,7 +66,7 @@ module Whisperer
         hash
       )
 
-      cassette = VCR::Cassette.new(name)
+      cassette = VCR::Cassette.new("#{container.sub_path}/#{name}")
       cassette.record_http_interaction(
         interaction
       )
@@ -74,7 +74,7 @@ module Whisperer
       cassette.eject
 
       File.read(
-        "#{VCR.configuration.cassette_library_dir}/#{name}.yml"
+        "#{VCR.configuration.cassette_library_dir}/#{container.sub_path}/#{name}.yml"
       )
     end
 

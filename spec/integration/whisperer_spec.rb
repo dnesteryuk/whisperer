@@ -2,7 +2,7 @@ require 'spec_integration_helper'
 
 describe 'Whisperer' do
   after do
-    Dir["#{VCR.configuration.cassette_library_dir}/*.yml"].each do |file|
+    Dir["#{VCR.configuration.cassette_library_dir}/**/*.yml"].each do |file|
       File.delete(file)
     end
   end
@@ -36,6 +36,12 @@ describe 'Whisperer' do
   context 'when a fixture record use a string to define a response body' do
     it 'generates a fixture' do
       expect(fixture('empty_robb_stark')).to eq(Whisperer.generate(:empty_robb_stark))
+    end
+  end
+
+  context 'when a fixture record has a sub directory' do
+    it 'generates a fixture in a sub directory' do
+      expect(fixture('girls/arya_stark')).to eq(Whisperer.generate(:arya_stark))
     end
   end
 end

@@ -9,6 +9,7 @@ module Whisperer
     attribute :response,     Whisperer::Response, default: proc { Whisperer::Response.new }
     attribute :http_version, String, default: ''
     attribute :recorded_at,  String, default: proc { Time.now.httpdate }
+    attribute :sub_path,     String
 
     def merge!(model)
       merge_attrs(model, self)
