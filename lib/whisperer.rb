@@ -66,6 +66,14 @@ module Whisperer
         hash
       )
 
+      path_to_fixture = "#{VCR.configuration.cassette_library_dir}/#{container.sub_path}/#{name}.yml"
+
+      if File.exists?(path_to_fixture)
+        File.unlink(
+          path_to_fixture
+        )
+      end
+
       cassette = VCR::Cassette.new("#{container.sub_path}/#{name}")
       cassette.record_http_interaction(
         interaction
@@ -73,9 +81,7 @@ module Whisperer
 
       cassette.eject
 
-      File.read(
-        "#{VCR.configuration.cassette_library_dir}/#{container.sub_path}/#{name}.yml"
-      )
+      File.read(path_to_fixture)
     end
 
     def generate_all
