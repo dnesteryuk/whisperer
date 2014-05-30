@@ -9,7 +9,7 @@ module Whisperer
 
       add_builder :serialize
 
-      def initialize(obj)
+      def initialize(obj, options: {})
         @obj = obj
       end
 
