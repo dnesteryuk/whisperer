@@ -20,6 +20,22 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+### Configuration
+
+There is a posibility to configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It will allow you to specify following options:
+
+ - generate_to - path to save generated fixtures
+ - builders_matcher - pattern to find builders
+ - factories_matcher - pattern to find factories
+
+Example of such file:
+
+```
+  generate_to:       '../fixtures/vcr_cassettes/'
+  builders_matcher:  './fixture_builders/**/*.rb'
+  factories_matcher: './factories/*.rb'
+```
+
 ### Generate fixtures
 
 To generate fixtures based on fixture builders, you need to launch command:
