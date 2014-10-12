@@ -9,8 +9,11 @@ module Whisperer
 
       add_builder :serialize
 
+      attr_reader :options
+
       def initialize(obj, options: {})
-        @obj = obj
+        @obj     = obj
+        @options = options
       end
 
       def serialize
