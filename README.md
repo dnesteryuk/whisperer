@@ -20,6 +20,16 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+### Generate fixtures
+
+To generate fixtures based on fixture builders, you need to launch command:
+
+```shell
+  rake whisperer:generate_all
+```
+
+This command will generate new fixtures and re-generate all existing fixtures for VCR.
+
 ## Contributing
 
 1. Fork it
