@@ -18,7 +18,79 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Describing VCR fixtures
+
+Whisperer is a tool to describe VCR fixture in a better way. 
+
+VCR fixtures are described in `fixture builders`, body of responses in `factories` (take a look at [FactoryGirl](/thoughtbot/factory_girl)). Actually, it is a plain Ruby DSL. Example:
+
+```ruby
+Whisperer.define(:arya_stark) do
+  request do
+    uri    'http://example.com/users/1'
+    method :get
+  end
+
+  response do
+    status do
+      code    200
+      message 'OK'
+    end
+
+    headers do
+      content_type 'application/json;charset=utf-8'
+    end
+
+    body do
+      encoding 'UTF-8'
+      factory  'arya_stark', :json
+    end
+  end
+
+  recorded_at 'Mon, 13 Jan 2014 21:01:47 GMT'
+end
+```
+
+This fixture builder is used to generate VCR fixture like this:
+
+```yml
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://example.com/users/1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '58'
+      Content-Type:
+      - application/json;charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"first_name":"Arya","last_name":"Stark","group":"member"}'
+    http_version: 
+  recorded_at: Mon, 13 Jan 2014 21:01:47 GMT
+recorded_with: VCR 2.8.0
+```
+
+Also to generare this fixture, `arya_stark` factory is used:
+
+```ruby
+FactoryGirl.define do
+  factory :arya_stark, class: Placeholder do
+    first_name 'Arya'
+    last_name  'Stark'
+    group      'member'
+  end
+end
+```
 
 ### Configuration
 
