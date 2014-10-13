@@ -20,3 +20,4 @@
 9. Add possibility to set a default serializer for a fixture record
 10. Create rake task to generate dummy `.whisperer.yml`
 11. The `prepare_data` method should allow to define the post processor in the serializers.
+12. Add a rake task to generate a placeholder to define fixture builders.
