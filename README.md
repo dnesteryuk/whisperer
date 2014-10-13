@@ -20,9 +20,9 @@ Or install it yourself as:
 
 ### Describing VCR fixtures
 
-Whisperer is a tool to describe VCR fixture in a better way. 
+Whisperer is a tool to describe VCR fixture in a better way.
 
-VCR fixtures are described in `fixture builders`, body of responses in `factories` (take a look at [FactoryGirl](/thoughtbot/factory_girl)). Actually, it is a plain Ruby DSL. Example:
+VCR fixtures are described in `fixture builders`, body of responses are described in `factories` (take a look at [FactoryGirl](/thoughtbot/factory_girl)). Example of fixture builder:
 
 ```ruby
 Whisperer.define(:arya_stark) do
@@ -51,7 +51,7 @@ Whisperer.define(:arya_stark) do
 end
 ```
 
-This fixture builder is used to generate VCR fixture like this:
+It is used to generate VCR fixture like this:
 
 ```yml
 ---
@@ -75,12 +75,14 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"first_name":"Arya","last_name":"Stark","group":"member"}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 13 Jan 2014 21:01:47 GMT
 recorded_with: VCR 2.8.0
 ```
 
-Also to generare this fixture, `arya_stark` factory is used:
+As we see structure of fixture builder is almost the same an output in Yaml. But, it smooths all problems of Yaml.
+
+Also, to generare this fixture, `arya_stark` factory is used:
 
 ```ruby
 FactoryGirl.define do
@@ -90,6 +92,36 @@ FactoryGirl.define do
     group      'member'
   end
 end
+```
+
+#### Describing a response body
+
+There are a few ways how you can define a body of the response.
+
+You can use factory:
+
+```ruby
+  body do
+    encoding 'UTF-8'
+    factory  'arya_stark', :json
+  end
+```
+
+In this case `arya_stark` factory is taken to generate VCR fixture.
+
+If you need to use multiple fixtures you can use another DSL method:
+
+```ruby
+  body do
+    encoding 'UTF-8'
+    factories ['robb_stark', 'ned_stark'], :json_multiple
+  end
+```
+
+`robb_stark` and `ned_stark` are taken to generate the response body:
+
+```ruby
+  string: '[{"first_name":"Robb","last_name":"Stark","group":"member"},{"first_name":"Ned","last_name":"Stark","group":"member"}]'
 ```
 
 ### Configuration
