@@ -37,4 +37,37 @@ namespace :whisperer do
       puts Rainbow(error.message).red
     end
   end
+
+  desc 'Creates minimal structure of directories, creates a config file with default options'
+  task :install do
+    path_to_builders = 'spec/fixture_builders'
+
+    if Dir.exists?(path_to_builders)
+      puts Rainbow("Skipped creating of #{path_to_builders} since it already exists").green
+    else
+      Dir.mkdir(path_to_builders)
+
+      puts Rainbow("Created directory for fixture builders: #{path_to_builders}").green
+    end
+
+    if File.exists?('.whisperer.yml')
+      puts Rainbow("Skipped creating the sample of config (.whisperer.yml) since it already exists").green
+    else
+      File.open(
+        '.whisperer.yml',
+        File::CREAT|File::RDWR,
+        0644
+      ) do |f|
+        f.write(
+          "generate_to:       '#{config.generate_to}'\n" <<
+          "builders_matcher:  '#{config.builders_matcher}'\n" <<
+          "factories_matcher: '#{config.factories_matcher}'"
+        )
+
+        f.close
+      end
+
+      puts Rainbow("Created the sample of config: .whisperer.yml").green
+    end
+  end
 end
