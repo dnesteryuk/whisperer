@@ -110,6 +110,32 @@ You can pass factories instead of its name:
 
 It is very useful, when you need dynamically generate instances of a factory.
 
+#### Inheritance of fixture builders
+
+If you need to generate almost the same VCR fixture, but with a bit differ data, you can do it via inheritance:
+
+```ruby
+  Whisperer.define(:robb_stark, parent: :arya_stark) do
+    response do
+      body do
+        factory :robb_stark, :json
+      end
+    end
+  end
+```
+
+In this case all data is taken from `aray_stark` fixture builder, only the response body is different. 
+
+You can redefine any option of VCR fixture:
+
+```ruby
+  Whisperer.define(:robb_stark, parent: :arya_stark) do
+    request do
+      uri 'http://example.com/users/10'
+    end
+  end
+```
+
 ### Configuration
 
 You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:
