@@ -39,7 +39,7 @@ namespace :whisperer do
   end
 
   desc 'Creates minimal structure of directories, creates a config file with default options'
-  task :install do
+  task install: [:create_config] do
     path_to_builders = 'spec/fixture_builders'
 
     if Dir.exists?(path_to_builders)
@@ -50,6 +50,11 @@ namespace :whisperer do
       puts Rainbow("Created directory for fixture builders: #{path_to_builders}").green
     end
 
+    #Rake::Task[:create_config].invoke
+  end
+
+  desc 'Creates a config file with default options'
+  task :create_config do
     if File.exists?('.whisperer.yml')
       puts Rainbow("Skipped creating the sample of config (.whisperer.yml) since it already exists").green
     else
