@@ -20,7 +20,9 @@ To create default directories' structure and the config file with default option
 
     $ rake whisperer:install
 
-It will create `fixture_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of a project. If you want to create only the config file, you need to execute:
+It will create `fixture_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of a project.
+
+If you want to create only the config file, you need to execute:
 
     $ rake whisperer:create_config
 
@@ -28,9 +30,7 @@ It will create `fixture_builders` directory in your `spec` folder and `.whispere
 
 ### Describing VCR fixtures
 
-Whisperer is a tool to describe VCR fixture in a better way.
-
-VCR fixtures are described in `fixture builders`, body of responses are described in `factories` (take a look at [FactoryGirl](/thoughtbot/factory_girl)). Example of fixture builder:
+VCR fixtures are described in `fixture builders`. It is Ruby DSL which repeats structure of VCR fixture:
 
 ```ruby
 Whisperer.define(:arya_stark) do
@@ -59,70 +59,27 @@ Whisperer.define(:arya_stark) do
 end
 ```
 
-It is used to generate VCR fixture like this:
+But, it is Ruby, hence, we can benefit from that. Whisperer uses [FactoryGirl](/thoughtbot/factory_girl) to describe a response body. If you are not familar with FactoryGirl, please, make sure, you know how to use it bofore going on. There are a few way how factories can be used.
+
+You can use one single factory:
+
+```ruby
+  body do
+    factory 'arya_stark', :json # we provide only name of it
+  end
+```
+
+`arya_stark` factory is taken to generate the response body:
 
 ```yml
----
-http_interactions:
-- request:
-    method: get
-    uri: http://example.com/users/1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Length:
-      - '58'
-      Content-Type:
-      - application/json;charset=utf-8
-    body:
-      encoding: UTF-8
-      string: '{"first_name":"Arya","last_name":"Stark","group":"member"}'
-    http_version:
-  recorded_at: Mon, 13 Jan 2014 21:01:47 GMT
-recorded_with: VCR 2.8.0
+  string: '{"first_name":"Arya","last_name":"Stark","group":"member"}'
 ```
 
-As we see structure of fixture builder is almost the same an output in Yaml. But, it smooths all problems of Yaml.
-
-Also, to generare this fixture, `arya_stark` factory is used:
-
-```ruby
-FactoryGirl.define do
-  factory :arya_stark, class: Placeholder do
-    first_name 'Arya'
-    last_name  'Stark'
-    group      'member'
-  end
-end
-```
-
-#### Describing a response body
-
-There are a few ways how you can define a body of the response.
-
-You can use factory:
+You can use multiple factories to generate collection for your response:
 
 ```ruby
   body do
-    encoding 'UTF-8'
-    factory  'arya_stark', :json
-  end
-```
-
-In this case `arya_stark` factory is taken to generate VCR fixture.
-
-If you need to use multiple fixtures you can use another DSL method:
-
-```ruby
-  body do
-    encoding 'UTF-8'
-    factories ['robb_stark', 'ned_stark'], :json_multiple
+    factories ['robb_stark', 'ned_stark'], :json_multiple # again we provide only names of factories
   end
 ```
 
@@ -131,6 +88,27 @@ If you need to use multiple fixtures you can use another DSL method:
 ```ruby
   string: '[{"first_name":"Robb","last_name":"Stark","group":"member"},{"first_name":"Ned","last_name":"Stark","group":"member"}]'
 ```
+
+You can pass factories instead of its name:
+
+```ruby
+  body do
+    factories = []
+
+    20.times do |t|
+      factories << FactoryGirl.build(
+        :people,
+        id:          'testid' + i,
+        name:        'test name' + i,
+        description: 'desc' + i
+      )
+    end
+
+    raw_data factories, :json_multiple, options: {size: 22}
+  end
+```
+
+It is very useful, when you need dynamically generate instances of a factory.
 
 ### Configuration
 
