@@ -16,6 +16,14 @@ Or install it yourself as:
 
     $ gem install whisperer
 
+To create default directories' structure and the config file with default options, you need to execute:
+
+    $ rake whisperer:install
+
+It will create `fixture_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of a project. If you want to create only the config file, you need to execute:
+
+    $ rake whisperer:create_config
+
 ## Usage
 
 ### Describing VCR fixtures
@@ -126,18 +134,18 @@ If you need to use multiple fixtures you can use another DSL method:
 
 ### Configuration
 
-There is a posibility to configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It will allow you to specify following options:
+You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:
 
- - generate_to - path to save generated fixtures
- - builders_matcher - pattern to find builders
- - factories_matcher - pattern to find factories
+ - generate_to - the path to save generated fixtures
+ - builders_matcher - the pattern to find builders
+ - factories_matcher - the pattern to find factories
 
 Example of such file:
 
 ```
-  generate_to:       '../fixtures/vcr_cassettes/'
-  builders_matcher:  './fixture_builders/**/*.rb'
-  factories_matcher: './factories/*.rb'
+  generate_to:       'spec/fixtures/vcr_cassettes/'
+  builders_matcher:  './spec/fixture_builders/**/*.rb'
+  factories_matcher: './spec/factories/*.rb'
 ```
 
 ### Generate fixtures
