@@ -71,7 +71,7 @@ You can use one single factory:
 
 `arya_stark` factory is taken to generate the response body:
 
-```yml
+```
   string: '{"first_name":"Arya","last_name":"Stark","group":"member"}'
 ```
 
@@ -85,7 +85,7 @@ You can use multiple factories to generate collection for your response:
 
 `robb_stark` and `ned_stark` are taken to generate the response body:
 
-```ruby
+```
   string: '[{"first_name":"Robb","last_name":"Stark","group":"member"},{"first_name":"Ned","last_name":"Stark","group":"member"}]'
 ```
 
