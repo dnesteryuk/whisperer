@@ -60,11 +60,7 @@ namespace :whisperer do
         File::CREAT|File::RDWR,
         0644
       ) do |f|
-        f.write(
-          "generate_to:       '#{config.generate_to}'\n" <<
-          "builders_matcher:  '#{config.builders_matcher}'\n" <<
-          "factories_matcher: '#{config.factories_matcher}'"
-        )
+        f.write(config.to_yml)
 
         f.close
       end
