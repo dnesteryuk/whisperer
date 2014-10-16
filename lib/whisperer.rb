@@ -3,6 +3,8 @@ require 'whisperer/version'
 require 'virtus'
 require 'vcr'
 
+require 'whisperer/config'
+
 require 'whisperer/placeholder'
 require 'whisperer/dsl'
 require 'whisperer/helpers'

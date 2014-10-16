@@ -1,5 +1,4 @@
 require 'whisperer'
-require 'whisperer/config'
 
 require 'active_support/core_ext/hash/deep_merge'
 require 'factory_girl'
@@ -49,8 +48,6 @@ namespace :whisperer do
 
       puts Rainbow("Created directory for fixture builders: #{path_to_builders}").green
     end
-
-    #Rake::Task[:create_config].invoke
   end
 
   desc 'Creates a config file with default options'

@@ -25,5 +25,12 @@ module Whisperer
 
       config
     end
+
+    # Returns yaml record with config options
+    def to_yml
+      "generate_to:       '#{generate_to}'\n" <<
+      "builders_matcher:  '#{builders_matcher}'\n" <<
+      "factories_matcher: '#{factories_matcher}'"
+    end
   end # class Config
 end # module Whisperer
