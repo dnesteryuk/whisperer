@@ -64,48 +64,48 @@ But, it is Ruby, hence, we can benefit from that. Whisperer uses [FactoryGirl](/
 You can use one single factory:
 
 ```ruby
-  body do
-    factory 'arya_stark', :json # we provide only name of it
-  end
+body do
+  factory 'arya_stark', :json # we provide only name of it
+end
 ```
 
 `arya_stark` factory is taken to generate the response body:
 
 ```
-  string: '{"first_name":"Arya","last_name":"Stark","group":"member"}'
+string: '{"first_name":"Arya","last_name":"Stark","group":"member"}'
 ```
 
 You can use multiple factories to generate collection for your response:
 
 ```ruby
-  body do
-    factories ['robb_stark', 'ned_stark'], :json_multiple # again we provide only names of factories
-  end
+body do
+  factories ['robb_stark', 'ned_stark'], :json_multiple # again we provide only names of factories
+end
 ```
 
 `robb_stark` and `ned_stark` are taken to generate the response body:
 
 ```
-  string: '[{"first_name":"Robb","last_name":"Stark","group":"member"},{"first_name":"Ned","last_name":"Stark","group":"member"}]'
+string: '[{"first_name":"Robb","last_name":"Stark","group":"member"},{"first_name":"Ned","last_name":"Stark","group":"member"}]'
 ```
 
 You can pass factories instead of its name:
 
 ```ruby
-  body do
-    factories = []
+body do
+  factories = []
 
-    20.times do |t|
-      factories << FactoryGirl.build(
-        :people,
-        id:          'testid' + i,
-        name:        'test name' + i,
-        description: 'desc' + i
-      )
-    end
-
-    raw_data factories, :json_multiple, options: {size: 22}
+  20.times do |t|
+    factories << FactoryGirl.build(
+      :people,
+      id:          'testid' + i,
+      name:        'test name' + i,
+      description: 'desc' + i
+    )
   end
+
+  raw_data factories, :json_multiple, options: {size: 22}
+end
 ```
 
 It is very useful, when you need dynamically generate instances of a factory.
@@ -115,25 +115,25 @@ It is very useful, when you need dynamically generate instances of a factory.
 If you need to generate almost the same VCR fixture, but with a bit differ data, you can do it via inheritance:
 
 ```ruby
-  Whisperer.define(:robb_stark, parent: :arya_stark) do
-    response do
-      body do
-        factory :robb_stark, :json
-      end
+Whisperer.define(:robb_stark, parent: :arya_stark) do
+  response do
+    body do
+      factory :robb_stark, :json
     end
   end
+end
 ```
 
-In this case all data is taken from `aray_stark` fixture builder, only the response body is different. 
+In this case all data is taken from `aray_stark` fixture builder, only the response body is different.
 
 You can redefine any option of VCR fixture:
 
 ```ruby
-  Whisperer.define(:robb_stark, parent: :arya_stark) do
-    request do
-      uri 'http://example.com/users/10'
-    end
+Whisperer.define(:robb_stark, parent: :arya_stark) do
+  request do
+    uri 'http://example.com/users/10'
   end
+end
 ```
 
 ### Configuration
@@ -147,26 +147,22 @@ You can configure Whisperer through `.whisperer.yml` which should be created in 
 Example of such file:
 
 ```
-  generate_to:       'spec/fixtures/vcr_cassettes/'
-  builders_matcher:  './spec/fixture_builders/**/*.rb'
-  factories_matcher: './spec/factories/*.rb'
+generate_to:       'spec/fixtures/vcr_cassettes/'
+builders_matcher:  './spec/fixture_builders/**/*.rb'
+factories_matcher: './spec/factories/*.rb'
 ```
 
-### Generate fixtures
+### Generating fixtures
 
 To generate fixtures based on fixture builders, you need to launch command:
 
-```shell
-  rake whisperer:generate_all
-```
+    $ rake whisperer:generate_all
 
 This command will generate new fixtures and re-generate all existing fixtures for VCR.
 
 To generate only on particular fixture, you can use this command
 
-```shell
-  rake whisperer:generate[fixture_builder]
-```
+    $ rake whisperer:generate[fixture_builder]
 
 `fixture_builder` is a name of the fixture builder.
 
