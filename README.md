@@ -161,6 +161,28 @@ It will look in a fixture like:
     - XMLHttpRequest
 ```
 
+#### Placeholder for FactoryGirl
+
+Since VCR is used to stub interraction with external services, there is a big chance that you don't have Ruby model to be used for defining factories. In most cases, you don't need them to generate VCR fixtures. Whisperer offers the placeholder class:
+
+```ruby
+  FactoryGirl.define do
+    factory :arya_stark, class: Placeholder do
+      first_name 'Arya'
+      last_name  'Stark'
+      group      'member'
+    end
+  end
+```
+
+Placeholder is a simple class inheriting `OpenStruct` class.
+
+```ruby
+  Placeholder = Class.new(OpenStruct)
+```
+
+It decouples fixture builders from your application.
+
 ### Configuration
 
 You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:
