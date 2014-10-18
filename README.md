@@ -112,7 +112,7 @@ end
 
 It is very useful, when you need dynamically generate instances of a factory.
 
-#### Inheritance of fixture builders
+#### Inheritance in fixture builders
 
 If you need to generate almost the same VCR fixture, but with a bit differ data, you can do it via inheritance:
 
@@ -163,7 +163,7 @@ It will look in a fixture like:
 
 #### Placeholder for FactoryGirl
 
-Since VCR is used to stub interraction with external services, there is a big chance that you don't have Ruby model to be used for defining factories. In most cases, you don't need them to generate VCR fixtures. Whisperer offers the placeholder class:
+Since VCR is used to stub interractions with external services, there is a big chance that you don't have Ruby model to be used for defining factories. In most cases, you don't need them to generate VCR fixtures. Whisperer offers the placeholder class:
 
 ```ruby
   FactoryGirl.define do
@@ -181,7 +181,7 @@ Placeholder is a simple class inheriting `OpenStruct` class.
   Placeholder = Class.new(OpenStruct)
 ```
 
-It decouples fixture builders from your application.
+It decouples factories from your application.
 
 ### Configuration
 
