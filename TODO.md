@@ -19,10 +19,9 @@
 8. Write documentation about custom settings
 9. Add possibility to set a default serializer for a fixture record
 10. The `prepare_data` method should allow to define the post processor in the serializers.
-11. Add a rake task to generate a placeholder to define fixture builders.
-12. Whisperer#generate must be refactored
-13. Upgrade Rspec
-14. Add info to doc:
+11. Whisperer#generate must be refactored
+12. Upgrade Rspec
+13. Add info to doc:
   - serializers
   - subpath for generating fixtures
   - any headers in the response and request
