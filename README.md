@@ -24,7 +24,7 @@ It will create `fixture_builders` directory in your `spec` folder and `.whispere
 
 If you want to create only the config file, you need to execute:
 
-    $ rake whisperer:create_config
+    $ rake whisperer:config:create
 
 ## Usage
 
@@ -156,15 +156,24 @@ factories_matcher: './spec/factories/*.rb'
 
 To generate fixtures based on fixture builders, you need to launch command:
 
-    $ rake whisperer:generate_all
+    $ rake whisperer:fixtures:generate_all
 
 This command will generate new fixtures and re-generate all existing fixtures for VCR.
 
 To generate only on particular fixture, you can use this command
 
-    $ rake whisperer:generate[fixture_builder]
+    $ rake whisperer:fixtures:generate[fixture_builder]
 
 `fixture_builder` is a name of the fixture builder.
+
+### Generating a sample for the fixture builder
+
+Manual creation of fixture builders is painful as well. There is a command which can help with that:
+
+
+    $ rake whisperer:fixtures:builders:sample
+
+It creates a sample for you in the directory with fixture builders, you need to edit it only.
 
 ## Contributing
 
