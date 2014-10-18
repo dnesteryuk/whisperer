@@ -22,3 +22,7 @@
 11. Add a rake task to generate a placeholder to define fixture builders.
 12. Whisperer#generate must be refactored
 13. Upgrade Rspec
+14. Add info to doc:
+  - serializers
+  - subpath for generating fixtures
+  - any headers in the response and request

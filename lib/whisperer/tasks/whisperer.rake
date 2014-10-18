@@ -68,4 +68,19 @@ namespace :whisperer do
       puts Rainbow("Created the sample of config: .whisperer.yml").green
     end
   end
+
+  namespace :fixtures do
+    namespace :builders do
+      desc 'Ceates a sample of the fixture builder'
+      task :sample do
+        template = File.join(File.dirname(__FILE__), '../samples/fixture_builder.rb')
+
+        path_to_save = config.path_to_builders + '/sample.rb'
+
+        FileUtils.cp(template, path_to_save)
+
+        puts Rainbow("Created the sample of the fixture builder: #{path_to_save}").green
+      end
+    end
+  end
 end

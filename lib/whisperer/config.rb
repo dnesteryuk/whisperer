@@ -6,9 +6,11 @@ module Whisperer
   class Config
     include Virtus.model
 
+    attribute :path_to_builders,  String, default: 'spec/fixture_builders'
+
     attribute :generate_to,       String, default: 'spec/fixtures'
     attribute :factories_matcher, String, default: './spec/factories/**/*.rb'
-    attribute :builders_matcher,  String, default: './spec/fixture_builders/**/*.rb'
+    attribute :builders_matcher,  String, default: -> (c, attr) { "./#{c.path_to_builders}/**/*.rb" }
 
     def self.load(file_name = nil)
       raw_config = {}
