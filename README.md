@@ -138,6 +138,29 @@ Whisperer.define(:robb_stark, parent: :arya_stark) do
 end
 ```
 
+#### Request/Response Headers
+
+While describing headers for a request or response you can use any kind of headers, they are dynamically created:
+
+```ruby
+  headers do
+    content_length    100
+    content_type     'application/json'
+    x_requested_with 'XMLHttpRequest'
+  end
+```
+
+It will look in a fixture like:
+
+```
+  Content-Length:
+    - '100'
+  Content-Type:
+    - application/json
+  X-Requested-With
+    - XMLHttpRequest
+```
+
 ### Configuration
 
 You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:

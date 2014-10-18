@@ -24,4 +24,3 @@
 13. Add info to doc:
   - serializers
   - subpath for generating fixtures
-  - any headers in the response and request
