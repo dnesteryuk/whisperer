@@ -7,8 +7,8 @@ FactoryGirl.define do
     name 'John Snow'
   end
 
-  factory :arya_stark, class: TestUser do
-    name 'Arya Stark'
+  factory :bran_stark, class: TestUser do
+    name 'Bran Stark'
   end
 end
 
@@ -38,10 +38,10 @@ describe Whisperer::Dsl::Body do
     it 'writes factories' do
       expect(subject).to receive(:raw_data) do |model|
         expect(model.first.name).to eq('John Snow')
-        expect(model.last.name).to eq('Arya Stark')
+        expect(model.last.name).to eq('Bran Stark')
       end
 
-      subject.factories([:john_snow, :arya_stark])
+      subject.factories([:john_snow, :bran_stark])
     end
   end
 
