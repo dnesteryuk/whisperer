@@ -5,15 +5,15 @@
 5. Think about writing tests for Whisperer::Config
 6. Try to find better way for defining dynamic attributes for headers, it doesn't work when you write:
 
-```ruby
-  Whisperer::Record.new(
-    response: {
-      headers: {
-        content_length: 10
+  ```ruby
+    Whisperer::Record.new(
+      response: {
+        headers: {
+          content_length: 10
+        }
       }
-    }
-  )
-```
+    )
+  ```
 
 7. Refactore Whisperer::Record#merge_attrs! method, it should be moved to some another class
 8. Write documentation about custom settings
