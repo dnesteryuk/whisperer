@@ -18,11 +18,9 @@
   ```
 
 7. Refactore Whisperer::Record#merge_attrs! method, it should be moved to some another class
-8. Write documentation about custom settings
-9. Add possibility to set a default serializer for a fixture record
-10. Whisperer#generate must be refactored
-11. Add info to doc:
-  - serializers
+8. Add possibility to set a default serializer for a fixture record
+9. Whisperer#generate must be refactored
+10. Add info to doc:
   - subpath for generating fixtures
 
 
