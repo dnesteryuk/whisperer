@@ -22,7 +22,7 @@ describe Whisperer::BaseDsl do
         subject { described_class.new(container) }
 
         before do
-          Whisperer::Dsl::Headers.stub(:new).and_return(headers)
+          allow(Whisperer::Dsl::Headers).to receive(:new).and_return(headers)
         end
 
         it 'initializes the header dsl object' do
@@ -48,7 +48,7 @@ describe Whisperer::BaseDsl do
         before do
           described_class.link_container_class(Whisperer::Request)
 
-          Whisperer::Request.stub(:new).and_return(request)
+          allow(Whisperer::Request).to receive(:new).and_return(request)
         end
 
         it 'initializes a new instance of an object for keeping data' do

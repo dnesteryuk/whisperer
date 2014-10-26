@@ -27,7 +27,7 @@ describe Whisperer::Convertors::Hash do
     let(:converter) { instance_double('Whisperer::Convertors::Hash', convert: true) }
 
     before do
-      described_class.stub(:new).and_return(converter)
+      allow(described_class).to receive(:new).and_return(converter)
     end
 
     it 'initializes the converted' do

@@ -10,7 +10,7 @@ describe Whisperer do
     let(:dsl)            { instance_double('Whisperer::Dsl', container: fixture_record) }
 
     before do
-      Whisperer::Dsl.stub(:build).and_return(dsl)
+      allow(Whisperer::Dsl).to receive(:build).and_return(dsl)
     end
 
     it 'builds the dsl object' do
@@ -20,10 +20,10 @@ describe Whisperer do
     end
 
     it 'executes a given block over the dsl object' do
-      expect(dsl).to receive(:header)
+      expect(dsl).to receive(:request)
 
       described_class.define(:test) {
-        header
+        request
       }
     end
 
@@ -73,13 +73,13 @@ describe Whisperer do
       end
 
       it 'returns true' do
-        expect(Whisperer.defined_any?).to be_true
+        expect(Whisperer.defined_any?).to be_truthy
       end
     end
 
     context 'when there are not defined fixture_records' do
       it 'returns false' do
-        expect(Whisperer.defined_any?).to be_false
+        expect(Whisperer.defined_any?).to be_falsey
       end
     end
   end
@@ -98,7 +98,7 @@ describe Whisperer do
   describe '.generate_all' do
     context 'when there are not defined fixture records' do
       before do
-        Whisperer.stub(:defined_any?).and_return(false)
+        allow(Whisperer).to receive(:defined_any?).and_return(false)
       end
 
       it 'raises and error' do

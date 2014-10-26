@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-FakeClass = Class.new
+FakeClass = Class.new do
+  def process; end
+end
 
 describe Whisperer::Helpers do
   describe '.add_builder' do
@@ -16,7 +18,7 @@ describe Whisperer::Helpers do
     end
 
     before do
-      FakeClass.stub(:new).and_return(faker)
+      allow(FakeClass).to receive(:new).and_return(faker)
     end
 
     subject { FakeClass.process(obj) }

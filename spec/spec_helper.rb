@@ -3,7 +3,6 @@ require 'bundler/setup'
 require 'ostruct'
 
 require 'rspec'
-require 'rspec/fire'
 require 'factory_girl'
 
 require 'whisperer'
@@ -15,7 +14,6 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.include(RSpec::Fire)
   config.include(Fixtures)
 end
 

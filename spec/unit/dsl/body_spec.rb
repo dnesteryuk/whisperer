@@ -20,8 +20,8 @@ describe Whisperer::Dsl::Body do
   subject { described_class.new(container) }
 
   before do
-    Whisperer.stub(:serializer).and_return(serializer)
-    serializer.stub(:serialize).and_return(serialized_data)
+    allow(Whisperer).to receive(:serializer).and_return(serializer)
+    allow(serializer).to receive(:serialize).and_return(serialized_data)
   end
 
   describe '#factory' do

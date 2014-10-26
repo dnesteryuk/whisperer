@@ -15,7 +15,7 @@ describe Whisperer::Dsl::Headers do
 
       expect(
         container.respond_to?(:accept)
-      ).to be_true
+      ).to be_truthy
     end
 
     it 'assigns the value to the newly defined accept method' do
@@ -29,7 +29,7 @@ describe Whisperer::Dsl::Headers do
     it 'responds to the accept method' do
       subject.accept('text/plain')
 
-      expect(subject.respond_to?(:accept)).to be_true
+      expect(subject.respond_to?(:accept)).to be_truthy
     end
   end
 end
