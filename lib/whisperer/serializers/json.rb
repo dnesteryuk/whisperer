@@ -12,6 +12,7 @@ module Whisperer
 
       def serialize
         data = prepare_data
+        data = post_prepare_data(data)
 
         @json_dumper.dump(data)
       end
@@ -19,6 +20,13 @@ module Whisperer
       protected
         def prepare_data
           @obj.marshal_dump
+        end
+
+        # This method returns give data as it is.
+        # The purpose of this method is to give a way in child classes
+        # to alter data structure before converting data.
+        def post_prepare_data(data)
+          data
         end
     end # class Json
   end # module Serializers

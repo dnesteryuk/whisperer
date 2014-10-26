@@ -1,3 +1,5 @@
+## Release 0.0.1
+
 1. Create rake task for generating factories based on Vcr responses.
 2. Make sure that generated fixtures supports ERB.
 3. Find a way to avoid extending objects in runtime.
@@ -23,3 +25,24 @@
 12. Add info to doc:
   - serializers
   - subpath for generating fixtures
+
+
+## Release 0.0.2
+
+1. Think about the better way for inheriting serializes, now it looks like:
+
+  ```ruby
+    class Whisperer::Serializers::Base
+      # ...
+    end
+
+    class Whisperer::Serializers::Json < Whisperer::Serializers::Base
+      # ...
+    end
+
+    class Whisperer::Serializers::JsonMultiple < Whisperer::Serializers::Json
+      # ...
+    end
+  ```
+
+If an user wants to inherit `Whisperer::Serializers::JsonMultiple` it will look even more crazy.
