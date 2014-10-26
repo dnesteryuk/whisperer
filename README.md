@@ -187,6 +187,63 @@ Placeholder is a simple class inheriting `OpenStruct` class.
 
 It decouples factories from your application.
 
+### Serializers for a response body
+
+When an external API is subbed with VCR, API response has some format like Json, XML or any other formats. Whisperer gem provides a way to point a serializer to be used while generating a VCR fixture. There are only 2 serializer:
+
+ - json
+ - multiple json
+
+`Json` serializer is used for serializing one single factory:
+
+```ruby
+  response do
+    body do
+      factory :robb_stark, :json
+    end
+  end
+```
+
+Serializer name should be passed as a second argument to the `factory` method.
+
+`Multiple Json` serializer is used for serializing a collection of factories:
+
+```ruby
+body do
+  factories ['robb_stark', 'ned_stark'], :json_multiple
+end
+```
+
+It is very similar to `Json` serializer, but in this case it goes through the array, builds factories, serializes a received array of objects.
+
+If you need to define your own serializers, it is very easy to do. At first you need to define your own serialize class inhering `Whisperer::Serializes::Base` class.
+
+```ruby
+  class MySerializer < Whisperer::Serializers::Base
+    def serialize
+      do_something_with(@obj)
+    end
+  end
+```
+
+*Note:* `@obj` is an `OpenStruct` instance in this example.
+
+Then you need to register the new serialize:
+
+```ruby
+  Whisperer.register_serializer(:my_serializer, Serializers::MySerializer)
+```
+
+Now, it can be used as any other serializer:
+
+```ruby
+  response do
+    body do
+      factory :robb_stark, :my_serializer
+    end
+  end
+```
+
 ### Configuration
 
 You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:
