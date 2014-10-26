@@ -189,7 +189,7 @@ It decouples factories from your application.
 
 ### Serializers for a response body
 
-When an external API is subbed with VCR, API response has some format like Json, XML or any other formats. Whisperer gem provides a way to point a serializer to be used while generating a VCR fixture. There are only 2 serializer:
+When an external API is subbed with VCR, API response has some format like Json, XML or any other formats. Whisperer supports possibility to convert factories into a format your external API uses. Such mechanism is provided by **serializers** which are used along with building a response body. Whisperer has only 2 serializers:
 
  - json
  - multiple json
@@ -204,7 +204,7 @@ When an external API is subbed with VCR, API response has some format like Json,
   end
 ```
 
-Serializer name should be passed as a second argument to the `factory` method.
+Serializer name should be passed as a second argument to the `factory` method. The purpose of this class is to convert a given factory into Json format.
 
 `Multiple Json` serializer is used for serializing a collection of factories:
 
@@ -216,7 +216,7 @@ end
 
 It is very similar to `Json` serializer, but in this case it goes through the array, builds factories, serializes a received array of objects.
 
-If you need to define your own serializers, it is very easy to do. At first you need to define your own serialize class inhering `Whisperer::Serializes::Base` class.
+If you need to define your own serializer, it is very easy to do. At first you need to define your own serializer class inhering `Whisperer::Serializes::Base` class:
 
 ```ruby
   class MySerializer < Whisperer::Serializers::Base
@@ -228,7 +228,7 @@ If you need to define your own serializers, it is very easy to do. At first you 
 
 *Note:* `@obj` is an `OpenStruct` instance in this example.
 
-Then you need to register the new serialize:
+Then you need to register the new serializer:
 
 ```ruby
   Whisperer.register_serializer(:my_serializer, Serializers::MySerializer)
