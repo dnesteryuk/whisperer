@@ -8,9 +8,7 @@ module Whisperer
     attribute :uri,     String
     attribute :method,  Symbol
     attribute :headers, Whisperer::Headers, default: proc {
-      header = Whisperer::Headers.new
-      header.extend(Virtus.model)
-      header
+      Whisperer::Headers.new
     }
 
     attribute :body, Whisperer::Body, default: proc { Whisperer::Body.new }

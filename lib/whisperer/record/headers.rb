@@ -1,6 +1,12 @@
 module Whisperer
   class Headers
-    include Virtus.model
+     include Virtus.model
+
+    def initialize(*args)
+      extend Virtus.model
+
+      super
+    end
 
     def to_hash
       prepared_attrs, attrs = {}, super

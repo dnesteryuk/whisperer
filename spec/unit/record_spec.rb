@@ -16,7 +16,6 @@ describe Whisperer::Record do
         recorded_at: 'test data'
       )
 
-      r.request.headers.extend(Virtus.model)
       r.request.headers.attribute(:content_length, Integer)
       r.request.headers.attribute(:accept, String)
 
@@ -39,7 +38,6 @@ describe Whisperer::Record do
         }
       )
 
-      r.request.headers.extend(Virtus.model)
       r.request.headers.attribute(:content_length, Integer)
 
       r.request.headers.content_length = 50

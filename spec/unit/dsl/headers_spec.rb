@@ -5,10 +5,6 @@ describe Whisperer::Dsl::Headers do
 
   subject { described_class.new(container) }
 
-  before do
-    container.extend(Virtus.model)
-  end
-
   describe '#method_missing' do
     it 'defines the accept attribute' do
       subject.accept('text/plain')

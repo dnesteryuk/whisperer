@@ -5,7 +5,6 @@ describe Whisperer::Headers do
     subject {
       obj = described_class.new()
 
-      obj.extend(Virtus.model)
       obj.attribute(:content_type, String)
       obj.attributes = {
         content_type: 'json'
