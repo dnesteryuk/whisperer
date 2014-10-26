@@ -45,3 +45,5 @@
 If an user wants to inherit `Whisperer::Serializers::JsonMultiple` it will look even more crazy.
 
 2. In most cases if we have a serializer for one single factory, we need a serializer for multiple factories. We need to write code which will create a multiple serializer automatically.
+
+3. The Whisperer::Config.load method is too complex.

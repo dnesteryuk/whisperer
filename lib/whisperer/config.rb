@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Whisperer
   # This config class is used only for Rake tasks.
   # The puspose of it is to allow third users to defile options in Yaml file
@@ -28,7 +30,7 @@ module Whisperer
       config
     end
 
-    # Returns yaml record with config options
+    # Returns yaml record with configuration options.
     def to_yml
       "generate_to:       '#{generate_to}'\n" <<
       "builders_matcher:  '#{builders_matcher}'\n" <<
