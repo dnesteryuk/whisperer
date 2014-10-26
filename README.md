@@ -7,6 +7,9 @@ Do you hate fixtures? I do as well. The purpose of this library is to make your 
 
 ## Installation
 
+**Requirments**:
+ - Ruby 2.0.x or 2.1.x
+
 Add this line to your application's Gemfile:
 
     gem 'whisperer'
