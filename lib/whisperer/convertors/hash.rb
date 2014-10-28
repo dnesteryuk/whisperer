@@ -3,10 +3,9 @@ require 'active_support/core_ext/string/inflections'
 module Whisperer
   module Convertors
     class Hash
-      def self.convert(obj)
-        converter = new(obj)
-        converter.convert
-      end
+      extend Helpers
+
+      add_builder :convert
 
       def initialize(obj)
         @obj = obj
