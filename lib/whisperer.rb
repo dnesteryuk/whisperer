@@ -63,11 +63,7 @@ module Whisperer
         class_names.process(container)
       end
 
-      hash = Whisperer::Convertors::Hash.convert(container)
-
-      interaction = VCR::HTTPInteraction.from_hash(
-        hash
-      )
+      interaction = Convertors::Interaction.convert(container)
 
       path_to_fixture = "#{VCR.configuration.cassette_library_dir}/#{container.sub_path}/#{name}.yml"
 
