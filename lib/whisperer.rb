@@ -15,17 +15,16 @@ require 'whisperer/convertors/interaction'
 require 'whisperer/serializers/json'
 require 'whisperer/serializers/json_multiple'
 
+require 'whisperer/preprocessors'
 require 'whisperer/preprocessors/content_length'
 
 module Whisperer
   @fixture_records = ThreadSafe::Hash.new
   @serializers     = ThreadSafe::Hash.new
-  @preprocessors   = ThreadSafe::Hash.new
 
   class << self
     attr_reader :fixture_records
     attr_reader :serializers
-    attr_reader :preprocessors
 
     def define(name, options = {}, &block)
       dsl = Dsl.build
@@ -59,9 +58,7 @@ module Whisperer
 
       container = fixture_records[name]
 
-      preprocessors.each do |name, class_names|
-        class_names.process(container)
-      end
+      Preprocessors.process!(container)
 
       interaction = Convertors::Interaction.convert(container)
 
@@ -93,20 +90,16 @@ module Whisperer
       end
     end
 
-    def register_preprocessor(name, class_name)
-      preprocessors[name] = class_name
-    end
-
-    def register_serializer(name, class_name)
-      serializers[name] = class_name
-    end
-
     def serializer(name)
       unless serializers[name]
         raise ArgumentError.new("There is not serializer registered with \"#{name}\" name")
       end
 
       serializers[name]
+    end
+
+    def register_serializer(name, class_name)
+      serializers[name] = class_name
     end
   end
 
@@ -117,4 +110,4 @@ end
 Whisperer.register_serializer(:json, Whisperer::Serializers::Json)
 Whisperer.register_serializer(:json_multiple, Whisperer::Serializers::JsonMultiple)
 
-Whisperer.register_preprocessor(:content_length, Whisperer::Preprocessors::ContentLength)
+Whisperer::Preprocessors.register(:content_length, Whisperer::Preprocessors::ContentLength)
