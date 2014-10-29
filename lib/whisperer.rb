@@ -10,6 +10,7 @@ require 'whisperer/dsl'
 require 'whisperer/helpers'
 
 require 'whisperer/convertors/hash'
+require 'whisperer/convertors/interaction'
 
 require 'whisperer/serializers/json'
 require 'whisperer/serializers/json_multiple'
