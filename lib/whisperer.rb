@@ -9,6 +9,8 @@ require 'whisperer/placeholder'
 require 'whisperer/dsl'
 require 'whisperer/helpers'
 
+require 'whisperer/generator'
+
 require 'whisperer/convertors/hash'
 require 'whisperer/convertors/interaction'
 
@@ -58,26 +60,7 @@ module Whisperer
 
       container = fixture_records[name]
 
-      Preprocessors.process!(container)
-
-      interaction = Convertors::Interaction.convert(container)
-
-      path_to_fixture = "#{VCR.configuration.cassette_library_dir}/#{container.sub_path}/#{name}.yml"
-
-      if File.exists?(path_to_fixture)
-        File.unlink(
-          path_to_fixture
-        )
-      end
-
-      cassette = VCR::Cassette.new("#{container.sub_path}/#{name}")
-      cassette.record_http_interaction(
-        interaction
-      )
-
-      cassette.eject
-
-      File.read(path_to_fixture)
+      Generator.generate(container, name)
     end
 
     def generate_all
