@@ -5,7 +5,9 @@ module Whisperer
 
       def link_dsl(name)
         define_method(name) do |&block|
-          sub_dsl = Whisperer::Dsl.const_get(name.capitalize).new(
+          class_name = Whisperer::Dsl.const_get(name.capitalize)
+
+          sub_dsl = class_name.new(
             @container.public_send(name)
           )
 
