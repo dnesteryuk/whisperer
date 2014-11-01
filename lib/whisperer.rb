@@ -37,7 +37,7 @@ module Whisperer
         original_record = fixture_records[options[:parent]]
 
         if original_record.nil?
-          raise ArgumentError.new("Parent record \"#{options[:parent]}\" is not declired.")
+          raise ArgumentError.new("Parent record \"#{options[:parent]}\" is not declared.")
         else
           record.merge!(original_record)
         end
@@ -84,6 +84,10 @@ module Whisperer
     def register_serializer(name, class_name)
       serializers[name] = class_name
     end
+
+    def register_preprocessor(name, class_name)
+      Preprocessors.register(name, class_name)
+    end
   end
 
   class NoFixtureRecordError < ArgumentError; end
@@ -93,4 +97,4 @@ end
 Whisperer.register_serializer(:json, Whisperer::Serializers::Json)
 Whisperer.register_serializer(:json_multiple, Whisperer::Serializers::JsonMultiple)
 
-Whisperer::Preprocessors.register(:content_length, Whisperer::Preprocessors::ContentLength)
+Whisperer::register_preprocessor(:content_length, Whisperer::Preprocessors::ContentLength)

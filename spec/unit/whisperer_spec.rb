@@ -33,7 +33,7 @@ describe Whisperer do
       expect(Whisperer.fixture_records[:test]).to eq(fixture_record)
     end
 
-    context 'when a string as a name of a fixture record is given' do
+    context 'when a string as a name of the fixture record is given' do
       it 'stores a fixture record with a symbol key' do
         described_class.define('test') {}
 
@@ -43,14 +43,14 @@ describe Whisperer do
 
     context 'when a parent is defined for a fixture record' do
       context 'when such parent exists' do
-        let(:original_fixture_record) { double('original fixture record') }
+        let(:orig_fixture_record) { double('original fixture record') }
 
         before do
-          Whisperer.fixture_records[:some_parent] = original_fixture_record
+          Whisperer.fixture_records[:some_parent] = orig_fixture_record
         end
 
-        it 'merges an original record with the newly built' do
-          expect(fixture_record).to receive(:merge!).with(original_fixture_record)
+        it 'merges the original record with the newly built' do
+          expect(fixture_record).to receive(:merge!).with(orig_fixture_record)
 
           described_class.define('test', parent: :some_parent) {}
         end
@@ -60,7 +60,7 @@ describe Whisperer do
         it 'raises an error' do
           expect {
             described_class.define('test', parent: :some_parent) {}
-          }.to raise_error(ArgumentError, 'Parent record "some_parent" is not declired.')
+          }.to raise_error(ArgumentError, 'Parent record "some_parent" is not declared.')
         end
       end
     end
@@ -85,7 +85,7 @@ describe Whisperer do
   end
 
   describe '.generate' do
-    context 'when there is not such fixture record' do
+    context 'when the fixture record with the given name does not exist' do
       it 'raises an error' do
         expect { described_class.generate(:mytest) }.to raise_error(
           Whisperer::NoFixtureRecordError,
@@ -93,9 +93,61 @@ describe Whisperer do
         )
       end
     end
+
+    context 'when the fixture with the given name exists' do
+      shared_examples 'generator' do |name|
+        it 'generates the VCR fixture' do
+          expect(Whisperer::Generator).to receive(:generate).with(
+            fixture_record,
+            :test
+          )
+
+          described_class.generate(name)
+        end
+      end
+
+      let(:fixture_record) { double }
+
+      before do
+        described_class.fixture_records[:test] = fixture_record
+      end
+
+      context 'when the given name is a symbol' do
+        it_behaves_like 'generator', :test
+      end
+
+      context 'when the given name is a string' do
+        it_behaves_like 'generator', 'test'
+      end
+    end
   end
 
   describe '.generate_all' do
+    context 'when there are defined fixtures' do
+      let(:record1) { double('Fixture record 1') }
+      let(:record2) { double('Fixture record 2') }
+
+      before do
+        Whisperer::fixture_records[:record1] = record1
+        Whisperer::fixture_records[:record2] = record2
+
+        allow(Whisperer).to receive(:defined_any?).and_return(true)
+        allow(Whisperer).to receive(:generate)
+      end
+
+      it 'generates the VCR fixture based on record1' do
+        expect(Whisperer).to receive(:generate).with(:record1)
+
+        described_class.generate_all
+      end
+
+      it 'generates the VCR fixture based on record2' do
+        expect(Whisperer).to receive(:generate).with(:record2)
+
+        described_class.generate_all
+      end
+    end
+
     context 'when there are not defined fixture records' do
       before do
         allow(Whisperer).to receive(:defined_any?).and_return(false)
@@ -124,6 +176,14 @@ describe Whisperer do
       it 'returns the registered class' do
         expect(described_class.serializer(:json)).to eq(Whisperer::Serializers::Json)
       end
+    end
+  end
+
+  describe '.register_preprocessor' do
+    it 'registers preprocessor' do
+      expect(Whisperer::Preprocessors).to receive(:register).with('some name', 'some class')
+
+      Whisperer.register_preprocessor('some name', 'some class')
     end
   end
 end
