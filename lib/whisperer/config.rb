@@ -3,14 +3,14 @@ require 'yaml'
 module Whisperer
   # This config class is used only for Rake tasks.
   # The puspose of it is to allow third users to defile options in Yaml file
-  # for generating fixtures and then it will be picked up
-  # while generating fixtures.
+  # for generating cassettes and then it will be picked up
+  # while generating cassettes.
   class Config
     include Virtus.model
 
-    attribute :path_to_builders,  String, default: 'spec/fixture_builders'
+    attribute :path_to_builders,  String, default: 'spec/cassette_builders'
 
-    attribute :generate_to,       String, default: 'spec/fixtures'
+    attribute :generate_to,       String, default: 'spec/cassettes'
     attribute :factories_matcher, String, default: './spec/factories/**/*.rb'
     attribute :builders_matcher,  String, default: -> (c, attr) { "./#{c.path_to_builders}/**/*.rb" }
 

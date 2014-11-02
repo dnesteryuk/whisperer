@@ -1,9 +1,9 @@
 ## Release 0.0.1
 
-1. Make sure that generated fixtures supports ERB.
-2. Add possibility to set a default serializer for a fixture record
+1. Make sure that generated cassettes supports ERB.
+2. Add possibility to set a default serializer for a cassette record
 3. Add info to doc:
-  - subpath for generating fixtures
+  - subpath for generating cassettes
 
 ## Release 0.0.2
 
@@ -42,6 +42,6 @@
 
 6. Refactore Whisperer::Record#merge_attrs! method, it should be moved to some another class
 7. Refactore Whisperer.define method, it is another responsibility which should not leave in this module.
-8. Think about the issue with touching Whisperer::fixture_records, it is not ok
-9. `Whisperer::generate` and `Whisperer::generate_all` receive fixture records twice. Also, it is needless to check existence of a fixture record if it is passed from `generate_all` to `generate`.
+8. Think about the issue with touching Whisperer::cassette_records, it is not ok
+9. `Whisperer::generate` and `Whisperer::generate_all` receive cassette records twice. Also, it is needless to check existence of a cassette record if it is passed from `generate_all` to `generate`.
 10. Serializers must be stored similar to preprocessors (in the own module/class).

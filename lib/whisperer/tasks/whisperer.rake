@@ -15,14 +15,14 @@ Dir[
 namespace :whisperer do
   desc 'Creates minimal structure of directories, creates a config file with default options'
   task install: ['config:create'] do
-    path_to_builders = 'spec/fixture_builders'
+    path_to_builders = 'spec/cassette_builders'
 
     if Dir.exists?(path_to_builders)
       puts Rainbow("Skipped creating of #{path_to_builders} since it already exists").green
     else
       Dir.mkdir(path_to_builders)
 
-      puts Rainbow("Created directory for fixture builders: #{path_to_builders}").green
+      puts Rainbow("Created directory for cassette builders: #{path_to_builders}").green
     end
   end
 
@@ -47,41 +47,41 @@ namespace :whisperer do
     end
   end
 
-  namespace :fixtures do
-    desc 'Takes all fixture builders and generates fixtures for VCR'
+  namespace :cassettes do
+    desc 'Takes all cassette builders and generates cassettes for VCR'
     task :generate_all do
       begin
         Whisperer.generate_all
 
-        puts Rainbow('Fixtures are generated').green
-      rescue Whisperer::NoFixtureRecordError => error
-        puts Rainbow("Any fixture builder was found. Please, make sure you define at least one (We are looking for it like: #{config.builders_matcher}).").yellow
+        puts Rainbow('cassettes are generated').green
+      rescue Whisperer::NocassetteRecordError => error
+        puts Rainbow("Any cassette builder was found. Please, make sure you define at least one (We are looking for it like: #{config.builders_matcher}).").yellow
       end
     end
 
-    desc 'Takes a specific fixture builder and generates one specific fixture for VCR'
+    desc 'Takes a specific cassette builder and generates one specific cassette for VCR'
     task :generate, :name do |t, args|
       name = args[:name]
 
       begin
         Whisperer::generate(name)
 
-        puts Rainbow("The fixture '#{name}' is generated").green
-      rescue Whisperer::NoFixtureRecordError => error
+        puts Rainbow("The cassette '#{name}' is generated").green
+      rescue Whisperer::NocassetteRecordError => error
         puts Rainbow(error.message).red
       end
     end
 
     namespace :builders do
-      desc 'Creates a sample of the fixture builder'
+      desc 'Creates a sample of the cassette builder'
       task :sample do
-        sample = File.join(File.dirname(__FILE__), '../samples/fixture_builder.rb')
+        sample = File.join(File.dirname(__FILE__), '../samples/cassette_builder.rb')
 
         path_to_save = config.path_to_builders + '/sample.rb'
 
         FileUtils.cp(sample, path_to_save)
 
-        puts Rainbow("Created the sample of the fixture builder: #{path_to_save}").green
+        puts Rainbow("Created the sample of the cassette builder: #{path_to_save}").green
       end
     end
   end

@@ -15,7 +15,7 @@ module Whisperer
 
       interaction = Convertors::Interaction.convert(record)
 
-      self.uniq_fixture!
+      self.uniq_cassette!
 
       cassette = VCR::Cassette.new("#{record.sub_path}/#{@name}")
       cassette.record_http_interaction(
@@ -24,18 +24,18 @@ module Whisperer
 
       cassette.eject
 
-      File.read(path_to_fixture)
+      File.read(path_to_cassette)
     end
 
     protected
-      def path_to_fixture
+      def path_to_cassette
         "#{VCR.configuration.cassette_library_dir}/#{record.sub_path}/#{@name}.yml"
       end
 
-      def uniq_fixture!
-        if File.exists?(path_to_fixture)
+      def uniq_cassette!
+        if File.exists?(path_to_cassette)
           File.unlink(
-            path_to_fixture
+            path_to_cassette
           )
         end
       end

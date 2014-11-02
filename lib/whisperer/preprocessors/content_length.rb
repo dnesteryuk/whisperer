@@ -1,7 +1,7 @@
 require_relative 'base'
 
 # This class calculates a content length for a response body
-# if it is not defined in a fixture record.
+# if it is not defined in a cassette record.
 module Whisperer
   module Preprocessors
     class ContentLength < Base

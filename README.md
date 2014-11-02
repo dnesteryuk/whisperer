@@ -4,7 +4,7 @@
 [![Build Status](https://secure.travis-ci.org/dnesteryuk/whisperer.png?branch=master)](https://travis-ci.org/dnesteryuk/whisperer)
 [![Dependency Status](https://gemnasium.com/dnesteryuk/whisperer.png)](https://gemnasium.com/dnesteryuk/whisperer)
 
-Do you hate fixtures? I do as well. The purpose of this library is to make your life much easier when your application works with external API and you have to create a lot of VCR fixtures.
+Do you hate cassettes? I do as well. The purpose of this library is to make your life much easier when your application works with external API and you have to create a lot of VCR cassettes.
 
 ## Installation
 
@@ -27,7 +27,7 @@ To create default directories' structure and the config file with default option
 
     $ rake whisperer:install
 
-It will create `fixture_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of a project.
+It will create `cassette_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of a project.
 
 If you want to create only the config file, you need to execute:
 
@@ -35,9 +35,9 @@ If you want to create only the config file, you need to execute:
 
 ## Usage
 
-### Describing VCR fixtures
+### Describing VCR cassettes
 
-VCR fixtures are described in `fixture builders`. It is Ruby DSL which repeats structure of VCR fixture:
+VCR cassettes are described in `cassette builders`. It is Ruby DSL which repeats structure of VCR cassette:
 
 ```ruby
 Whisperer.define(:arya_stark) do
@@ -117,9 +117,9 @@ end
 
 It is very useful, when you need dynamically generate instances of a factory.
 
-#### Inheritance in fixture builders
+#### Inheritance in cassette builders
 
-If you need to generate almost the same VCR fixture, but with a bit differ data, you can do it via inheritance:
+If you need to generate almost the same VCR cassette, but with a bit differ data, you can do it via inheritance:
 
 ```ruby
 Whisperer.define(:robb_stark, parent: :arya_stark) do
@@ -131,9 +131,9 @@ Whisperer.define(:robb_stark, parent: :arya_stark) do
 end
 ```
 
-In this case all data is taken from `aray_stark` fixture builder, only the response body is different.
+In this case all data is taken from `aray_stark` cassette builder, only the response body is different.
 
-You can redefine any option of VCR fixture:
+You can redefine any option of VCR cassette:
 
 ```ruby
 Whisperer.define(:robb_stark, parent: :arya_stark) do
@@ -155,7 +155,7 @@ While describing headers for a request or response you can use any kind of heade
   end
 ```
 
-It will look in a fixture like:
+It will look in a cassette like:
 
 ```
   Content-Length:
@@ -168,7 +168,7 @@ It will look in a fixture like:
 
 #### Placeholder for FactoryGirl
 
-Since VCR is used to stub interractions with external services, there is a big chance that you don't have Ruby model to be used for defining factories. In most cases, you don't need them to generate VCR fixtures. Whisperer offers the placeholder class:
+Since VCR is used to stub interractions with external services, there is a big chance that you don't have Ruby model to be used for defining factories. In most cases, you don't need them to generate VCR cassettes. Whisperer offers the placeholder class:
 
 ```ruby
   FactoryGirl.define do
@@ -249,40 +249,40 @@ Now, it can be used as any other serializer:
 
 You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:
 
- - generate_to - the path to save generated fixtures
+ - generate_to - the path to save generated cassettes
  - builders_matcher - the pattern to find builders
  - factories_matcher - the pattern to find factories
 
 Example of such file:
 
 ```
-generate_to:       'spec/fixtures/vcr_cassettes/'
-builders_matcher:  './spec/fixture_builders/**/*.rb'
+generate_to:       'spec/cassettes/vcr_cassettes/'
+builders_matcher:  './spec/cassette_builders/**/*.rb'
 factories_matcher: './spec/factories/*.rb'
 ```
 
-### Generating fixtures
+### Generating cassettes
 
-To generate fixtures based on fixture builders, you need to launch command:
+To generate cassettes based on cassette builders, you need to launch command:
 
-    $ rake whisperer:fixtures:generate_all
+    $ rake whisperer:cassettes:generate_all
 
-This command will generate new fixtures and re-generate all existing fixtures for VCR.
+This command will generate new cassettes and re-generate all existing cassettes for VCR.
 
-To generate only on particular fixture, you can use this command
+To generate only on particular cassette, you can use this command
 
-    $ rake whisperer:fixtures:generate[fixture_builder]
+    $ rake whisperer:cassettes:generate[cassette_builder]
 
-`fixture_builder` is a name of the fixture builder.
+`cassette_builder` is a name of the cassette builder.
 
-### Generating a sample for the fixture builder
+### Generating a sample for the cassette builder
 
-Manual creation of fixture builders is painful as well. There is a command which can help with that:
+Manual creation of cassette builders is painful as well. There is a command which can help with that:
 
 
-    $ rake whisperer:fixtures:builders:sample
+    $ rake whisperer:cassettes:builders:sample
 
-It creates a sample for you in the directory with fixture builders, you need to edit it only.
+It creates a sample for you in the directory with cassette builders, you need to edit it only.
 
 ## Contributing
 

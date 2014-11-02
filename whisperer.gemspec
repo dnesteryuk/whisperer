@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Dmitriy Nesteryuk']
   spec.email         = ['nesterukd@gmail.com']
   spec.description   = %q{Generate HTTP responses for VCR from structures defined by FactoryGirl}
-  spec.summary       = %q{Do you hate fixtures? I do as well. The purpose of this library is to make your life much easier when your application works with external API and you have to create a lot of VCR fixtures.}
+  spec.summary       = %q{Do you hate cassettes? I do as well. The purpose of this library is to make your life much easier when your application works with external API and you have to create a lot of VCR cassettes.}
   spec.homepage      = 'http://github.com/dnesteryuk/whisperer'
   spec.license       = 'MIT'
 

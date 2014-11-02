@@ -21,11 +21,11 @@ require 'whisperer/preprocessors'
 require 'whisperer/preprocessors/content_length'
 
 module Whisperer
-  @fixture_records = ThreadSafe::Hash.new
-  @serializers     = ThreadSafe::Hash.new
+  @cassette_records = ThreadSafe::Hash.new
+  @serializers      = ThreadSafe::Hash.new
 
   class << self
-    attr_reader :fixture_records
+    attr_reader :cassette_records
     attr_reader :serializers
 
     def define(name, options = {}, &block)
@@ -34,7 +34,7 @@ module Whisperer
       record = dsl.container
 
       if options[:parent]
-        original_record = fixture_records[options[:parent]]
+        original_record = cassette_records[options[:parent]]
 
         if original_record.nil?
           raise ArgumentError.new("Parent record \"#{options[:parent]}\" is not declared.")
@@ -43,33 +43,33 @@ module Whisperer
         end
       end
 
-      fixture_records[name.to_sym] = record
+      cassette_records[name.to_sym] = record
     end
 
     # Returns true if at least one factory is defined, otherwise returns false.
     def defined_any?
-      fixture_records.size > 0
+      cassette_records.size > 0
     end
 
     def generate(name)
       name = name.to_sym
 
-      unless fixture_records[name]
-        raise NoFixtureRecordError.new("There is not fixture builder with \"#{name}\" name.")
+      unless cassette_records[name]
+        raise NocassetteRecordError.new("There is not cassette builder with \"#{name}\" name.")
       end
 
-      container = fixture_records[name]
+      container = cassette_records[name]
 
       Generator.generate(container, name)
     end
 
     def generate_all
       if defined_any?
-        fixture_records.each do |name, container|
+        cassette_records.each do |name, container|
           generate(name)
         end
       else
-        raise NoFixtureRecordError.new('Fixture builders are not found.')
+        raise NocassetteRecordError.new('cassette builders are not found.')
       end
     end
 
@@ -90,7 +90,7 @@ module Whisperer
     end
   end
 
-  class NoFixtureRecordError < ArgumentError; end
+  class NocassetteRecordError < ArgumentError; end
 end
 
 

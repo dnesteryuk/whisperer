@@ -1,7 +1,7 @@
-module Fixtures
-  # Returns content of a generated fixture
-  def fixture(fixture_name)
-    f = File.read('spec/fixtures/' << fixture_name << '.yml')
+module Cassettes
+  # Returns content of a generated cassette
+  def cassette(cassette_name)
+    f = File.read('spec/cassettes/' << cassette_name << '.yml')
     #, '"99*/*"'
     if RUBY_VERSION =~ /2.0.\d+/
       f.gsub(/("\*\/\*")/, '\'*/*\'')

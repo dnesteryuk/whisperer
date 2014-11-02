@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Whisperer do
   after do
-    described_class.fixture_records.clear
+    described_class.cassette_records.clear
   end
 
   describe '.define' do
-    let(:fixture_record) { instance_double('Whisperer::Record', merge!: true) }
-    let(:dsl)            { instance_double('Whisperer::Dsl', container: fixture_record) }
+    let(:cassette_record) { instance_double('Whisperer::Record', merge!: true) }
+    let(:dsl)            { instance_double('Whisperer::Dsl', container: cassette_record) }
 
     before do
       allow(Whisperer::Dsl).to receive(:build).and_return(dsl)
@@ -27,30 +27,30 @@ describe Whisperer do
       }
     end
 
-    it 'stores the generated fixture record' do
+    it 'stores the generated cassette record' do
       described_class.define(:test) {}
 
-      expect(Whisperer.fixture_records[:test]).to eq(fixture_record)
+      expect(Whisperer.cassette_records[:test]).to eq(cassette_record)
     end
 
-    context 'when a string as a name of the fixture record is given' do
-      it 'stores a fixture record with a symbol key' do
+    context 'when a string as a name of the cassette record is given' do
+      it 'stores a cassette record with a symbol key' do
         described_class.define('test') {}
 
-        expect(Whisperer.fixture_records[:test]).to eq(fixture_record)
+        expect(Whisperer.cassette_records[:test]).to eq(cassette_record)
       end
     end
 
-    context 'when a parent is defined for a fixture record' do
+    context 'when a parent is defined for a cassette record' do
       context 'when such parent exists' do
-        let(:orig_fixture_record) { double('original fixture record') }
+        let(:orig_cassette_record) { double('original cassette record') }
 
         before do
-          Whisperer.fixture_records[:some_parent] = orig_fixture_record
+          Whisperer.cassette_records[:some_parent] = orig_cassette_record
         end
 
         it 'merges the original record with the newly built' do
-          expect(fixture_record).to receive(:merge!).with(orig_fixture_record)
+          expect(cassette_record).to receive(:merge!).with(orig_cassette_record)
 
           described_class.define('test', parent: :some_parent) {}
         end
@@ -67,9 +67,9 @@ describe Whisperer do
   end
 
   describe '.defined_any?' do
-    context 'when there are defined fixture records' do
+    context 'when there are defined cassette records' do
       before do
-        described_class.fixture_records[:test] = true
+        described_class.cassette_records[:test] = true
       end
 
       it 'returns true' do
@@ -77,7 +77,7 @@ describe Whisperer do
       end
     end
 
-    context 'when there are not defined fixture_records' do
+    context 'when there are not defined cassette_records' do
       it 'returns false' do
         expect(Whisperer.defined_any?).to be_falsey
       end
@@ -85,20 +85,20 @@ describe Whisperer do
   end
 
   describe '.generate' do
-    context 'when the fixture record with the given name does not exist' do
+    context 'when the cassette record with the given name does not exist' do
       it 'raises an error' do
         expect { described_class.generate(:mytest) }.to raise_error(
-          Whisperer::NoFixtureRecordError,
-          'There is not fixture builder with "mytest" name.'
+          Whisperer::NocassetteRecordError,
+          'There is not cassette builder with "mytest" name.'
         )
       end
     end
 
-    context 'when the fixture with the given name exists' do
+    context 'when the cassette with the given name exists' do
       shared_examples 'generator' do |name|
-        it 'generates the VCR fixture' do
+        it 'generates the VCR cassette' do
           expect(Whisperer::Generator).to receive(:generate).with(
-            fixture_record,
+            cassette_record,
             :test
           )
 
@@ -106,10 +106,10 @@ describe Whisperer do
         end
       end
 
-      let(:fixture_record) { double }
+      let(:cassette_record) { double }
 
       before do
-        described_class.fixture_records[:test] = fixture_record
+        described_class.cassette_records[:test] = cassette_record
       end
 
       context 'when the given name is a symbol' do
@@ -123,40 +123,40 @@ describe Whisperer do
   end
 
   describe '.generate_all' do
-    context 'when there are defined fixtures' do
-      let(:record1) { double('Fixture record 1') }
-      let(:record2) { double('Fixture record 2') }
+    context 'when there are defined cassettes' do
+      let(:record1) { double('cassette record 1') }
+      let(:record2) { double('cassette record 2') }
 
       before do
-        Whisperer::fixture_records[:record1] = record1
-        Whisperer::fixture_records[:record2] = record2
+        Whisperer::cassette_records[:record1] = record1
+        Whisperer::cassette_records[:record2] = record2
 
         allow(Whisperer).to receive(:defined_any?).and_return(true)
         allow(Whisperer).to receive(:generate)
       end
 
-      it 'generates the VCR fixture based on record1' do
+      it 'generates the VCR cassette based on record1' do
         expect(Whisperer).to receive(:generate).with(:record1)
 
         described_class.generate_all
       end
 
-      it 'generates the VCR fixture based on record2' do
+      it 'generates the VCR cassette based on record2' do
         expect(Whisperer).to receive(:generate).with(:record2)
 
         described_class.generate_all
       end
     end
 
-    context 'when there are not defined fixture records' do
+    context 'when there are not defined cassette records' do
       before do
         allow(Whisperer).to receive(:defined_any?).and_return(false)
       end
 
       it 'raises and error' do
         expect { described_class.generate_all }.to raise_error(
-          Whisperer::NoFixtureRecordError,
-          'Fixture builders are not found.'
+          Whisperer::NocassetteRecordError,
+          'cassette builders are not found.'
         )
       end
     end

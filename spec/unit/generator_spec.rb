@@ -21,10 +21,10 @@ describe Whisperer::Generator do
   end
 
   describe '#generate' do
-    let(:path_to_fixture_dir) { VCR.configuration.cassette_library_dir + '/test/' }
-    let(:path_to_fixture)     { path_to_fixture_dir + 'testfixture.yml' }
+    let(:path_to_cassette_dir) { VCR.configuration.cassette_library_dir + '/test/' }
+    let(:path_to_cassette)     { path_to_cassette_dir + 'testcassette.yml' }
 
-    subject { described_class.new(record, 'testfixture') }
+    subject { described_class.new(record, 'testcassette') }
 
     before do
       allow(Whisperer::Preprocessors).to receive(:process!).and_return(record)
@@ -32,8 +32,8 @@ describe Whisperer::Generator do
     end
 
     after do
-      File.delete(path_to_fixture)
-      Dir.delete(path_to_fixture_dir)
+      File.delete(path_to_cassette)
+      Dir.delete(path_to_cassette_dir)
     end
 
     it 'processes preprocessors' do
@@ -48,24 +48,24 @@ describe Whisperer::Generator do
       subject.generate
     end
 
-    it 'generates a VCR fixture' do
+    it 'generates a VCR cassette' do
       subject.generate
 
       expect(
-        File.exists?(path_to_fixture)
+        File.exists?(path_to_cassette)
       ).to be_truthy
     end
 
-    it 'returns a generated fixture' do
+    it 'returns a generated cassette' do
       subject.generate
 
       expect(subject.generate).to match(/http_interactions:/)
     end
 
     it 'removes the duplication' do
-      Dir.mkdir(path_to_fixture_dir)
+      Dir.mkdir(path_to_cassette_dir)
 
-      f = File.open(path_to_fixture, 'w')
+      f = File.open(path_to_cassette, 'w')
       f.write('mytest')
       f.close
 
