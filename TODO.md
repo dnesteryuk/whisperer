@@ -1,8 +1,7 @@
 ## Release 0.0.1
 
-1. Make sure that generated cassettes supports ERB.
-2. Add possibility to set a default serializer for a cassette record
-3. Add info to doc:
+1. Add possibility to set a default serializer for a cassette record
+2. Add info to doc:
   - subpath for generating cassettes
 
 ## Release 0.0.2
