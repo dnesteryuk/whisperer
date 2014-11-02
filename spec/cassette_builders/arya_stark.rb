@@ -16,7 +16,7 @@ Whisperer.define(:arya_stark) do
 
     body do
       encoding 'UTF-8'
-      factory  'arya_stark', :json
+      factory  'arya_stark'
     end
   end
 

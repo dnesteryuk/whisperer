@@ -48,14 +48,25 @@ describe Whisperer::Dsl::Body do
   describe '#raw_data' do
     let(:data) { 'some data' }
 
-    it 'gets a serializer' do
-      expect(Whisperer).to receive(:serializer).with(:json)
+    context 'when a serializer name is not given' do
+      it 'gets the default serializer' do
+        expect(Whisperer).to receive(:serializer).with(:json)
 
-      subject.raw_data(data)
+        subject.raw_data(data)
+      end
+    end
+
+    context 'when a serializer name is given' do
+      it 'gets the requested serializer' do
+        expect(Whisperer).to receive(:serializer).with(:myjson)
+
+        subject.serializer(:myjson)
+        subject.raw_data(data)
+      end
     end
 
     context 'when options for a serializer is not given' do
-      it 'serializes a give data' do
+      it 'serializes a give data with empty options' do
         expect(serializer).to receive(:serialize).with(data, {})
 
         subject.raw_data(data)
@@ -63,10 +74,10 @@ describe Whisperer::Dsl::Body do
     end
 
     context 'when options for a serializer is given' do
-      it 'serializes a give data' do
+      it 'serializes a give data with the given options' do
         expect(serializer).to receive(:serialize).with(data, 'some options')
 
-        subject.raw_data(data, :json, 'some options')
+        subject.raw_data(data, 'some options')
       end
     end
 

@@ -22,7 +22,7 @@ Whisperer.define(:robb_stark) do
 
     body do
       encoding 'UTF-8'
-      factory  'robb_stark', :json
+      factory  'robb_stark'
     end
   end
 
