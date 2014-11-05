@@ -1,5 +1,5 @@
 require_relative 'headers'
-require_relative 'body'
+require_relative 'response/body'
 require_relative 'response/status'
 
 module Whisperer
@@ -12,7 +12,7 @@ module Whisperer
       header
     }
 
-    attribute :body,    Whisperer::Body,    default: proc { Whisperer::Body.new }
-    attribute :status,  Whisperer::Status,  default: proc { Whisperer::Status.new }
+    attribute :body,    Body,    default: proc { Body.new }
+    attribute :status,  Status,  default: proc { Status.new }
   end # class Response
 end # module Whisperer
