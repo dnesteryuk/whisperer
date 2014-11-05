@@ -1,5 +1,5 @@
 require_relative 'headers'
-require_relative 'response/body'
+require_relative 'body'
 require_relative 'response/status'
 
 module Whisperer

@@ -11,6 +11,6 @@ module Whisperer
       Whisperer::Headers.new
     }
 
-    attribute :body, Whisperer::Body, default: proc { Whisperer::Body.new }
+    attribute :body, Body, default: proc { Body.new }
   end # class Request
 end # module Whisperer
