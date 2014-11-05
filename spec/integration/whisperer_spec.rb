@@ -23,6 +23,10 @@ describe 'Whisperer' do
     it 'generates a cassette with data from a parent cassette' do
       expect(cassette('wolfs')).to eq(Whisperer.generate(:wolfs))
     end
+
+    it 'generates a cassette and uses the serializer defined in the parent builder' do
+      expect(cassette('sansa_stark')).to eq(Whisperer.generate(:sansa_stark))
+    end
   end
 
   context 'when a cassette record is given without a defined content length for a response body' do

@@ -8,6 +8,9 @@ require 'factory_girl'
 require 'whisperer'
 
 require 'support/cassettes'
+require 'support/custom_serializer'
+
+Whisperer.register_serializer(:custom, CustomSerializer)
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|

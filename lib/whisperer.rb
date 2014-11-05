@@ -19,6 +19,7 @@ require 'whisperer/serializers/json_multiple'
 
 require 'whisperer/preprocessors'
 require 'whisperer/preprocessors/content_length'
+require 'whisperer/preprocessors/response_body'
 
 module Whisperer
   @cassette_records = ThreadSafe::Hash.new
@@ -97,4 +98,5 @@ end
 Whisperer.register_serializer(:json, Whisperer::Serializers::Json)
 Whisperer.register_serializer(:json_multiple, Whisperer::Serializers::JsonMultiple)
 
+Whisperer::register_preprocessor(:response_body, Whisperer::Preprocessors::ResponseBody)
 Whisperer::register_preprocessor(:content_length, Whisperer::Preprocessors::ContentLength)

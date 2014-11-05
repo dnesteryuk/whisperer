@@ -32,7 +32,9 @@ module Whisperer
             is_default = false
 
             unless attr_info.nil?
-              def_val = (attr_info.default_value.call rescue attr_info.default_value)
+              def_val = attr_info.default_value
+              def_val = def_val.call if def_val.respond_to?(:call)
+
               is_default = def_val == container[attr]
             end
 

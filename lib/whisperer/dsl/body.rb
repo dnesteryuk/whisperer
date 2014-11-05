@@ -6,12 +6,6 @@ module Whisperer
       add_writer 'encoding'
       add_writer 'string'
 
-      def initialize(container)
-        super
-
-        @serializer = :json # Default serializer
-      end
-
       def factory(name, *args)
         model = FactoryGirl.build(name)
 
@@ -26,21 +20,14 @@ module Whisperer
         raw_data(models, *args)
       end
 
-      def raw_data(data, options = {})
-        @container.string = serializer_class(@serializer).serialize(
-          data,
-          options
-        )
+      def raw_data(data_obj, options = {})
+        @container.data_obj        = data_obj
+        @container.serializer_opts = options
       end
 
       def serializer(name)
-        @serializer = name
+        @container.serializer = name.to_sym
       end
-
-      protected
-        def serializer_class(name)
-          Whisperer.serializer(name)
-        end
     end # class Body
   end # class Dsl
 end # module Whisperer

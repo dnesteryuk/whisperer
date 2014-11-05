@@ -7,8 +7,8 @@ FactoryGirl.define do
     name 'John Snow'
   end
 
-  factory :bran_stark, class: TestUser do
-    name 'Bran Stark'
+  factory :eddard_stark, class: TestUser do
+    name 'Eddard Stark'
   end
 end
 
@@ -38,53 +38,36 @@ describe Whisperer::Dsl::Body do
     it 'writes factories' do
       expect(subject).to receive(:raw_data) do |model|
         expect(model.first.name).to eq('John Snow')
-        expect(model.last.name).to eq('Bran Stark')
+        expect(model.last.name).to eq('Eddard Stark')
       end
 
-      subject.factories([:john_snow, :bran_stark])
+      subject.factories([:john_snow, :eddard_stark])
     end
   end
 
   describe '#raw_data' do
-    let(:data) { 'some data' }
+    let(:container) { instance_double('Whisperer::Body', :data_obj= => true, :serializer_opts= => true) }
 
-    context 'when a serializer name is not given' do
-      it 'gets the default serializer' do
-        expect(Whisperer).to receive(:serializer).with(:json)
+    it 'assigns the data object to the container' do
+      expect(container).to receive(:data_obj=).with('test obj')
 
-        subject.raw_data(data)
-      end
+      subject.raw_data('test obj')
     end
 
-    context 'when a serializer name is given' do
-      it 'gets the requested serializer' do
-        expect(Whisperer).to receive(:serializer).with(:myjson)
+    it 'assigns the serializer options to the container' do
+      expect(container).to receive(:serializer_opts=).with('test options')
 
-        subject.serializer(:myjson)
-        subject.raw_data(data)
-      end
+      subject.raw_data(nil, 'test options')
     end
+  end
 
-    context 'when options for a serializer is not given' do
-      it 'serializes a give data with empty options' do
-        expect(serializer).to receive(:serialize).with(data, {})
+  describe '#serializer' do
+    let(:container) { instance_double('Whisperer::Body', :serializer= => true) }
 
-        subject.raw_data(data)
-      end
-    end
+    it 'converts the name to the symbol and assigns to the container' do
+      expect(container).to receive(:serializer=).with(:test_name)
 
-    context 'when options for a serializer is given' do
-      it 'serializes a give data with the given options' do
-        expect(serializer).to receive(:serialize).with(data, 'some options')
-
-        subject.raw_data(data, 'some options')
-      end
-    end
-
-    it 'assigns the serialized data to the container' do
-      expect(container).to receive(:string=).with(serialized_data)
-
-      subject.raw_data(data)
+      subject.serializer 'test_name'
     end
   end
 end
