@@ -1,8 +1,8 @@
 ## Release 0.0.1
 
-1. Add possibility to set a default serializer for a cassette record
-2. Add info to doc:
+1. Add info to doc:
   - subpath for generating cassettes
+  - factories for requests
 
 ## Release 0.0.2
 
