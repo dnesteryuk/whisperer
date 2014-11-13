@@ -4,7 +4,7 @@
 [![Build Status](https://secure.travis-ci.org/dnesteryuk/whisperer.png?branch=master)](https://travis-ci.org/dnesteryuk/whisperer)
 [![Dependency Status](https://gemnasium.com/dnesteryuk/whisperer.png)](https://gemnasium.com/dnesteryuk/whisperer)
 
-Do you hate cassettes? I do as well. The purpose of this library is to make your life much easier when your application works with external API and you have to create a lot of VCR cassettes.
+Do you hate fixtures? I do as well. The purpose of this library is to make your life easier when your application works with external API and you use VCR to stub that API.
 
 ## Installation
 
@@ -27,7 +27,7 @@ To create default directories' structure and the config file with default option
 
     $ rake whisperer:install
 
-It will create `cassette_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of a project.
+It will create `cassette_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of the project.
 
 If you want to create only the config file, you need to execute:
 
@@ -66,13 +66,13 @@ Whisperer.define(:arya_stark) do
 end
 ```
 
-But, it is Ruby, hence, we can benefit from that. Whisperer uses [FactoryGirl](/thoughtbot/factory_girl) to describe a response body. If you are not familar with FactoryGirl, please, make sure, you know how to use it bofore going on. There are a few way how factories can be used.
+But, it is Ruby, hence, we can benefit from that. Whisperer uses [FactoryGirl](/thoughtbot/factory_girl) to describe a response body. If you are not familar with FactoryGirl, please, make sure, you know how to use it bofore going on. There are a few ways how factories can be used.
 
 You can use one single factory:
 
 ```ruby
 body do
-  factory 'arya_stark', :json # we provide only name of it
+  factory 'arya_stark' # we provide only name of the factory
 end
 ```
 
@@ -86,7 +86,7 @@ You can use multiple factories to generate collection for your response:
 
 ```ruby
 body do
-  factories ['robb_stark', 'ned_stark'], :json_multiple # again we provide only names of factories
+  factories ['robb_stark', 'ned_stark'] # again we provide only names of factories
 end
 ```
 
@@ -96,26 +96,24 @@ end
 string: '[{"first_name":"Robb","last_name":"Stark","group":"member"},{"first_name":"Ned","last_name":"Stark","group":"member"}]'
 ```
 
-You can pass factories instead of its name:
+You can pass factory objects instead of their names:
 
 ```ruby
 body do
-  factories = []
-
-  20.times do |t|
+  factories = (1..20).to_a.map do |i|
     factories << FactoryGirl.build(
-      :people,
-      id:          'testid' + i,
-      name:        'test name' + i,
-      description: 'desc' + i
+      :article,
+      id:      'testid' + i,
+      title:   'test name' + i,
+      body:    'desc' + i
     )
   end
 
-  raw_data factories, :json_multiple, options: {size: 22}
+  raw_data factories, :json_multiple
 end
 ```
 
-It is very useful, when you need dynamically generate instances of a factory.
+It is very useful, when you need generate dynamically instances of a factory.
 
 #### Inheritance in cassette builders
 
@@ -125,7 +123,7 @@ If you need to generate almost the same VCR cassette, but with a bit differ data
 Whisperer.define(:robb_stark, parent: :arya_stark) do
   response do
     body do
-      factory :robb_stark, :json
+      factory :robb_stark
     end
   end
 end
@@ -155,7 +153,7 @@ While describing headers for a request or response you can use any kind of heade
   end
 ```
 
-It will look in a cassette like:
+In a cassette it will look like:
 
 ```
   Content-Length:
@@ -180,7 +178,7 @@ Since VCR is used to stub interractions with external services, there is a big c
   end
 ```
 
-Placeholder is a simple class inheriting `OpenStruct` class.
+Placeholder is a simple class inheriting `OpenStruct` class:
 
 ```ruby
   Placeholder = Class.new(OpenStruct)
@@ -200,18 +198,20 @@ When an external API is subbed with VCR, API response has some format like Json,
 ```ruby
   response do
     body do
-      factory :robb_stark, :json
+      factory    :robb_stark
+      serializer :json
     end
   end
 ```
 
-Serializer name should be passed as a second argument to the `factory` method. The purpose of this class is to convert a given factory into Json format.
+The purpose of `json `serializer is to convert a given factory into Json format.
 
 `Multiple Json` serializer is used for serializing a collection of factories:
 
 ```ruby
 body do
-  factories ['robb_stark', 'ned_stark'], :json_multiple
+  factories  ['robb_stark', 'ned_stark']
+  serializer :json_multiple
 end
 ```
 
@@ -240,7 +240,8 @@ Now, it can be used as any other serializer:
 ```ruby
   response do
     body do
-      factory :robb_stark, :my_serializer
+      factory    :robb_stark
+      serializer :my_serializer
     end
   end
 ```
@@ -277,8 +278,7 @@ To generate only on particular cassette, you can use this command
 
 ### Generating a sample for the cassette builder
 
-Manual creation of cassette builders is painful as well. There is a command which can help with that:
-
+Manual creation of cassette builders is painful. There is a command which can help you with that:
 
     $ rake whisperer:cassettes:builders:sample
 
