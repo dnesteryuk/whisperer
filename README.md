@@ -117,7 +117,7 @@ It is very useful, when you need generate dynamically instances of a factory.
 
 #### Inheritance in cassette builders
 
-If you need to generate almost the same VCR cassette, but with a bit differ data, you can do it via inheritance:
+If you need to generate almost the same VCR cassette, but with a bit different data, you can do it via inheritance:
 
 ```ruby
 Whisperer.define(:robb_stark, parent: :arya_stark) do
