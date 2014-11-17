@@ -284,6 +284,10 @@ Manual creation of cassette builders is painful. There is a command which can he
 
 It creates a sample for you in the directory with cassette builders, you need to edit it only.
 
+## Code examples
+
+There is a repository with [examples](https://github.com/dnesteryuk/whisperer_example) of the Whisperer gem usage. It will help you to start using it.
+
 ## Contributing
 
 1. Fork it
