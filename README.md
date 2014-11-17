@@ -270,7 +270,7 @@ To generate cassettes based on cassette builders, you need to launch command:
 
 This command will generate new cassettes and re-generate all existing cassettes for VCR.
 
-To generate only on particular cassette, you can use this command
+To generate only one particular cassette, you can use this command
 
     $ rake whisperer:cassettes:generate[cassette_builder]
 
