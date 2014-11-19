@@ -4,7 +4,7 @@
 [![Build Status](https://secure.travis-ci.org/dnesteryuk/whisperer.png?branch=master)](https://travis-ci.org/dnesteryuk/whisperer)
 [![Dependency Status](https://gemnasium.com/dnesteryuk/whisperer.png)](https://gemnasium.com/dnesteryuk/whisperer)
 
-Do you hate fixtures? I do as well. The purpose of this library is to make your life easier when your application works with external API and you use VCR to stub that API.
+Do you hate fixtures? I do as well. The purpose of this library is to make your life easier when your application works with external API and you use VCR to stub that API. The reason why the gem was created is described [here](http://nesteryuk.info/2014/11/16/whisperer-introduction.html).
 
 ## Installation
 
