@@ -58,7 +58,7 @@ Whisperer.define(:arya_stark) do
 
     body do
       encoding 'UTF-8'
-      factory  'arya_stark', :json
+      factory  'arya_stark'
     end
   end
 
@@ -87,6 +87,7 @@ You can use multiple factories to generate collection for your response:
 ```ruby
 body do
   factories ['robb_stark', 'ned_stark'] # again we provide only names of factories
+  serializer :json_multiple
 end
 ```
 
@@ -109,7 +110,8 @@ body do
     )
   end
 
-  raw_data factories, :json_multiple
+  raw_data factories
+  serializer :json_multiple
 end
 ```
 
