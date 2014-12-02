@@ -6,8 +6,8 @@ describe Whisperer do
   end
 
   describe '.define' do
-    let(:cassette_record) { instance_double('Whisperer::Record', merge!: true) }
-    let(:dsl)            { instance_double('Whisperer::Dsl', container: cassette_record) }
+    let(:cassette_record) { instance_double('Whisperer::Record') }
+    let(:dsl)             { instance_double('Whisperer::Dsl', container: cassette_record) }
 
     before do
       allow(Whisperer::Dsl).to receive(:build).and_return(dsl)
@@ -50,7 +50,7 @@ describe Whisperer do
         end
 
         it 'merges the original record with the newly built' do
-          expect(cassette_record).to receive(:merge!).with(orig_cassette_record)
+          expect(Whisperer::Merger).to receive(:merge).with(cassette_record, orig_cassette_record)
 
           described_class.define('test', parent: :some_parent) {}
         end

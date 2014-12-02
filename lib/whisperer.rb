@@ -10,6 +10,7 @@ require 'whisperer/dsl'
 require 'whisperer/helpers'
 
 require 'whisperer/generator'
+require 'whisperer/merger'
 
 require 'whisperer/convertors/hash'
 require 'whisperer/convertors/interaction'
@@ -40,7 +41,7 @@ module Whisperer
         if original_record.nil?
           raise ArgumentError.new("Parent record \"#{options[:parent]}\" is not declared.")
         else
-          record.merge!(original_record)
+          Merger.merge(record, original_record)
         end
       end
 
