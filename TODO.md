@@ -44,3 +44,5 @@
 8. `Whisperer::generate` and `Whisperer::generate_all` receive cassette records twice. Also, it is needless to check existence of a cassette record if it is passed from `generate_all` to `generate`.
 9. Serializers must be stored similar to preprocessors (in the own module/class).
 10. Check whether we can use a real model instead of OpenStruct while describing factories.
+12. Find the way to disable altering the existing cassettes by VCR while launching tests.
+13. Check the situation when we have `parent -> parent -> child` during inheritance.

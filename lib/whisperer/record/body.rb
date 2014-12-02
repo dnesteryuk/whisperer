@@ -1,6 +1,6 @@
 module Whisperer
   # This class is used for request and response parts of HTTP
-  # interractions, it should include only common attributes and methods.
+  # interactions, it should include only common attributes and methods.
   class Body
     include Virtus.model
 

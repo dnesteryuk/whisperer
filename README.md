@@ -58,7 +58,7 @@ Whisperer.define(:arya_stark) do
 
     body do
       encoding 'UTF-8'
-      factory  'arya_stark', :json
+      factory  'arya_stark'
     end
   end
 
@@ -87,6 +87,7 @@ You can use multiple factories to generate collection for your response:
 ```ruby
 body do
   factories ['robb_stark', 'ned_stark'] # again we provide only names of factories
+  serializer :json_multiple
 end
 ```
 
@@ -109,7 +110,8 @@ body do
     )
   end
 
-  raw_data factories, :json_multiple
+  raw_data factories
+  serializer :json_multiple
 end
 ```
 
@@ -117,7 +119,7 @@ It is very useful, when you need generate dynamically instances of a factory.
 
 #### Inheritance in cassette builders
 
-If you need to generate almost the same VCR cassette, but with a bit differ data, you can do it via inheritance:
+If you need to generate almost the same VCR cassette, but with a bit different data, you can do it via inheritance:
 
 ```ruby
 Whisperer.define(:robb_stark, parent: :arya_stark) do
@@ -270,7 +272,7 @@ To generate cassettes based on cassette builders, you need to launch command:
 
 This command will generate new cassettes and re-generate all existing cassettes for VCR.
 
-To generate only on particular cassette, you can use this command
+To generate only one particular cassette, you can use this command
 
     $ rake whisperer:cassettes:generate[cassette_builder]
 
@@ -283,6 +285,14 @@ Manual creation of cassette builders is painful. There is a command which can he
     $ rake whisperer:cassettes:builders:sample
 
 It creates a sample for you in the directory with cassette builders, you need to edit it only.
+
+## Code examples
+
+There is a repository with [examples](https://github.com/dnesteryuk/whisperer_example) of the Whisperer gem usage. It will help you to start using it.
+
+## Resources
+
+[Introduction into Whisperer](http://nesteryuk.info/2014/11/16/whisperer-introduction.html)
 
 ## Contributing
 
