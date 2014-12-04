@@ -9,7 +9,7 @@ module Whisperer
 
     # Attributes which are not part of Vcr response
     attribute :data_obj,         Object
-    attribute :serializer,       Symbol, default: proc { :json }
+    attribute :serializer,       Symbol, default: proc { DefaultValue.new(:json) }
     attribute :serializer_opts,  Hash,   default: {}
   end # class Body
 end # module Whisperer

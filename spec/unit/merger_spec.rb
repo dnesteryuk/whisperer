@@ -91,7 +91,6 @@ describe Whisperer::Merger do
       }
 
       it 'has the newly defined value' do
-        skip 'this bug is not fixed yet'
         expect(child.response.body.serializer).to eq(:json)
       end
     end

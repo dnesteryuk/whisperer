@@ -19,6 +19,7 @@ require 'whisperer/serializers/json'
 require 'whisperer/serializers/json_multiple'
 
 require 'whisperer/preprocessors'
+require 'whisperer/preprocessors/default_values'
 require 'whisperer/preprocessors/content_length'
 require 'whisperer/preprocessors/response_body'
 
@@ -99,5 +100,6 @@ end
 Whisperer.register_serializer(:json, Whisperer::Serializers::Json)
 Whisperer.register_serializer(:json_multiple, Whisperer::Serializers::JsonMultiple)
 
-Whisperer::register_preprocessor(:response_body, Whisperer::Preprocessors::ResponseBody)
-Whisperer::register_preprocessor(:content_length, Whisperer::Preprocessors::ContentLength)
+Whisperer.register_preprocessor(:default_values, Whisperer::Preprocessors::DefaultValues)
+Whisperer.register_preprocessor(:response_body,  Whisperer::Preprocessors::ResponseBody)
+Whisperer.register_preprocessor(:content_length, Whisperer::Preprocessors::ContentLength)

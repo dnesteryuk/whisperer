@@ -7,7 +7,7 @@ module Whisperer
         body = @record.response.body
 
         unless body.data_obj.nil?
-          body.string = serializer_class(body.serializer).serialize(
+          body.string = serializer_class(body.serializer.to_sym).serialize(
             body.data_obj,
             body.serializer_opts
           )
