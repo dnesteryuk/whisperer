@@ -29,7 +29,7 @@ To create default directories' structure and the config file with default option
 
 It will create `cassette_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of the project.
 
-If you want to create only the config file, you need to execute:
+If you want to create the config file only, you need to execute:
 
     $ rake whisperer:config:create
 
@@ -115,7 +115,7 @@ body do
 end
 ```
 
-It is very useful, when you need generate dynamically instances of a factory.
+It is very useful, when you need to generate dynamically instances of a factory.
 
 #### Inheritance in cassette builders
 
@@ -248,6 +248,24 @@ Now, it can be used as any other serializer:
   end
 ```
 
+### Sub directories to save cassettes
+
+By default all generated cassettes are saved in one directory. It is not convenient when you have a lot of cassettes there. Therefore, there is an option to define own subpath in a cassette builder, that subpath will be used for saving a cassette:
+
+```ruby
+Whisperer.define(:robb_stark) do
+  response do
+    body do
+      factory 'robb_stark'
+    end
+  end
+
+  sub_path 'starks'
+end
+```
+
+If you don't change the path to your cassette, the cassette from the example will be saved in `spec/cassettes/vcr_cassettes/starks` directory. It helps you to structure your cassettes.
+
 ### Configuration
 
 You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:
@@ -272,7 +290,7 @@ To generate cassettes based on cassette builders, you need to launch command:
 
 This command will generate new cassettes and re-generate all existing cassettes for VCR.
 
-To generate only one particular cassette, you can use this command
+To generate one particular cassette, you can use this command
 
     $ rake whisperer:cassettes:generate[cassette_builder]
 
