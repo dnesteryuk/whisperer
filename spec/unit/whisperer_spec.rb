@@ -162,20 +162,11 @@ describe Whisperer do
     end
   end
 
-  describe '.serializer' do
-    context 'when there is not such serializer' do
-      it 'raises an error' do
-        expect { described_class.serializer(:mytest) }.to raise_error(
-          ArgumentError,
-          'There is not serializer registered with "mytest" name'
-        )
-      end
-    end
+  describe '.register_serializer' do
+    it 'registers serializer' do
+      expect(Whisperer::Serializers).to receive(:register).with('some name', 'some class')
 
-    context 'when there is such serializer' do
-      it 'returns the registered class' do
-        expect(described_class.serializer(:json)).to eq(Whisperer::Serializers::Json)
-      end
+      Whisperer.register_serializer('some name', 'some class')
     end
   end
 

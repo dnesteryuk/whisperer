@@ -15,6 +15,7 @@ require 'whisperer/merger'
 require 'whisperer/convertors/hash'
 require 'whisperer/convertors/interaction'
 
+require 'whisperer/serializers'
 require 'whisperer/serializers/json'
 require 'whisperer/serializers/json_multiple'
 
@@ -76,16 +77,8 @@ module Whisperer
       end
     end
 
-    def serializer(name)
-      unless serializers[name]
-        raise ArgumentError.new("There is not serializer registered with \"#{name}\" name")
-      end
-
-      serializers[name]
-    end
-
     def register_serializer(name, class_name)
-      serializers[name] = class_name
+      Serializers.register(name, class_name)
     end
 
     def register_preprocessor(name, class_name)
@@ -97,7 +90,7 @@ module Whisperer
 end
 
 
-Whisperer.register_serializer(:json, Whisperer::Serializers::Json)
+Whisperer.register_serializer(:json,          Whisperer::Serializers::Json)
 Whisperer.register_serializer(:json_multiple, Whisperer::Serializers::JsonMultiple)
 
 Whisperer.register_preprocessor(:default_values, Whisperer::Preprocessors::DefaultValues)

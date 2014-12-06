@@ -16,7 +16,7 @@ module Whisperer
 
       protected
         def serializer_class(name)
-          Whisperer.serializer(name)
+          Whisperer::Serializers.fetch(name)
         end
     end
   end

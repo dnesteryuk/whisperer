@@ -8,7 +8,7 @@ describe Whisperer::Preprocessors::ResponseBody do
       let(:record) { Whisperer::Record.new }
 
       it 'does not serialize anything' do
-        expect(Whisperer).to_not receive(:serializer)
+        expect(Whisperer::Serializers).to_not receive(:fetch)
 
         subject.process
       end
@@ -29,17 +29,17 @@ describe Whisperer::Preprocessors::ResponseBody do
       }
 
       before do
-        allow(Whisperer).to receive(:serializer).and_return(serializer)
+        allow(Whisperer::Serializers).to receive(:fetch).and_return(serializer)
         allow(serializer).to receive(:serialize).and_return(serialized_data)
       end
 
       it 'gets the serializer' do
-        expect(Whisperer).to receive(:serializer).with(:json)
+        expect(Whisperer::Serializers).to receive(:fetch).with(:json)
 
         subject.process
       end
 
-      it 'serializes the respose body' do
+      it 'serializes the response body' do
         expect(serializer).to receive(:serialize).with(data_obj, {some: 'options'})
 
         subject.process
