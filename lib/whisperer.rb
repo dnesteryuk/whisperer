@@ -59,7 +59,7 @@ module Whisperer
       name = name.to_sym
 
       unless cassette_records[name]
-        raise NocassetteRecordError.new("There is not cassette builder with \"#{name}\" name.")
+        raise NoCassetteRecordError.new("There is not cassette builder with \"#{name}\" name.")
       end
 
       container = cassette_records[name]
@@ -70,10 +70,10 @@ module Whisperer
     def generate_all
       if defined_any?
         cassette_records.each do |name, container|
-          generate(name)
+          Generator.generate(container, name)
         end
       else
-        raise NocassetteRecordError.new('cassette builders are not found.')
+        raise NoCassetteRecordError.new('Cassette builders are not found.')
       end
     end
 
@@ -86,7 +86,7 @@ module Whisperer
     end
   end
 
-  class NocassetteRecordError < ArgumentError; end
+  class NoCassetteRecordError < ArgumentError; end
 end
 
 

@@ -53,7 +53,7 @@ namespace :whisperer do
       begin
         Whisperer.generate_all
 
-        puts Rainbow('cassettes are generated').green
+        puts Rainbow('Cassettes are generated').green
       rescue Whisperer::NocassetteRecordError => error
         puts Rainbow("Any cassette builder was found. Please, make sure you define at least one (We are looking for it like: #{config.builders_matcher}).").yellow
       end

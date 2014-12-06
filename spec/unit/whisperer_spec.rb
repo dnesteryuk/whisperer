@@ -88,7 +88,7 @@ describe Whisperer do
     context 'when the cassette record with the given name does not exist' do
       it 'raises an error' do
         expect { described_class.generate(:mytest) }.to raise_error(
-          Whisperer::NocassetteRecordError,
+          Whisperer::NoCassetteRecordError,
           'There is not cassette builder with "mytest" name.'
         )
       end
@@ -124,25 +124,31 @@ describe Whisperer do
 
   describe '.generate_all' do
     context 'when there are defined cassettes' do
-      let(:record1) { double('cassette record 1') }
-      let(:record2) { double('cassette record 2') }
+      let(:record1) { double('Cassette record 1') }
+      let(:record2) { double('Cassette record 2') }
 
       before do
         Whisperer::cassette_records[:record1] = record1
         Whisperer::cassette_records[:record2] = record2
 
         allow(Whisperer).to receive(:defined_any?).and_return(true)
-        allow(Whisperer).to receive(:generate)
+        allow(Whisperer::Generator).to receive(:generate)
       end
 
       it 'generates the VCR cassette based on record1' do
-        expect(Whisperer).to receive(:generate).with(:record1)
+        expect(Whisperer::Generator).to receive(:generate).with(
+          record1,
+          :record1
+        )
 
         described_class.generate_all
       end
 
       it 'generates the VCR cassette based on record2' do
-        expect(Whisperer).to receive(:generate).with(:record2)
+        expect(Whisperer::Generator).to receive(:generate).with(
+          record2,
+          :record2
+        )
 
         described_class.generate_all
       end
@@ -155,8 +161,8 @@ describe Whisperer do
 
       it 'raises and error' do
         expect { described_class.generate_all }.to raise_error(
-          Whisperer::NocassetteRecordError,
-          'cassette builders are not found.'
+          Whisperer::NoCassetteRecordError,
+          'Cassette builders are not found.'
         )
       end
     end
