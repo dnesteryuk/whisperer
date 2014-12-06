@@ -35,10 +35,9 @@
 5. Refactore Whisperer.define method, it is another responsibility which should not leave in this module.
 6. Think about the issue with touching Whisperer::cassette_records in tests, it is not ok
 7. `Whisperer::generate` and `Whisperer::generate_all` receive cassette records twice. Also, it is needless to check existence of a cassette record if it is passed from `generate_all` to `generate`.
-8. Serializers must be stored similar to preprocessors (in the own module/class).
-9. Check whether we can use a real model instead of OpenStruct while describing factories.
-10. Check the situation when we have `parent -> parent -> child` during inheritance.
-11. Add info to doc:
+8. Check whether we can use a real model instead of OpenStruct while describing factories.
+9. Check the situation when we have `parent -> parent -> child` during inheritance.
+10. Add info to doc:
   - factories for requests
 
 ## Release 0.1.0
