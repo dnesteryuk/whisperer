@@ -13,7 +13,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '14'
+      - 14
     body:
       encoding: UTF-8
       string: '{"empty":true}'

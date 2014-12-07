@@ -6,15 +6,19 @@ describe Whisperer::Preprocessors::ContentLength do
 
     context 'when a content length for a response is defined' do
       let(:record) {
-        r = Whisperer::Record.new
-        r.response.headers.content_length = '10'
-        r
+        Whisperer::Record.new(
+          response: {
+            headers: {
+              content_length: 10
+            }
+          }
+        )
       }
 
       it 'record has a unchanged content length' do
         subject.process
 
-        expect(record.response.headers.content_length).to eq('10')
+        expect(record.response.headers.content_length).to eq(10)
       end
     end
 
@@ -32,7 +36,7 @@ describe Whisperer::Preprocessors::ContentLength do
       it 'measures size of body and writes it to the content length header of the response' do
         subject.process
 
-        expect(record.response.headers.content_length).to eq('4')
+        expect(record.response.headers.content_length).to eq(4)
       end
     end
   end

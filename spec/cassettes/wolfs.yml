@@ -15,7 +15,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '57'
+      - 57
       Content-Type:
       - application/json;charset=utf-8
       X-Content-Type-Options:

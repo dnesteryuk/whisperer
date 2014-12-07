@@ -2,8 +2,13 @@ module Whisperer
   class Headers
      include Virtus.model
 
-    def initialize(*args)
+    def initialize(attrs = {})
       extend Virtus.model
+
+      attrs.each do |attr, val|
+        self.attribute(attr.to_sym, Object)
+        self.public_send("#{attr}=", val)
+      end
 
       super
     end

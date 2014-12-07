@@ -1,7 +1,19 @@
 require 'spec_helper'
 
 describe Whisperer::Headers do
-  describe '.to_hash' do
+  describe '.new' do
+    context 'when there is not such attribute' do
+      subject {
+        described_class.new(connection: 'keep-alive')
+      }
+
+      it 'adds them dynamically' do
+        expect(subject.connection).to eq('keep-alive')
+      end
+    end
+  end
+
+  describe '#to_hash' do
     subject {
       obj = described_class.new()
 

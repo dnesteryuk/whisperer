@@ -13,7 +13,7 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '58'
+      - 58
     body:
       encoding: UTF-8
       string: '{"first_name":"Robb","last_name":"Stark","group":"member"}'
