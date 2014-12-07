@@ -1,26 +1,8 @@
 ## Release 0.0.2
 
-1. Think about the better way for inheriting serializers, now it looks like:
-
-  ```ruby
-    class Whisperer::Serializers::Base
-      # ...
-    end
-
-    class Whisperer::Serializers::Json < Whisperer::Serializers::Base
-      # ...
-    end
-
-    class Whisperer::Serializers::JsonMultiple < Whisperer::Serializers::Json
-      # ...
-    end
-  ```
-
-  If an user wants to inherit `Whisperer::Serializers::JsonMultiple` it will look even more crazy.
-
-2. In most cases if we have a serializer for one single factory, we need a serializer for multiple factories as well. We need to write code which will create a multiple serializer automatically.
-3. The Whisperer::Config.load method is too complex.
-4. Try to find a better way for defining dynamic attributes for headers, it doesn't work when you write:
+1. In most cases if we have a serializer for one single factory, we need a serializer for multiple factories as well. We need to write code which will create a multiple serializer automatically.
+2. The Whisperer::Config.load method is too complex.
+3. Try to find a better way for defining dynamic attributes for headers, it doesn't work when you write:
 
   ```ruby
     Whisperer::Record.new(
@@ -32,11 +14,11 @@
     )
   ```
 
-5. Refactore Whisperer.define method, it is another responsibility which should not leave in this module.
-6. Think about the issue with touching Whisperer::cassette_records in tests, it is not ok
-7. Check whether we can use a real model instead of OpenStruct while describing factories.
-8. Check the situation when we have `parent -> parent -> child` during inheritance.
-9. Add info to doc:
+4. Refactore Whisperer.define method, it is another responsibility which should not leave in this module.
+5. Think about the issue with touching Whisperer::cassette_records in tests, it is not ok
+6. Check whether we can use a real model instead of OpenStruct while describing factories.
+7. Check the situation when we have `parent -> parent -> child` during inheritance.
+8. Add info to doc:
   - factories for requests
 
 ## Release 0.1.0
