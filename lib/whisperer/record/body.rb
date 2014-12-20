@@ -5,7 +5,7 @@ module Whisperer
     include Virtus.model
 
     attribute :encoding,   String
-    attribute :string,     String, default: ''
+    attribute :string,     String, default: proc { DefaultValue.new('') }
 
     # Attributes which are not part of Vcr response
     attribute :data_obj,         Object

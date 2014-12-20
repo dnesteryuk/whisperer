@@ -4,7 +4,7 @@ http_interactions:
     method: get
     uri: http://example.com/members
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: ''
     headers:
       Accept:

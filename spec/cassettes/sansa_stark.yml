@@ -4,7 +4,7 @@ http_interactions:
     method: get
     uri: http://example.com/users/2
     body:
-      encoding: US-ASCII
+      encoding: UTF-8
       string: ''
     headers:
       Accept:
