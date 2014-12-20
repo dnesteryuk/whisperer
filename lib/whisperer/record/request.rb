@@ -6,7 +6,7 @@ module Whisperer
     include Virtus.model
 
     attribute :uri,     String
-    attribute :method,  Symbol
+    attribute :method,  Symbol, default: proc { DefaultValue.new(:get) }
     attribute :headers, Whisperer::Headers, default: proc {
       Whisperer::Headers.new
     }

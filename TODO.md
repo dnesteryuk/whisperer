@@ -30,3 +30,10 @@
       end
 
 which is duplicated in a few builders.
+4. Default record which will be used only for inheriting, something:
+
+  Whisperer.define(:default_for_my_api) do
+  end
+
+it won't be used for generating a cassette, only for inheriting.
+5. Add DSL which will allow us to define any helper method for the body DSL. It should allow our users to extend functionality of the gem.
