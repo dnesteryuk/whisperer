@@ -9,6 +9,7 @@ require 'whisperer/placeholder'
 require 'whisperer/dsl'
 require 'whisperer/helpers'
 
+require 'whisperer/storage'
 require 'whisperer/generator'
 require 'whisperer/merger'
 
@@ -25,50 +26,24 @@ require 'whisperer/preprocessors/content_length'
 require 'whisperer/preprocessors/response_body'
 
 module Whisperer
-  @cassette_records = ThreadSafe::Hash.new
-
   class << self
-    attr_reader :cassette_records
-    attr_reader :serializers
-
-    def define(name, options = {}, &block)
-      dsl = Dsl.build
-      dsl.instance_eval &block
-      record = dsl.container
-
-      if options[:parent]
-        original_record = cassette_records[options[:parent]]
-
-        if original_record.nil?
-          raise ArgumentError.new("Parent record \"#{options[:parent]}\" is not declared.")
-        else
-          Merger.merge(record, original_record)
-        end
-      end
-
-      cassette_records[name.to_sym] = record
-    end
-
-    # Returns true if at least one factory is defined, otherwise returns false.
-    def defined_any?
-      cassette_records.size > 0
+    def define(*args, &block)
+      Storage.define(*args, &block)
     end
 
     def generate(name)
       name = name.to_sym
 
-      unless cassette_records[name]
+      unless container = Storage.cassette_record(name)
         raise NoCassetteRecordError.new("There is not cassette builder with \"#{name}\" name.")
       end
-
-      container = cassette_records[name]
 
       Generator.generate(container, name)
     end
 
     def generate_all
-      if defined_any?
-        cassette_records.each do |name, container|
+      if Storage.defined_any?
+        Storage.cassette_records.each do |name, container|
           Generator.generate(container, name)
         end
       else
