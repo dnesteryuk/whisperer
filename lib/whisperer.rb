@@ -26,7 +26,6 @@ require 'whisperer/preprocessors/response_body'
 
 module Whisperer
   @cassette_records = ThreadSafe::Hash.new
-  @serializers      = ThreadSafe::Hash.new
 
   class << self
     attr_reader :cassette_records
