@@ -39,3 +39,4 @@ which is duplicated in a few builders.
   it won't be used for generating a cassette, only for inheriting.
 5. Add DSL which will allow us to define any helper method for the body DSL. It should allow our users to extend functionality of the gem.
 6. Add DSL to define the way how we can read attributes from models which are used in factories if it is not `OpenStruct` model.
+7. `Whisperer::Serializers::Json#fetch_attrs` method should be extracted to own class since it may be useful for a custom serializers.

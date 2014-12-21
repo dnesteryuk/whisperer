@@ -30,11 +30,25 @@ module Whisperer
         end
 
         def fetch_attrs(obj)
+          # When an OpenStruct object is given
           if obj.respond_to?(:marshal_dump)
             obj.marshal_dump
+          # When an object has the attributes method
+          elsif obj.respond_to?(:attributes)
+            obj.attributes
+          # When a pure ruby object is given
           else
             obj.instance_variables.each_with_object({}) do |attr, memo|
-              memo[attr[1..-1]] = @obj.instance_variable_get(attr)
+              name = attr[1..-1]
+
+              # If there is an accessor method to read a value,
+              # we should use it.
+              memo[name] = if obj.respond_to?(name)
+                obj.public_send(name)
+              else
+                obj.instance_variable_get(attr)
+              end
+
               memo
             end
           end

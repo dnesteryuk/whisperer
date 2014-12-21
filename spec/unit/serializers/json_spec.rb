@@ -8,16 +8,30 @@ class TestChildJson < Whisperer::Serializers::Json
 end
 
 class TestObj
-  attr_accessor :first_name, :last_name
-
   def initialize(attrs)
-    @first_name, @last_name = attrs[:first_name], attrs[:last_name]
+    @first_name = attrs[:first_name]
+    @last_name  = nil
+  end
+
+  # we need to make sure that our serializer uses accessors methods
+  # when it exists.
+  def last_name
+    'Snow'
+  end
+end
+
+class TestObjWithAttrs
+  def attributes
+    {
+      first_name: 'John',
+      last_name:  'Snow'
+    }
   end
 end
 
 describe Whisperer::Serializers::Json do
   describe '#serialize' do
-    shared_examples 'serializes an object' do
+    shared_examples 'serializing an object' do
       it 'returns json string with serialized attributes' do
         expect(subject.serialize).to eq('{"first_name":"John","last_name":"Snow"}')
       end
@@ -49,15 +63,23 @@ describe Whisperer::Serializers::Json do
         OpenStruct.new(attrs)
       }
 
-      it_behaves_like 'serializes an object'
+      it_behaves_like 'serializing an object'
     end
 
-    context 'when PRO is given' do
+    context 'When a pure ruby object is given' do
       let(:given_obj) {
         TestObj.new(attrs)
       }
 
-      it_behaves_like 'serializes an object'
+      it_behaves_like 'serializing an object'
+    end
+
+    context 'when an object has the attributes method' do
+      let(:given_obj) {
+        TestObjWithAttrs.new
+      }
+
+      it_behaves_like 'serializing an object'
     end
   end
 end
