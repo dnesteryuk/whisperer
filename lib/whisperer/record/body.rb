@@ -4,7 +4,7 @@ module Whisperer
   class Body
     include Virtus.model
 
-    attribute :encoding,   String
+    attribute :encoding,   String, default: proc { DefaultValue.new('UTF-8') }
     attribute :string,     String, default: proc { DefaultValue.new('') }
 
     # Attributes which are not part of Vcr response
