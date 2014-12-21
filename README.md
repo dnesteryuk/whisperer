@@ -6,6 +6,13 @@
 
 Do you hate fixtures? I do as well. The purpose of this library is to make your life easier when your application works with external API and you use VCR to stub that API.
 
+## Features
+
+ - Describes VCR cassettes with Ruby.
+ - Describes entities for a response body of VCR cassettes with [FactoryGirl](/thoughtbot/factory_girl).
+ - Posibility to inherit VCR cassettes (actually cassette builders describing VCR cassettes, but the effect is the same).
+ - Serializers to serialize a response body to a format supported by your API.
+
 ## Installation
 
 **Requirments**:
