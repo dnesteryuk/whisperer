@@ -6,7 +6,7 @@ module Whisperer
       protected
         def prepare_data
           @obj.map do |item|
-            item.marshal_dump
+            fetch_attrs(item)
           end
         end
     end # class JsonMultiple

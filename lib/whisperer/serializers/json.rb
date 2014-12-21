@@ -19,7 +19,7 @@ module Whisperer
 
       protected
         def prepare_data
-          @obj.marshal_dump
+          fetch_attrs(@obj)
         end
 
         # This method returns give data as it is.
@@ -27,6 +27,17 @@ module Whisperer
         # to alter data structure before converting data.
         def post_prepare_data(data)
           data
+        end
+
+        def fetch_attrs(obj)
+          if obj.respond_to?(:marshal_dump)
+            obj.marshal_dump
+          else
+            obj.instance_variables.each_with_object({}) do |attr, memo|
+              memo[attr[1..-1]] = @obj.instance_variable_get(attr)
+              memo
+            end
+          end
         end
     end # class Json
   end # module Serializers
