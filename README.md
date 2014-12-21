@@ -266,13 +266,47 @@ end
 
 If you don't change the path to your cassette, the cassette from the example will be saved in `spec/cassettes/vcr_cassettes/starks` directory. It helps you to structure your cassettes.
 
+### Default values of cassette builders
+
+There are attributes which you can omit and the gem will provide default values for them. All values listed in the following example are default and you can omit them:
+
+```ruby
+  Whisperer.define(:arya_stark) do
+    request do
+      method :get
+      
+      body do
+        encoding 'UTF-8'
+        string   '' 
+      end
+    end
+  
+    response do
+      status do
+        code    200
+        message 'OK'
+      end
+
+      body do
+        encoding   'UTF-8'
+        serializer :json
+      end
+    end
+  end
+```
+
+Also, there are attributes which are automatically calculated if you don't specify values for them:
+
+ - **recorded_at** - it gets a date of generating a cassette;
+ - **content_length** header of a response` - the gem calculates this value based on a response body.
+
 ### Configuration
 
 You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:
 
- - generate_to - the path to save generated cassettes
- - builders_matcher - the pattern to find builders
- - factories_matcher - the pattern to find factories
+ - **generate_to** - the path to save generated cassettes
+ - **builders_matcher** - the pattern to find builders
+ - **factories_matcher** - the pattern to find factories
 
 Example of such file:
 
