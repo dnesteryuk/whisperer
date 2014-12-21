@@ -13,6 +13,7 @@
 2. Find the way to disable altering the existing cassettes by VCR while launching tests.
 3. Add a helper method to generate a collection of factories to avoid such code:
 
+  ```ruby
       factory = FactoryGirl.build(:event)
 
       factories = [factory]
@@ -26,12 +27,14 @@
 
         )
       end
-
+  ```
 which is duplicated in a few builders.
 4. Default record which will be used only for inheriting, something:
 
-  Whisperer.define(:default_for_my_api) do
-  end
+  ```ruby
+    Whisperer.define(:default_for_my_api) do
+    end
+  ```
 
-it won't be used for generating a cassette, only for inheriting.
+  it won't be used for generating a cassette, only for inheriting.
 5. Add DSL which will allow us to define any helper method for the body DSL. It should allow our users to extend functionality of the gem.
