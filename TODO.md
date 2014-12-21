@@ -5,8 +5,7 @@
 3. Check whether we can use a real model instead of OpenStruct while describing factories.
 4. Add info to doc:
   - factories for requests
-5. Add the info to the doc about default values for cassettes and automatically calculated content length.
-6. Add the info about creating own preprocessors.
+5. Add the info about creating own preprocessors.
 
 ## Release 0.1.0
 
