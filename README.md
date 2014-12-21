@@ -188,6 +188,8 @@ Placeholder is a simple class inheriting `OpenStruct` class:
 
 It decouples factories from your application.
 
+**Note:** If you use own models instead of `OpenStruct` objects for defining factories, you have to implement `attributes` method returning a hash with attributes for your models. Otherwise, the serializers provided by this gem will use all instance variables of your models for serializing them.
+
 ### Serializers for a response body
 
 When an external API is subbed with VCR, API response has some format like Json, XML or any other formats. Whisperer supports possibility to convert factories into a format your external API uses. Such mechanism is provided by **serializers** which are used along with building a response body. Whisperer has only 2 serializers:
