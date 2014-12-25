@@ -1,9 +1,3 @@
-## Release 0.0.2
-
-1. In most cases if we have a serializer for one single factory, we need a serializer for multiple factories as well. We need to write code which will create a multiple serializer automatically.
-2. Add info to doc:
-  - factories for requests
-
 ## Release 0.0.3
 
 1. Find the way to disable altering the existing cassettes by VCR while launching tests.
@@ -45,3 +39,4 @@ which is duplicated in a few builders.
 ## Think about possibile features
 
 1. Do we need to expose preprocessors or may be extend their usage (unregister, apply only for a certain cassettes)?
+2. We can use factories for building request body, shold we consider this option as a real feature?
