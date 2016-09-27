@@ -19,4 +19,4 @@ http_interactions:
       string: '{"first_name":"Robb","last_name":"Stark","group":"member"}'
     http_version: 
   recorded_at: Mon, 13 Jan 2014 21:01:47 GMT
-recorded_with: VCR 2.9.3
+recorded_with: VCR 3.0.3
