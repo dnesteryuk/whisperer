@@ -4,18 +4,18 @@
 [![Build Status](https://secure.travis-ci.org/dnesteryuk/whisperer.png?branch=master)](https://travis-ci.org/dnesteryuk/whisperer)
 [![Dependency Status](https://gemnasium.com/dnesteryuk/whisperer.png)](https://gemnasium.com/dnesteryuk/whisperer)
 
-Do you hate fixtures? I do as well. The purpose of this library is to make your life easier when your application works with external API and you use VCR to stub that API.
+Do you hate fixtures? I do as well. The purpose of this library is to make your life easier when your application works with an external API and you use VCR to stub that API.
 
 ## Features
 
  - Describes VCR cassettes with Ruby.
- - Describes entities for a response body of VCR cassettes with [FactoryGirl](/thoughtbot/factory_girl).
- - Posibility to inherit VCR cassettes (actually cassette builders describing VCR cassettes, but the effect is the same).
+ - Describes entities for the response body of VCR cassettes with [FactoryGirl](/thoughtbot/factory_girl).
+ - Possibility to inherit VCR cassettes (actually cassette builders describing VCR cassettes, but the effect is the same).
  - Serializers to serialize a response body to a format supported by your API.
 
 ## Installation
 
-**Requirments**:
+**Requirements**:
  - Ruby 2.0.x or 2.1.x
 
 Add this line to your application's Gemfile:
@@ -30,13 +30,13 @@ Or install it yourself as:
 
     $ gem install whisperer
 
-To create default directories' structure and the config file with default options, you need to execute:
+To create the default directory structure and a config file with default options, execute:
 
     $ rake whisperer:install
 
-It will create `cassette_builders` directory in your `spec` folder and `.whisperer.yml` file in your root directory of the project.
+It will create a `cassette_builders` directory in your `spec` folder and a `.whisperer.yml` file in the root directory of your project.
 
-If you want to create the config file only, you need to execute:
+If you want to create the config file only, execute:
 
     $ rake whisperer:config:create
 
@@ -44,7 +44,7 @@ If you want to create the config file only, you need to execute:
 
 ### Describing VCR cassettes
 
-VCR cassettes are described in `cassette builders`. It is Ruby DSL which repeats structure of VCR cassette:
+VCR cassettes are described in `cassette builders` using a Ruby DSL which repeats the structure of a VCR cassette:
 
 ```ruby
 Whisperer.define(:arya_stark) do
@@ -73,7 +73,7 @@ Whisperer.define(:arya_stark) do
 end
 ```
 
-But, it is Ruby, hence, we can benefit from that. Whisperer uses [FactoryGirl](/thoughtbot/factory_girl) to describe a response body. If you are not familar with FactoryGirl, please, make sure, you know how to use it bofore going on. There are a few ways how factories can be used.
+Since this DSL is Ruby, we can benefit from that. Whisperer uses [FactoryGirl](/thoughtbot/factory_girl) to describe a response body. If you are not familar with FactoryGirl, please make sure you know how to use it before going on. There are a few ways factories can be used:
 
 You can use one single factory:
 
@@ -83,13 +83,13 @@ body do
 end
 ```
 
-`arya_stark` factory is taken to generate the response body:
+`arya_stark` factory is used to generate the response body:
 
 ```
 string: '{"first_name":"Arya","last_name":"Stark","group":"member"}'
 ```
 
-You can use multiple factories to generate collection for your response:
+You can use multiple factories to generate a collection for your response:
 
 ```ruby
 body do
@@ -98,13 +98,13 @@ body do
 end
 ```
 
-`robb_stark` and `ned_stark` are taken to generate the response body:
+`robb_stark` and `ned_stark` are used to generate the response body:
 
 ```
 string: '[{"first_name":"Robb","last_name":"Stark","group":"member"},{"first_name":"Ned","last_name":"Stark","group":"member"}]'
 ```
 
-You can pass factory objects instead of their names:
+You can pass factory objects instead of their names (useful when you need to dynamically generate instances of a factory):
 
 ```ruby
 body do
@@ -122,11 +122,9 @@ body do
 end
 ```
 
-It is very useful, when you need to generate dynamically instances of a factory.
-
 #### Inheritance in cassette builders
 
-If you need to generate almost the same VCR cassette, but with a bit different data, you can do it via inheritance:
+If you need to generate almost the same VCR cassette, but with slightly different data, you can do it via inheritance:
 
 ```ruby
 Whisperer.define(:robb_stark, parent: :arya_stark) do
@@ -138,9 +136,9 @@ Whisperer.define(:robb_stark, parent: :arya_stark) do
 end
 ```
 
-In this case all data is taken from `aray_stark` cassette builder, only the response body is different.
+In this case, all the data is taken from the `arya_stark` cassette builder, except for the specified response body.
 
-You can redefine any option of VCR cassette:
+You can redefine any option of a VCR cassette you are inheriting from:
 
 ```ruby
 Whisperer.define(:robb_stark, parent: :arya_stark) do
@@ -175,7 +173,7 @@ In a cassette it will look like:
 
 #### Placeholder for FactoryGirl
 
-Since VCR is used to stub interractions with external services, there is a big chance that you don't have Ruby model to be used for defining factories. In most cases, you don't need them to generate VCR cassettes. Whisperer offers the placeholder class:
+Since VCR is used to stub interactions with external services, there is a big chance that you won't have a Ruby model to be used for defining factories. In most cases, you don't need them to generate VCR cassettes. Whisperer offers the placeholder class:
 
 ```ruby
   FactoryGirl.define do
@@ -195,16 +193,16 @@ Placeholder is a simple class inheriting `OpenStruct` class:
 
 It decouples factories from your application.
 
-**Note:** If you use own models instead of `OpenStruct` objects for defining factories, you have to implement `attributes` method returning a hash with attributes for your models. Otherwise, the serializers provided by this gem will use all instance variables of your models for serializing them.
+**Note:** If you use your own models instead of `OpenStruct` objects for defining factories, you have to implement an `attributes` method returning a hash with attributes for your models. Otherwise, the serializers provided by this gem will use all instance variables of your models for serializing them.
 
 ### Serializers for a response body
 
-When an external API is subbed with VCR, API response has some format like Json, XML or any other formats. Whisperer supports possibility to convert factories into a format your external API uses. Such mechanism is provided by **serializers** which are used along with building a response body. Whisperer has only 2 serializers:
+When an external API is stubbed with VCR, the API response has some format like JSON, XML or any other formats. Whisperer supports converting factories into the format your external API uses. This mechanism is provided by **serializers** which are used along with building a response body. Whisperer has 2 built-in serializers:
 
  - json
- - multiple json
+ - json_multiple
 
-`Json` serializer is used for serializing one single factory:
+The `json` serializer is used for serializing one single factory:
 
 ```ruby
   response do
@@ -215,9 +213,9 @@ When an external API is subbed with VCR, API response has some format like Json,
   end
 ```
 
-The purpose of `json `serializer is to convert a given factory into Json format.
+The purpose of the `json` serializer is to convert a given factory into JSON format.
 
-`Multiple Json` serializer is used for serializing a collection of factories:
+The `json_multiple` serializer is used for serializing a collection of factories:
 
 ```ruby
 body do
@@ -226,9 +224,9 @@ body do
 end
 ```
 
-It is very similar to `Json` serializer, but in this case it goes through the array, builds factories, serializes a received array of objects.
+It is very similar to the `json` serializer, but in this case it goes through the array of factories, builds each factory, serializes the received objects, and returns them as an array.
 
-If you need to define your own serializer, it is very easy to do. At first you need to define your own serializer class inhering `Whisperer::Serializes::Base` class:
+If you need to define your own serializer, it is very easy to do. First, you need to define your own serializer class inheriting the `Whisperer::Serializes::Base` class:
 
 ```ruby
   class MySerializer < Whisperer::Serializers::Base
@@ -246,7 +244,7 @@ Then you need to register the new serializer:
   Whisperer.register_serializer(:my_serializer, Serializers::MySerializer)
 ```
 
-Now, it can be used as any other serializer:
+Now it can be used as any other serializer:
 
 ```ruby
   response do
@@ -259,7 +257,7 @@ Now, it can be used as any other serializer:
 
 ### Sub directories to save cassettes
 
-By default all generated cassettes are saved in one directory. It is not convenient when you have a lot of cassettes there. Therefore, there is an option to define own subpath in a cassette builder, that subpath will be used for saving a cassette:
+By default all generated cassettes are saved in one directory. This can be inconvenient when you have a lot of cassettes there. Therefore, there is an option to define your own subpath in a cassette builder, that subpath will be used for saving a cassette:
 
 ```ruby
 Whisperer.define(:robb_stark) do
@@ -311,13 +309,13 @@ Also, there are attributes which are automatically calculated if you don't speci
 
 ### Configuration
 
-You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you following options:
+You can configure Whisperer through `.whisperer.yml` which should be created in a root directory of your project. It gives you the following options:
 
  - **generate_to** - the path to save generated cassettes
  - **builders_matcher** - the pattern to find builders
  - **factories_matcher** - the pattern to find factories
 
-Example of such file:
+Example of `.whisperer.yml`:
 
 ```
 generate_to:       'spec/cassettes/vcr_cassettes/'
@@ -327,7 +325,7 @@ factories_matcher: './spec/factories/*.rb'
 
 ### Generating cassettes
 
-To generate cassettes based on cassette builders, you need to launch command:
+To generate cassettes based on cassette builders, you need to launch the command:
 
     $ rake whisperer:cassettes:generate_all
 
