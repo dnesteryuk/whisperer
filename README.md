@@ -16,7 +16,7 @@ Do you hate fixtures? I do as well. The purpose of this library is to make your 
 ## Installation
 
 **Requirements**:
- - Ruby 2.0.x or 2.1.x
+ - Ruby 2.2.x or 2.3.x
 
 Add this line to your application's Gemfile:
 
@@ -281,13 +281,13 @@ There are attributes which you can omit and the gem will provide default values 
   Whisperer.define(:arya_stark) do
     request do
       method :get
-      
+
       body do
         encoding 'UTF-8'
-        string   '' 
+        string   ''
       end
     end
-  
+
     response do
       status do
         code    200
